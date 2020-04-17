@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'UI/SearchEngine.dart';
+import 'UI/ArticleList.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,10 +9,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'findadoctor',
+        title: 'MyDoctor',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             fontFamily: 'Pacifico', scaffoldBackgroundColor: Colors.white),
-        home: SearchEnginePage());
+        home: ListArticlePage());
   }
 }
