@@ -18,7 +18,17 @@ class ListArticlePage extends StatelessWidget {
           style: TextStyle(
               color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30.0),
         ),
-        centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            icon: FaIcon(
+              FontAwesomeIcons.search,
+              color: Colors.black,
+              size: 18,
+            ),
+            onPressed: () => Navigator.push(
+                context, MaterialPageRoute(builder: (context) => SearchPage())),
+          )
+        ],
         backgroundColor: Colors.white,
       ),
       body: Container(
@@ -100,11 +110,10 @@ class ListArticlePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => SearchPage()));
+            print("Hello World");
           },
           child: FaIcon(
-            FontAwesomeIcons.search,
+            FontAwesomeIcons.comment,
             size: 18,
           ),
           backgroundColor: Colors.blue),
