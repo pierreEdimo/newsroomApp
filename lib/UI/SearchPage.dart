@@ -22,7 +22,7 @@ class _SearchPageState extends State<SearchPage> {
         elevation: 0,
         backgroundColor: Colors.white,
         title: new TextField(
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(color: Colors.black, fontSize: 22),
             decoration: InputDecoration(
               hintText: "Search for a doctor",
               hintStyle: TextStyle(color: Colors.black, fontSize: 22.0),

@@ -9,10 +9,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'MyDoctor',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-            fontFamily: 'Pacifico', scaffoldBackgroundColor: Colors.white),
-        home: ListArticlePage());
+      title: 'MyDoctor',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+          fontFamily: 'Pacifico', scaffoldBackgroundColor: Colors.white),
+      home: ListArticlePage(),
+    );
   }
 }
