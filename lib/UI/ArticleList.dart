@@ -2,9 +2,6 @@ import 'package:findadoctor/Model/ArticleModel.dart';
 import 'package:findadoctor/Service/ArticleService.dart';
 import 'package:findadoctor/UI/ArticleDetail.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import 'SearchPage.dart';
 
 class ListArticlePage extends StatelessWidget {
   final ArticleService articleService = new ArticleService();
@@ -14,21 +11,11 @@ class ListArticlePage extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         title: Text(
-          "HealthAdvice",
+          "Newsfeed",
           style: TextStyle(
               color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30.0),
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: FaIcon(
-              FontAwesomeIcons.search,
-              color: Colors.black,
-              size: 18,
-            ),
-            onPressed: () => Navigator.push(
-                context, MaterialPageRoute(builder: (context) => SearchPage())),
-          )
-        ],
+        centerTitle: true,
         backgroundColor: Colors.white,
       ),
       body: Container(
@@ -108,15 +95,6 @@ class ListArticlePage extends StatelessWidget {
               );
             }),
       ),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            print("Hello World");
-          },
-          child: FaIcon(
-            FontAwesomeIcons.comment,
-            size: 18,
-          ),
-          backgroundColor: Colors.blue),
     );
   }
 }
