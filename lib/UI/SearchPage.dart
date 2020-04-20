@@ -1,6 +1,8 @@
 import 'package:findadoctor/Model/DoctorModel.dart';
 import 'package:findadoctor/Service/DoctorService.dart';
 import 'package:flutter/material.dart';
+
+import 'DoctorDetailPage.dart';
 //import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SearchPage extends StatefulWidget {
@@ -53,9 +55,54 @@ class _SearchPageState extends State<SearchPage> {
               child: ListView.builder(
                 itemCount: filteredDoctors.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return ListTile(
-                      title: Text(filteredDoctors[index].name),
-                      subtitle: Text(filteredDoctors[index].city));
+                  return InkWell(
+                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            DoctorDetails(doctor: filteredDoctors[index]))),
+                    child: Container(
+                        child: Row(
+                      children: <Widget>[
+                        Container(
+                          width: 75,
+                          height: 75,
+                          margin: EdgeInsets.only(bottom: 20.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(50.0),
+                            child: Image.network(
+                              "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10.0,
+                        ),
+                        Container(
+                          height: 75,
+                          width: 230,
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                                alignment: Alignment.topLeft,
+                                child: Text(
+                                  "Dr. med. ${filteredDoctors[index].name}",
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              Container(
+                                alignment: Alignment.topLeft,
+                                child: Text(
+                                    "${filteredDoctors[index].specialisation}, in ${filteredDoctors[index].city} "),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    )),
+                  );
                 },
               ),
             )
