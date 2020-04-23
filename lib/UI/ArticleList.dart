@@ -2,6 +2,7 @@ import 'package:findadoctor/Model/ArticleModel.dart';
 import 'package:findadoctor/Service/ArticleService.dart';
 import 'package:findadoctor/UI/ArticleDetail.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ListArticlePage extends StatelessWidget {
   final ArticleService articleService = new ArticleService();
@@ -49,7 +50,7 @@ class ListArticlePage extends StatelessWidget {
                                             children: <Widget>[
                                               Container(
                                                 width: 700,
-                                                height: 200,
+                                                height: 250,
                                                 child: ClipRRect(
                                                   borderRadius:
                                                       BorderRadius.only(
@@ -78,7 +79,32 @@ class ListArticlePage extends StatelessWidget {
                                                               FontWeight.bold,
                                                           fontSize: 22.0),
                                                     ),
-                                                  ))
+                                                    subtitle: Text(
+                                                        "By Max Musterman"),
+                                                  )),
+                                              Container(
+                                                padding: EdgeInsets.only(
+                                                  bottom: 5.0,
+                                                  left: 20.0,
+                                                ),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: <Widget>[
+                                                    Text("vor 8 stunden"),
+                                                    IconButton(
+                                                      icon: FaIcon(
+                                                        FontAwesomeIcons
+                                                            .ellipsisV,
+                                                        size: 18,
+                                                      ),
+                                                      onPressed: () =>
+                                                          print("Hello World"),
+                                                    )
+                                                  ],
+                                                ),
+                                              )
                                             ],
                                           ),
                                         ),
