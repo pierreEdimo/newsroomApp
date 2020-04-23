@@ -26,64 +26,81 @@ class DoctorDetails extends StatelessWidget {
         centerTitle: true,
       ),
       body: ListView(
-        padding: EdgeInsets.all(20.0),
         children: <Widget>[
           Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Container(
-                  height: 100,
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                          width: 131,
-                          alignment: Alignment.topLeft,
-                          child: Text(doctor.specialisation)),
-                      Text(
-                        "Am ${doctor.location},",
-                      ),
-                      Container(
-                          width: 131,
-                          alignment: Alignment.topLeft,
-                          child: Text("36043, ${doctor.city}, ")),
-                      Container(
-                          width: 131,
-                          alignment: Alignment.topLeft,
-                          child: Text(doctor.country))
-                    ],
-                  ),
-                ),
-                Container(
-                  height: 100,
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                          width: 180,
-                          alignment: Alignment.topRight,
-                          child: Text("Tel: ${doctor.number}")),
-                      Text("Email: ${doctor.email}"),
-                      Container(
-                          width: 180,
-                          alignment: Alignment.topRight,
-                          child: Text("Von: ${doctor.opening}")),
-                      Container(
-                          width: 180,
-                          alignment: Alignment.topRight,
-                          child: Text("bis: ${doctor.closing}"))
-                    ],
-                  ),
-                )
-              ],
+            height: 250,
+            child: ClipRRect(
+              child: Image.network(
+                "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60",
+                fit: BoxFit.fill,
+              ),
             ),
           ),
           SizedBox(
-            height: 50.0,
+            height: 10.0,
           ),
-          Container(
-            child: Text("Bio: ${doctor.description}"),
+          Card(
+            child: Container(
+              color: Color.fromRGBO(246, 246, 246, 0.9),
+              padding: EdgeInsets.all(10.0),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    child: Column(
+                      children: <Widget>[
+                        Text(
+                          doctor.specialisation,
+                          style: TextStyle(fontSize: 20.0),
+                        ),
+                        Text(
+                          "${doctor.location},",
+                          style: TextStyle(fontSize: 20.0),
+                        ),
+                        Text(
+                          "${doctor.poBox}, ${doctor.city}, ",
+                          style: TextStyle(fontSize: 20.0),
+                        ),
+                        Text(
+                          doctor.country,
+                          style: TextStyle(fontSize: 20.0),
+                        ),
+                        Text("Tel: ${doctor.number}",
+                            style: TextStyle(fontSize: 20.0)),
+                        Text("Email: ${doctor.email}",
+                            style: TextStyle(fontSize: 20.0)),
+                        Text("Von: ${doctor.opening}",
+                            style: TextStyle(fontSize: 20.0)),
+                        Text("bis: ${doctor.closing}",
+                            style: TextStyle(fontSize: 20.0))
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 10.0,
+          ),
+          Card(
+            child: Container(
+              color: Color.fromRGBO(246, 246, 246, 0.9),
+              padding: EdgeInsets.all(10.0),
+              child: Text(
+                "Bio: ${doctor.description}",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 20.0,
+                ),
+              ),
+            ),
           )
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => print("Hello World"),
+        child: FaIcon(FontAwesomeIcons.commentAlt),
+        backgroundColor: Colors.black,
       ),
     );
   }
