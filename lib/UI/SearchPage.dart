@@ -14,6 +14,7 @@ class _SearchPageState extends State<SearchPage> {
   final DoctorService doctorService = new DoctorService();
   List<Doctor> doctors = List();
   List<Doctor> filteredDoctors = List();
+  String searchWord;
 
   @override
   void initState() {
@@ -45,8 +46,9 @@ class _SearchPageState extends State<SearchPage> {
               onChanged: (string) {
                 setState(() {
                   filteredDoctors = doctors
-                      .where((u) =>
-                          (u.city.toLowerCase().contains(string.toLowerCase())))
+                      .where((u) => (u.searchWord
+                          .toLowerCase()
+                          .contains(string.toLowerCase())))
                       .toList();
                 });
               },
@@ -69,7 +71,7 @@ class _SearchPageState extends State<SearchPage> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(50.0),
                             child: Image.network(
-                              "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
+                              "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60",
                               fit: BoxFit.fill,
                             ),
                           ),
@@ -95,7 +97,7 @@ class _SearchPageState extends State<SearchPage> {
                               Container(
                                 alignment: Alignment.topLeft,
                                 child: Text(
-                                    "${filteredDoctors[index].specialisation}, in ${filteredDoctors[index].city} "),
+                                    "${filteredDoctors[index].searchWord}"),
                               ),
                             ],
                           ),
