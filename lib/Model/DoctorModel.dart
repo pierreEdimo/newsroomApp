@@ -12,6 +12,8 @@ class Doctor {
   final String email;
   final String opening;
   final String closing;
+  final String poBox;
+  final String searchWord;
 
   Doctor(
       {@required this.id,
@@ -24,7 +26,9 @@ class Doctor {
       @required this.number,
       @required this.email,
       @required this.opening,
-      @required this.closing});
+      @required this.closing,
+      @required this.poBox,
+      @required this.searchWord});
 
   factory Doctor.fromJson(Map<String, dynamic> json) {
     return Doctor(
@@ -38,6 +42,8 @@ class Doctor {
         number: json['number'] as String,
         email: json['email'] as String,
         opening: json['opening'] as String,
-        closing: json['closing'] as String);
+        closing: json['closing'] as String,
+        poBox: json['poBox'] as String,
+        searchWord: json['searchWord'] as String);
   }
 }
