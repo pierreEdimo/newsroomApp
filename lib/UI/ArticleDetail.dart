@@ -17,27 +17,33 @@ class ArticleDetail extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           icon:
-              FaIcon(FontAwesomeIcons.arrowLeft, color: Colors.black, size: 22),
+              FaIcon(FontAwesomeIcons.arrowLeft, color: Colors.black, size: 18),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text(
-          "healthAvice",
-          style: TextStyle(fontSize: 30.0, color: Colors.black),
-        ),
-        centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            icon: FaIcon(
+              FontAwesomeIcons.ellipsisV,
+              color: Colors.black,
+              size: 18,
+            ),
+            onPressed: () => print("Hello World"),
+          )
+        ],
       ),
       body: ListView(
         children: <Widget>[
           Container(
-            width: 700,
-            height: 250,
-            child: Image.network(article.imageUrl),
-          ),
+              height: 250,
+              child: ClipRRect(
+                child: Image.network(article.imageUrl, fit: BoxFit.fill),
+              )),
           ListTile(
             title: Text(
               article.title,
               style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
+            subtitle: Text("by Max Musterman"),
           ),
           Container(
             alignment: Alignment.centerLeft,
@@ -50,7 +56,7 @@ class ArticleDetail extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(20.0),
             alignment: Alignment.bottomRight,
-            child: Text("Am ${article.createdAt}"),
+            child: Text("vor 8 stunden"),
           )
         ],
       ),
