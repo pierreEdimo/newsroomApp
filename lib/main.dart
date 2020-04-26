@@ -1,3 +1,5 @@
+import 'package:findadoctor/UI/Favorites.dart';
+import 'package:findadoctor/UI/Profile.dart';
 import 'package:findadoctor/UI/SearchPage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -28,7 +30,12 @@ class BottomNavigation extends StatefulWidget {
 class _BottomNavigationState extends State<BottomNavigation> {
   int _selectedIndex = 0;
 
-  final _widgetOptions = <Widget>[new SearchPage(), new ListArticlePage()];
+  final _widgetOptions = <Widget>[
+    new SearchPage(),
+    new ListArticlePage(),
+    new FavoritePage(),
+    new ProfilePage()
+  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -55,7 +62,13 @@ class _BottomNavigationState extends State<BottomNavigation> {
                 FontAwesomeIcons.rss,
                 size: 18,
               ),
-              title: Text("NewsFeed"))
+              title: Text("NewsFeed")),
+          BottomNavigationBarItem(
+              icon: FaIcon(FontAwesomeIcons.bookmark, size: 18),
+              title: Text("Favorites")),
+          BottomNavigationBarItem(
+              icon: FaIcon(FontAwesomeIcons.user, size: 18),
+              title: Text("My Profile"))
         ],
         currentIndex: _selectedIndex,
         type: BottomNavigationBarType.shifting,

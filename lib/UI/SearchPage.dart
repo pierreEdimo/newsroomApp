@@ -57,53 +57,19 @@ class _SearchPageState extends State<SearchPage> {
               child: ListView.builder(
                 itemCount: filteredDoctors.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return InkWell(
+                  return ListTile(
                     onTap: () => Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
                             DoctorDetails(doctor: filteredDoctors[index]))),
-                    child: Container(
-                        child: Row(
-                      children: <Widget>[
-                        Container(
-                          width: 75,
-                          height: 75,
-                          margin: EdgeInsets.only(bottom: 20.0),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(50.0),
-                            child: Image.network(
-                              "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60",
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10.0,
-                        ),
-                        Container(
-                          height: 75,
-                          width: 230,
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                alignment: Alignment.topLeft,
-                                child: Text(
-                                  "Dr. med. ${filteredDoctors[index].name}",
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              Container(
-                                alignment: Alignment.topLeft,
-                                child: Text(
-                                    "${filteredDoctors[index].searchWord}"),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    )),
+                    leading: CircleAvatar(
+                      backgroundImage:
+                          NetworkImage(filteredDoctors[index].imageUrl),
+                    ),
+                    title: Text(
+                      "Dr.med. ${filteredDoctors[index].name}",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    subtitle: Text(filteredDoctors[index].searchWord),
                   );
                 },
               ),

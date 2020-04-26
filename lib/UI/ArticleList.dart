@@ -96,7 +96,7 @@ class ListArticlePage extends StatelessWidget {
                                                     IconButton(
                                                       icon: FaIcon(
                                                         FontAwesomeIcons
-                                                            .ellipsisV,
+                                                            .bookmark,
                                                         size: 18,
                                                       ),
                                                       onPressed: () =>

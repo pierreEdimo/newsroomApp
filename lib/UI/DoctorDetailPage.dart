@@ -31,7 +31,7 @@ class DoctorDetails extends StatelessWidget {
             height: 250,
             child: ClipRRect(
               child: Image.network(
-                "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60",
+                doctor.imageUrl,
                 fit: BoxFit.fill,
               ),
             ),
@@ -96,11 +96,6 @@ class DoctorDetails extends StatelessWidget {
             ),
           )
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => print("Hello World"),
-        child: FaIcon(FontAwesomeIcons.commentAlt),
-        backgroundColor: Colors.black,
       ),
     );
   }
