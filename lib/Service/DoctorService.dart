@@ -4,7 +4,8 @@ import 'package:findadoctor/Model/DoctorModel.dart';
 import 'package:http/http.dart';
 
 class DoctorService {
-  final String doctorUrl = "https://findadoc.azurewebsites.net/api/Doctor";
+  final String doctorUrl =
+      "https://findadoc.azurewebsites.net/api/Doctor?sortBy=city&sortOrder=desc";
 
   Future<List<Doctor>> getAllDoctors() async {
     Response res = await get(doctorUrl);
