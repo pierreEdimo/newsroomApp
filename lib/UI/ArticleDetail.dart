@@ -34,16 +34,17 @@ class ArticleDetail extends StatelessWidget {
       body: ListView(
         children: <Widget>[
           Container(
-              height: 250,
-              child: ClipRRect(
-                child: Image.network(article.imageUrl, fit: BoxFit.fill),
-              )),
+              height: 400,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: NetworkImage(article.imageUrl),
+                      fit: BoxFit.cover))),
           ListTile(
             title: Text(
               article.title,
               style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
-            subtitle: Text("by Max Musterman"),
+            subtitle: Text("by ${article.author.name}"),
           ),
           Container(
             alignment: Alignment.centerLeft,
@@ -57,6 +58,35 @@ class ArticleDetail extends StatelessWidget {
             padding: EdgeInsets.all(20.0),
             alignment: Alignment.bottomRight,
             child: Text("vor 8 stunden"),
+          ),
+          Card(
+            color: Color.fromRGBO(246, 246, 246, 0.8),
+            child: Container(
+              padding: EdgeInsets.all(20.0),
+              child: Column(
+                children: <Widget>[
+                  Center(
+                    child: Container(
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50.0),
+                          image: DecorationImage(
+                              image: NetworkImage(
+                                  "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60"),
+                              fit: BoxFit.cover)),
+                    ),
+                  ),
+                  Container(
+                    width: 360,
+                    child: Text(
+                      " Biography:${article.author.biography}",
+                      style: TextStyle(fontSize: 20.0),
+                    ),
+                  )
+                ],
+              ),
+            ),
           )
         ],
       ),
