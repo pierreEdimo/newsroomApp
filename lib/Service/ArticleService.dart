@@ -3,7 +3,8 @@ import 'package:findadoctor/Model/ArticleModel.dart';
 import 'package:http/http.dart';
 
 class ArticleService {
-  final String articleUrl = "https://findadoc.azurewebsites.net/api/Article";
+  final String articleUrl =
+      "https://findadoc.azurewebsites.net/api/Article?sortBy=title&sortOrder=desc";
 
   Future<List<Article>> getArticles() async {
     Response res = await get(articleUrl);

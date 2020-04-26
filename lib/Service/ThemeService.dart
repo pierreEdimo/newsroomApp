@@ -4,7 +4,7 @@ import 'package:findadoctor/Model/ThemeModel.dart';
 import 'package:http/http.dart';
 
 class ThemeService {
-  final String url = "https://findadoc.azurewebsites.net/api/Theme";
+  final String url = "https://findadoc.azurewebsites.net/api/Theme?sortBy=name";
 
   Future<List<ThemeModel>> getAllThemes() async {
     Response res = await get(url);
