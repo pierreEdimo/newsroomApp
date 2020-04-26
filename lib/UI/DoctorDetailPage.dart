@@ -28,13 +28,11 @@ class DoctorDetails extends StatelessWidget {
       body: ListView(
         children: <Widget>[
           Container(
-            height: 250,
-            child: ClipRRect(
-              child: Image.network(
-                doctor.imageUrl,
-                fit: BoxFit.fill,
-              ),
-            ),
+            height: 400,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: NetworkImage(doctor.imageUrl), fit: BoxFit.cover)),
           ),
           SizedBox(
             height: 10.0,
@@ -68,9 +66,9 @@ class DoctorDetails extends StatelessWidget {
                             style: TextStyle(fontSize: 20.0)),
                         Text("Email: ${doctor.email}",
                             style: TextStyle(fontSize: 20.0)),
-                        Text("Von: ${doctor.opening}",
+                        Text("${doctor.opening}",
                             style: TextStyle(fontSize: 20.0)),
-                        Text("bis: ${doctor.closing}",
+                        Text("${doctor.closing}",
                             style: TextStyle(fontSize: 20.0))
                       ],
                     ),

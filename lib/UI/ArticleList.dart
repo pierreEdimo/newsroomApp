@@ -80,7 +80,7 @@ class ListArticlePage extends StatelessWidget {
                                                           fontSize: 22.0),
                                                     ),
                                                     subtitle: Text(
-                                                        "By Max Musterman"),
+                                                        article.author.name),
                                                   )),
                                               Container(
                                                 padding: EdgeInsets.only(
