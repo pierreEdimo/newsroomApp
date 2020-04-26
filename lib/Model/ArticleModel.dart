@@ -7,6 +7,7 @@ class Article {
   final String content;
   final int autorId;
   final String createdAt;
+  final Author author;
 
   Article(
       {@required this.id,
@@ -14,6 +15,7 @@ class Article {
       @required this.imageUrl,
       @required this.content,
       @required this.autorId,
+      @required this.author,
       @required this.createdAt});
 
   factory Article.fromJson(Map<String, dynamic> json) {
@@ -23,6 +25,28 @@ class Article {
         imageUrl: json['imageUrl'] as String,
         content: json['content'] as String,
         autorId: json['autorId'] as int,
-        createdAt: json['createdAt'] as String);
+        createdAt: json['createdAt'] as String,
+        author: Author.fromJson(json['author']));
+  }
+}
+
+class Author {
+  final int id;
+  final String name;
+  final String imageUrl;
+  final biography;
+
+  Author(
+      {@required this.id,
+      @required this.biography,
+      @required this.name,
+      @required this.imageUrl});
+
+  factory Author.fromJson(Map<String, dynamic> json) {
+    return Author(
+        biography: json['biography'] as String,
+        id: json['id'] as int,
+        name: json['name'] as String,
+        imageUrl: json['imageUrl'] as String);
   }
 }
