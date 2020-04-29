@@ -80,7 +80,7 @@ class ListArticlePage extends StatelessWidget {
                                                           fontSize: 22.0),
                                                     ),
                                                     subtitle: Text(
-                                                        article.author.name),
+                                                        "By ${article.author}"),
                                                   )),
                                               Container(
                                                 padding: EdgeInsets.only(

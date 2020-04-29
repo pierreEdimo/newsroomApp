@@ -60,7 +60,7 @@ class ThemeArticleList extends StatelessWidget {
                                     topLeft: Radius.circular(5.0),
                                     topRight: Radius.circular(5.0)),
                                 child: Image.network(article.imageUrl,
-                                    fit: BoxFit.fill),
+                                    fit: BoxFit.cover),
                               ),
                             ),
                             Container(
@@ -73,7 +73,7 @@ class ThemeArticleList extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                       fontSize: 22.0),
                                 ),
-                                subtitle: Text("By Max Musterman"),
+                                subtitle: Text("By ${article.author}"),
                               ),
                             ),
                             Container(

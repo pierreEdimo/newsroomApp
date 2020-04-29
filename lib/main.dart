@@ -1,10 +1,10 @@
-import 'package:findadoctor/UI/Favorites.dart';
 import 'package:findadoctor/UI/Profile.dart';
 import 'package:findadoctor/UI/SearchPage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'UI/ArticleList.dart';
+import 'UI/Theme.dart';
 
 void main() => runApp(MyApp());
 
@@ -33,7 +33,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   final _widgetOptions = <Widget>[
     new SearchPage(),
     new ListArticlePage(),
-    new FavoritePage(),
+    new ThemePage(),
     new ProfilePage()
   ];
 
@@ -64,7 +64,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
               ),
               title: Text("NewsFeed")),
           BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.bookmark, size: 18),
+              icon: FaIcon(FontAwesomeIcons.compass, size: 18),
               title: Text("Favorites")),
           BottomNavigationBarItem(
               icon: FaIcon(FontAwesomeIcons.user, size: 18),

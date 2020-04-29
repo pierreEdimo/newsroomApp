@@ -3,6 +3,8 @@ import 'package:findadoctor/Service/ArticleService.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'ArticleFromAuthor.dart';
+
 class ArticleDetail extends StatelessWidget {
   final Article article;
   final ArticleService articleService = new ArticleService();
@@ -23,7 +25,7 @@ class ArticleDetail extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: FaIcon(
-              FontAwesomeIcons.ellipsisV,
+              FontAwesomeIcons.bookmark,
               color: Colors.black,
               size: 18,
             ),
@@ -44,7 +46,7 @@ class ArticleDetail extends StatelessWidget {
               article.title,
               style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
-            subtitle: Text("by ${article.author.name}"),
+            subtitle: Text("by ${article.author}"),
           ),
           Container(
             alignment: Alignment.centerLeft,
@@ -59,32 +61,49 @@ class ArticleDetail extends StatelessWidget {
             alignment: Alignment.bottomRight,
             child: Text("vor 8 stunden"),
           ),
-          Card(
-            color: Color.fromRGBO(246, 246, 246, 0.8),
-            child: Container(
-              padding: EdgeInsets.all(20.0),
-              child: Column(
-                children: <Widget>[
-                  Center(
-                    child: Container(
-                      width: 80,
-                      height: 80,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50.0),
-                          image: DecorationImage(
-                              image: NetworkImage(
-                                  "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60"),
-                              fit: BoxFit.cover)),
+          InkWell(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => ArticleFromAuthor(
+                        article: article,
+                      )));
+            },
+            child: Card(
+              color: Color.fromRGBO(246, 246, 246, 0.8),
+              child: Container(
+                padding: EdgeInsets.all(20.0),
+                child: Column(
+                  children: <Widget>[
+                    Center(
+                      child: Container(
+                        width: 80,
+                        height: 80,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50.0),
+                            image: DecorationImage(
+                                image: NetworkImage(article.authorImg),
+                                fit: BoxFit.cover)),
+                      ),
                     ),
-                  ),
-                  Container(
-                    width: 360,
-                    child: Text(
-                      " Biography:${article.author.biography}",
-                      style: TextStyle(fontSize: 20.0),
+                    SizedBox(
+                      height: 10,
                     ),
-                  )
-                ],
+                    Center(
+                      child: Text(
+                        article.author,
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Container(
+                      width: 360,
+                      child: Text(
+                        " Biography:${article.biography}",
+                        style: TextStyle(fontSize: 20.0),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           )
