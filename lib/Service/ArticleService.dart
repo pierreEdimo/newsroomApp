@@ -4,7 +4,7 @@ import 'package:http/http.dart';
 
 class ArticleService {
   final String articleUrl =
-      "https://findadoc.azurewebsites.net/api/Article?sortBy=title&sortOrder=desc";
+      "https://findadoc.azurewebsites.net/api/Article?size=15&&sortBy=title&sortOrder=desc";
 
   Future<List<Article>> getArticles() async {
     Response res = await get(articleUrl);
