@@ -51,19 +51,11 @@ class _ThemeStatePage extends State<ThemePage> {
           ),
           Expanded(
             child: ListView.builder(
-                padding: EdgeInsets.only(bottom: 40.0, top: 40.0),
-                scrollDirection: Axis.horizontal,
                 itemCount: filteredThemes.length,
                 itemBuilder: (BuildContext context, int index) {
                   ThemeModel themA = filteredThemes[index];
                   return Container(
-                      margin: EdgeInsets.only(left: 20.0, right: 20.0),
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: NetworkImage(themA.imageUrl),
-                              fit: BoxFit.cover),
-                          borderRadius: BorderRadius.circular(20.0),
-                          color: Colors.red),
+                      margin: EdgeInsets.only(bottom: 10.0),
                       child: InkWell(
                         onTap: () {
                           Navigator.push(
@@ -73,31 +65,43 @@ class _ThemeStatePage extends State<ThemePage> {
                                         themeData: themA,
                                       )));
                         },
-                        child: Stack(
-                          children: <Widget>[
-                            Container(
-                              alignment: Alignment.center,
-                              width: 300,
-                              height: 600,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                  color: Color.fromRGBO(0, 0, 0, 0.4)),
-                            ),
-                            Container(
-                              width: 300,
-                              height: 600,
-                              alignment: Alignment.center,
-                              child: Center(
-                                child: Text(
-                                  themA.name,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 50.0),
-                                ),
+                        child: Center(
+                          child: Stack(
+                            children: <Widget>[
+                              Container(
+                                  alignment: Alignment.center,
+                                  width: 500,
+                                  height: 300,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: NetworkImage(themA.imageUrl),
+                                        fit: BoxFit.cover),
+                                    borderRadius: BorderRadius.circular(20.0),
+                                  )),
+                              Container(
+                                alignment: Alignment.center,
+                                width: 500,
+                                height: 300,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    color: Color.fromRGBO(0, 0, 0, 0.4)),
                               ),
-                            )
-                          ],
+                              Container(
+                                width: 500,
+                                height: 300,
+                                alignment: Alignment.center,
+                                child: Center(
+                                  child: Text(
+                                    themA.name,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 50.0),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ));
                 }),

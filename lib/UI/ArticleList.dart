@@ -117,7 +117,7 @@ class ListArticlePage extends StatelessWidget {
                         .toList());
               }
               return Center(
-                child: CircularProgressIndicator(),
+                child: Text(""),
               );
             }),
       ),
