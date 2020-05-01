@@ -1,5 +1,5 @@
 import 'package:findadoctor/Model/ArticleModel.dart';
-import 'package:findadoctor/Service/ArticleService.dart';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -7,7 +7,6 @@ import 'ArticleFromAuthor.dart';
 
 class ArticleDetail extends StatelessWidget {
   final Article article;
-  final ArticleService articleService = new ArticleService();
 
   ArticleDetail({@required this.article});
 
