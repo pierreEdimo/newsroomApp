@@ -1,8 +1,9 @@
 import 'package:findadoctor/Model/ArticleModel.dart';
 import 'package:findadoctor/Service/ArticleService.dart';
-import 'package:findadoctor/UI/ArticleDetail.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'ArticleDetailFromAuthor.dart';
 
 class ArticleFromAuthor extends StatefulWidget {
   final Article article;
@@ -70,7 +71,7 @@ class _ArticleFromAuthorState extends State<ArticleFromAuthor> {
                   margin: EdgeInsets.only(bottom: 25),
                   child: InkWell(
                       onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => ArticleDetail(
+                          builder: (context) => ArticleDetailFromAuthor(
                                 article: articlesFromAuthors[index],
                               ))),
                       child: Card(
