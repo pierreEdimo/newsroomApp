@@ -64,6 +64,12 @@ class _SearchPageState extends State<SearchPage> {
                         });
                       },
                       decoration: InputDecoration(
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white)),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white)),
+                          border: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white)),
                           hintText: "Search",
                           hintStyle: TextStyle(color: Colors.black)),
                     ),

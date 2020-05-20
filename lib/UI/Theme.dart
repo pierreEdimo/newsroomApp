@@ -39,7 +39,6 @@ class _ThemeStatePage extends State<ThemePage> {
           leading: Image.asset('image/icon.png'),
           centerTitle: true,
           backgroundColor: Colors.white,
-          elevation: 0,
           title: appBartitle,
           actions: <Widget>[
             IconButton(
@@ -63,6 +62,12 @@ class _ThemeStatePage extends State<ThemePage> {
                         });
                       },
                       decoration: InputDecoration(
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white)),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white)),
+                          border: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white)),
                           hintText: "Search...",
                           hintStyle: TextStyle(color: Colors.black)),
                     );

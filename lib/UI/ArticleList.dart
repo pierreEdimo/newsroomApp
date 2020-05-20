@@ -4,8 +4,13 @@ import 'package:findadoctor/UI/ArticleDetail.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class ListArticlePage extends StatelessWidget {
-  final ArticleService articleService = new ArticleService();
+class ListArticlePage extends StatefulWidget {
+  @override
+  _ListArticlePageState createState() => _ListArticlePageState();
+}
+
+class _ListArticlePageState extends State<ListArticlePage> {
+  final ArticleService articleService = ArticleService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
