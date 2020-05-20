@@ -39,7 +39,6 @@ class _ArticleFromAuthorState extends State<ArticleFromAuthor> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
         backgroundColor: Colors.white,
         leading: IconButton(
           icon: FaIcon(

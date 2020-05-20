@@ -82,7 +82,7 @@ class _ThemeStatePage extends State<ThemePage> {
           ],
         ),
         body: Container(
-          padding: EdgeInsets.only(top: 5, left: 10, right: 10),
+          padding: EdgeInsets.all(10),
           child: Column(
             children: <Widget>[
               Expanded(

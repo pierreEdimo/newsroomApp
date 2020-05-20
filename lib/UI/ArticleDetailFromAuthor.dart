@@ -12,7 +12,6 @@ class ArticleDetailFromAuthor extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        elevation: 0,
         leading: IconButton(
             icon: FaIcon(FontAwesomeIcons.arrowLeft,
                 color: Colors.black, size: 18),

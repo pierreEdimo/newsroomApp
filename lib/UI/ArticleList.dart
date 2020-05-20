@@ -11,7 +11,6 @@ class ListArticlePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: Image.asset('image/icon.png'),
-        elevation: 0,
         title: Text(
           "Newsfeed",
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),

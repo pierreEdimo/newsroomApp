@@ -14,7 +14,7 @@ class _SearchPageState extends State<SearchPage> {
   final DoctorService doctorService = new DoctorService();
   List<Doctor> doctors = List();
   List<Doctor> filteredDoctors = List();
-  String searchWord;
+  //String searchWord;
   Widget appBarTitle =
       new Text("findadoctor", style: TextStyle(color: Colors.black));
   Icon actionIcon = new Icon(
@@ -39,7 +39,6 @@ class _SearchPageState extends State<SearchPage> {
       appBar: AppBar(
         leading: Image.asset('image/icon.png'),
         backgroundColor: Colors.white,
-        elevation: 0,
         centerTitle: true,
         title: appBarTitle,
         actions: <Widget>[
@@ -65,7 +64,7 @@ class _SearchPageState extends State<SearchPage> {
                         });
                       },
                       decoration: InputDecoration(
-                          hintText: "Search...",
+                          hintText: "Search",
                           hintStyle: TextStyle(color: Colors.black)),
                     ),
                   );
