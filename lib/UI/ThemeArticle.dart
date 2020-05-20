@@ -28,14 +28,13 @@ class ThemeArticleList extends StatelessWidget {
           themeData.name,
           style: TextStyle(
             color: Colors.black,
-            fontSize: 30.0,
           ),
         ),
         centerTitle: true,
       ),
       body: Center(
         child: ListView.builder(
-          padding: EdgeInsets.all(20.0),
+          padding: EdgeInsets.all(10.0),
           itemCount: themeData.articles.length,
           itemBuilder: (BuildContext context, int index) {
             Article article = themeData.articles[index];

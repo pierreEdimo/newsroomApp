@@ -15,6 +15,12 @@ class _SearchPageState extends State<SearchPage> {
   List<Doctor> doctors = List();
   List<Doctor> filteredDoctors = List();
   String searchWord;
+  Widget appBarTitle =
+      new Text("findadoctor", style: TextStyle(color: Colors.black));
+  Icon actionIcon = new Icon(
+    Icons.search,
+    color: Colors.black,
+  );
 
   @override
   void initState() {
@@ -30,29 +36,57 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        padding: EdgeInsets.only(top: 52.5, left: 20, right: 20),
-        child: Column(
-          children: <Widget>[
-            TextField(
-              decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(15.0),
-                  prefixIcon: Icon(
+      appBar: AppBar(
+        leading: Image.asset('image/icon.png'),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        centerTitle: true,
+        title: appBarTitle,
+        actions: <Widget>[
+          IconButton(
+            icon: actionIcon,
+            onPressed: () {
+              setState(() {
+                if (this.actionIcon.icon == Icons.search) {
+                  this.actionIcon = Icon(
+                    Icons.close,
+                    color: Colors.black,
+                  );
+                  this.appBarTitle = Center(
+                    child: TextField(
+                      style: TextStyle(color: Colors.black),
+                      onChanged: (string) {
+                        setState(() {
+                          filteredDoctors = doctors
+                              .where((element) => (element.searchWord
+                                  .toLowerCase()
+                                  .contains(string.toLowerCase())))
+                              .toList();
+                        });
+                      },
+                      decoration: InputDecoration(
+                          hintText: "Search...",
+                          hintStyle: TextStyle(color: Colors.black)),
+                    ),
+                  );
+                } else {
+                  this.actionIcon = Icon(
                     Icons.search,
                     color: Colors.black,
-                  ),
-                  hintText: "Search a Doctor",
-                  hintStyle: TextStyle(fontSize: 20, color: Colors.black)),
-              onChanged: (string) {
-                setState(() {
-                  filteredDoctors = doctors
-                      .where((u) => (u.searchWord
-                          .toLowerCase()
-                          .contains(string.toLowerCase())))
-                      .toList();
-                });
-              },
-            ),
+                  );
+                  this.appBarTitle = Text(
+                    "findadoctor",
+                    style: TextStyle(color: Colors.black),
+                  );
+                }
+              });
+            },
+          )
+        ],
+      ),
+      body: Container(
+        child: Column(
+          children: <Widget>[
             Expanded(
               child: ListView.builder(
                 itemCount: filteredDoctors.length,

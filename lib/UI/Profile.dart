@@ -12,7 +12,7 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.all(10),
               child: Auth(),
             )
           ],
@@ -95,13 +95,6 @@ class _AuthState extends State<Auth> {
               ),
             ),
             SizedBox(height: 20),
-            Text(
-              "Sign In",
-              style: TextStyle(fontSize: 30),
-            ),
-            SizedBox(
-              height: 20,
-            ),
             Form(
               child: Column(
                 children: <Widget>[
@@ -156,11 +149,6 @@ class _AuthState extends State<Auth> {
                 image: AssetImage('image/logo.png'),
                 width: 195,
               ),
-            ),
-            SizedBox(height: 20),
-            Text(
-              "Sign Up",
-              style: TextStyle(fontSize: 30),
             ),
             SizedBox(
               height: 20,

@@ -10,14 +10,23 @@ class ListArticlePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Image.asset('image/icon.png'),
         elevation: 0,
         title: Text(
           "Newsfeed",
-          style: TextStyle(
-              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30.0),
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
         backgroundColor: Colors.white,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.search,
+              color: Colors.black,
+            ),
+            onPressed: () => print("Hello World"),
+          )
+        ],
       ),
       body: Container(
         child: FutureBuilder(
@@ -28,7 +37,7 @@ class ListArticlePage extends StatelessWidget {
                 List<Article> articles = snapshot.data;
 
                 return ListView(
-                    padding: EdgeInsets.all(20),
+                    padding: EdgeInsets.all(10),
                     children: articles
                         .map((Article article) => Container(
                               child: Container(

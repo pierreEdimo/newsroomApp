@@ -21,6 +21,10 @@ class ArticleDetail extends StatelessWidget {
               FaIcon(FontAwesomeIcons.arrowLeft, color: Colors.black, size: 18),
           onPressed: () => Navigator.of(context).pop(),
         ),
+        title: Text(
+          article.title,
+          style: TextStyle(color: Colors.black),
+        ),
         actions: <Widget>[
           IconButton(
             icon: FaIcon(
@@ -49,14 +53,14 @@ class ArticleDetail extends StatelessWidget {
           ),
           Container(
             alignment: Alignment.centerLeft,
-            padding: EdgeInsets.all(20.0),
+            padding: EdgeInsets.only(left: 17, right: 17),
             child: Text(
               article.content,
               style: TextStyle(fontSize: 20.0),
             ),
           ),
           Container(
-            padding: EdgeInsets.all(20.0),
+            padding: EdgeInsets.only(right: 17),
             alignment: Alignment.bottomRight,
             child: Text("vor 8 stunden"),
           ),
@@ -70,7 +74,7 @@ class ArticleDetail extends StatelessWidget {
             child: Card(
               color: Color.fromRGBO(246, 246, 246, 0.8),
               child: Container(
-                padding: EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(10.0),
                 child: Column(
                   children: <Widget>[
                     Center(

@@ -17,6 +17,10 @@ class ArticleDetailFromAuthor extends StatelessWidget {
             icon: FaIcon(FontAwesomeIcons.arrowLeft,
                 color: Colors.black, size: 18),
             onPressed: () => Navigator.of(context).pop()),
+        title: Text(
+          article.title,
+          style: TextStyle(color: Colors.black),
+        ),
         actions: <Widget>[
           IconButton(
             icon: FaIcon(FontAwesomeIcons.bookmark,
@@ -42,14 +46,14 @@ class ArticleDetailFromAuthor extends StatelessWidget {
           ),
           Container(
             alignment: Alignment.centerLeft,
-            padding: EdgeInsets.all(20.0),
+            padding: EdgeInsets.only(left: 17, right: 17),
             child: Text(
               article.content,
               style: TextStyle(fontSize: 20.0),
             ),
           ),
           Container(
-            padding: EdgeInsets.all(20.0),
+            padding: EdgeInsets.only(right: 17),
             alignment: Alignment.bottomRight,
             child: Text("vor 8 stunden"),
           )

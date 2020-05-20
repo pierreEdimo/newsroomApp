@@ -61,7 +61,7 @@ class _ArticleFromAuthorState extends State<ArticleFromAuthor> {
       ),
       body: Center(
         child: ListView.builder(
-          padding: EdgeInsets.all(20.0),
+          padding: EdgeInsets.all(10),
           itemCount: articlesFromAuthors.length,
           itemBuilder: (BuildContext context, int index) {
             return Container(
