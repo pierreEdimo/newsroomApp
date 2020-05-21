@@ -1,23 +1,20 @@
 import 'package:findadoctor/Model/UserModel.dart';
 import 'package:findadoctor/Service/AuthService.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-enum AuthMode { SignUp, SignIn }
+enum AuthMode { SignUp, SignIn, IsLogged }
+
+enum MyPopup {
+  Logout,
+  Settings,
+}
 
 class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.all(10),
-              child: Auth(),
-            )
-          ],
-        ),
-      ),
+      child: Auth(),
     );
   }
 }
@@ -55,11 +52,54 @@ class _AuthState extends State<Auth> {
     }
   }
 
+  void _switchModeToIsLogged() {
+    if (_authMode == AuthMode.SignIn || _authMode == AuthMode.SignUp) {
+      setState(() {
+        _authMode = AuthMode.IsLogged;
+      });
+    } else {
+      setState(() {
+        _authMode = AuthMode.SignIn;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_authMode == AuthMode.SignUp) {
       return Container(
         child: SingleChildScrollView(child: signUp()),
+      );
+    }
+    if (_authMode == AuthMode.IsLogged) {
+      return Scaffold(
+        appBar: AppBar(
+          leading: Image.asset('image/icon.png'),
+          backgroundColor: Colors.white,
+          title: Text(
+            "Pierre Edimo",
+            style: TextStyle(color: Colors.black),
+          ),
+          centerTitle: true,
+          actions: <Widget>[
+            PopupMenuButton<MyPopup>(
+              icon: FaIcon(
+                FontAwesomeIcons.ellipsisV,
+                color: Colors.black,
+              ),
+              itemBuilder: (BuildContext context) => <PopupMenuEntry<MyPopup>>[
+                const PopupMenuItem<MyPopup>(
+                    value: MyPopup.Settings, child: Text("Settings")),
+                const PopupMenuItem<MyPopup>(
+                    value: MyPopup.Logout, child: Text("Logout"))
+              ],
+            )
+          ],
+        ),
+        body: Container(
+          padding: EdgeInsets.all(10),
+          child: profileBody(),
+        ),
       );
     }
     return Container(
@@ -84,8 +124,9 @@ class _AuthState extends State<Auth> {
   }
 
   Widget login() {
-    return Container(
-      child: Center(
+    return Center(
+      child: Container(
+        padding: EdgeInsets.all(10),
         child: Column(
           children: <Widget>[
             Container(
@@ -131,6 +172,19 @@ class _AuthState extends State<Auth> {
             SizedBox(
               height: 20,
             ),
+            RaisedButton(
+              color: Colors.blue,
+              child: Text(
+                'Sign In',
+                style: TextStyle(fontSize: 22),
+              ),
+              onPressed: () {
+                _switchModeToIsLogged();
+              },
+            ),
+            SizedBox(
+              height: 20,
+            ),
             switchButton()
           ],
         ),
@@ -153,108 +207,111 @@ class _AuthState extends State<Auth> {
             SizedBox(
               height: 20,
             ),
-            Form(
-              child: Column(
-                children: <Widget>[
-                  TextFormField(
-                    controller: _firstNameController,
-                    decoration: InputDecoration(
-                        labelText: 'Firstname', border: OutlineInputBorder()),
-                    keyboardType: TextInputType.text,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                    controller: _lastNameController,
-                    decoration: InputDecoration(
-                        labelText: 'Lastname', border: OutlineInputBorder()),
-                    keyboardType: TextInputType.text,
-                  ),
-                  SizedBox(height: 10),
-                  TextFormField(
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                        labelText: 'E-mail', border: OutlineInputBorder()),
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (value) {
-                      if (value.isEmpty || !value.contains('@')) {
-                        return "Invalid E-mail";
-                      }
-                      return value;
-                    },
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                    controller: _passwordController,
-                    decoration: InputDecoration(
-                        labelText: 'Password', border: OutlineInputBorder()),
-                    obscureText: true,
-                    keyboardType: TextInputType.visiblePassword,
-                    validator: (value) {
-                      if (value.isEmpty || value.length < 8) {
-                        return "Invalid PassWord";
-                      }
-                      return value;
-                    },
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                    controller: _usernameController,
-                    decoration: InputDecoration(
-                        labelText: 'Usermame', border: OutlineInputBorder()),
-                    keyboardType: TextInputType.text,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                    controller: _locationController,
-                    decoration: InputDecoration(
-                        labelText: 'Address', border: OutlineInputBorder()),
-                    keyboardType: TextInputType.text,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                      controller: _cityController,
+            Container(
+              padding: EdgeInsets.all(10),
+              child: Form(
+                child: Column(
+                  children: <Widget>[
+                    TextFormField(
+                      controller: _firstNameController,
                       decoration: InputDecoration(
-                          labelText: 'City', border: OutlineInputBorder()),
-                      keyboardType: TextInputType.text),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                    controller: _countryController,
-                    decoration: InputDecoration(
-                        labelText: 'Country', border: OutlineInputBorder()),
-                    keyboardType: TextInputType.text,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                      controller: _poBoxController,
+                          labelText: 'Firstname', border: OutlineInputBorder()),
+                      keyboardType: TextInputType.text,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    TextFormField(
+                      controller: _lastNameController,
                       decoration: InputDecoration(
-                          labelText: 'Postal Box',
+                          labelText: 'Lastname', border: OutlineInputBorder()),
+                      keyboardType: TextInputType.text,
+                    ),
+                    SizedBox(height: 10),
+                    TextFormField(
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                          labelText: 'E-mail', border: OutlineInputBorder()),
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (value) {
+                        if (value.isEmpty || !value.contains('@')) {
+                          return "Invalid E-mail";
+                        }
+                        return value;
+                      },
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    TextFormField(
+                      controller: _passwordController,
+                      decoration: InputDecoration(
+                          labelText: 'Password', border: OutlineInputBorder()),
+                      obscureText: true,
+                      keyboardType: TextInputType.visiblePassword,
+                      validator: (value) {
+                        if (value.isEmpty || value.length < 8) {
+                          return "Invalid PassWord";
+                        }
+                        return value;
+                      },
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    TextFormField(
+                      controller: _usernameController,
+                      decoration: InputDecoration(
+                          labelText: 'Usermame', border: OutlineInputBorder()),
+                      keyboardType: TextInputType.text,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    TextFormField(
+                      controller: _locationController,
+                      decoration: InputDecoration(
+                          labelText: 'Address', border: OutlineInputBorder()),
+                      keyboardType: TextInputType.text,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    TextFormField(
+                        controller: _cityController,
+                        decoration: InputDecoration(
+                            labelText: 'City', border: OutlineInputBorder()),
+                        keyboardType: TextInputType.text),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    TextFormField(
+                      controller: _countryController,
+                      decoration: InputDecoration(
+                          labelText: 'Country', border: OutlineInputBorder()),
+                      keyboardType: TextInputType.text,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    TextFormField(
+                        controller: _poBoxController,
+                        decoration: InputDecoration(
+                            labelText: 'Postal Box',
+                            border: OutlineInputBorder()),
+                        keyboardType: TextInputType.text),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    TextFormField(
+                      controller: _phoneNumberController,
+                      decoration: InputDecoration(
+                          labelText: 'telephone Number',
                           border: OutlineInputBorder()),
-                      keyboardType: TextInputType.text),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                    controller: _phoneNumberController,
-                    decoration: InputDecoration(
-                        labelText: 'telephone Number',
-                        border: OutlineInputBorder()),
-                    keyboardType: TextInputType.text,
-                  ),
-                ],
+                      keyboardType: TextInputType.text,
+                    ),
+                  ],
+                ),
               ),
             ),
             SizedBox(
@@ -297,5 +354,27 @@ class _AuthState extends State<Auth> {
       return Text("already registered ?");
     }
     return Text("Does not have an account ?");
+  }
+
+  Widget profileBody() {
+    return Center(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          FaIcon(
+            FontAwesomeIcons.bookmark,
+            size: 100,
+          ),
+          Text(
+            "you haven't bookmarked an article/doctor yet",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 22,
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
