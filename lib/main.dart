@@ -1,10 +1,13 @@
-import 'package:findadoctor/UI/Profile.dart';
 import 'package:findadoctor/UI/SearchPage.dart';
+import 'package:findadoctor/UI/userPage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'UI/ArticleList.dart';
 import 'UI/Theme.dart';
+
+final storage = FlutterSecureStorage();
+bool isLoggedInR;
 
 void main() => runApp(MyApp());
 
@@ -16,7 +19,7 @@ class MyApp extends StatelessWidget {
         title: 'MyDoctor',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-            fontFamily: 'Pacifico', scaffoldBackgroundColor: Colors.white),
+            fontFamily: 'Monserrat', scaffoldBackgroundColor: Colors.white),
         home: BottomNavigation());
   }
 }
@@ -34,7 +37,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
     new SearchPage(),
     new ListArticlePage(),
     new ThemePage(),
-    new ProfilePage()
+    new UserPage()
   ];
 
   void _onItemTapped(int index) {
