@@ -1,6 +1,7 @@
-import 'package:findadoctor/Model/UserModel.dart';
-import 'package:findadoctor/Service/AuthService.dart';
-import 'package:findadoctor/main.dart';
+import 'package:Newsroom/Model/UserModel.dart';
+import 'package:Newsroom/Service/AuthService.dart';
+import 'package:Newsroom/UI/Login.dart';
+import 'package:Newsroom/main.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -45,8 +46,8 @@ class ProfilePage extends StatelessWidget {
 
   void logout(BuildContext context) async {
     storage.delete(key: "jwt");
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => BottomNavigation()));
+    storage.delete(key: "userId");
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Auth()));
   }
 
   void showModal(BuildContext context) {

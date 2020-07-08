@@ -1,5 +1,5 @@
-import 'package:findadoctor/Model/LoginModel.dart';
-import 'package:findadoctor/Model/UserModel.dart';
+import 'package:Newsroom/Model/LoginModel.dart';
+import 'package:Newsroom/Model/UserModel.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 
@@ -46,9 +46,11 @@ class AuthService {
     final response = await get(
         'https://findadoc.azurewebsites.net/api/User/GetUser',
         headers: {'Authorization': 'Bearer ' + authorization});
+    print(authorization);
     if (response.statusCode == 200) {
       final responseJson = json.decode(response.body);
       print(responseJson['id']);
+      storage.write(key: "userId", value: responseJson['id']);
       return UserModel.fromJson(responseJson);
     } else {
       print(response.statusCode);

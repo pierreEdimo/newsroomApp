@@ -1,4 +1,4 @@
-import 'package:findadoctor/Model/ArticleModel.dart';
+import 'package:Newsroom/Model/ArticleModel.dart';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -18,6 +18,7 @@ class ArticleDetail extends StatelessWidget {
               FaIcon(FontAwesomeIcons.arrowLeft, color: Colors.black, size: 18),
           onPressed: () => Navigator.of(context).pop(),
         ),
+        centerTitle: true,
         title: Text(
           article.title,
           style: TextStyle(color: Colors.black, fontFamily: 'OpenSans'),
@@ -25,7 +26,7 @@ class ArticleDetail extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: FaIcon(
-              FontAwesomeIcons.bookmark,
+              FontAwesomeIcons.ellipsisV,
               color: Colors.black,
               size: 18,
             ),
@@ -45,9 +46,9 @@ class ArticleDetail extends StatelessWidget {
             title: Text(
               article.title,
               style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'OpenSans'),
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           Container(

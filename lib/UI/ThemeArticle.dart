@@ -1,13 +1,23 @@
-import 'package:findadoctor/Model/ArticleModel.dart';
-import 'package:findadoctor/Model/ThemeModel.dart';
-import 'package:findadoctor/UI/ArticleDetail.dart';
+import 'package:Newsroom/Model/ArticleModel.dart';
+import 'package:Newsroom/Model/ThemeModel.dart';
+import 'package:Newsroom/UI/ArticleDetail.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class ThemeArticleList extends StatelessWidget {
+class ThemeArticleList extends StatefulWidget {
   final ThemeModel themeData;
 
   ThemeArticleList({Key key, @required this.themeData}) : super(key: key);
+
+  @override
+  _ThemeArticleListState createState() =>
+      _ThemeArticleListState(themeData: this.themeData);
+}
+
+class _ThemeArticleListState extends State<ThemeArticleList> {
+  ThemeModel themeData;
+
+  _ThemeArticleListState({@required this.themeData});
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +88,7 @@ class ThemeArticleList extends StatelessWidget {
                             Text("Am 06-07-20"),
                             IconButton(
                               icon: FaIcon(
-                                FontAwesomeIcons.bookmark,
+                                FontAwesomeIcons.ellipsisV,
                                 size: 18,
                               ),
                               onPressed: () => print("Hello World"),

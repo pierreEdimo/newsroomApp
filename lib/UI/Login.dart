@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:findadoctor/Model/LoginModel.dart';
-import 'package:findadoctor/Model/UserModel.dart';
-import 'package:findadoctor/Service/AuthService.dart';
-import 'package:findadoctor/main.dart';
+import 'package:Newsroom/Model/LoginModel.dart';
+import 'package:Newsroom/Model/UserModel.dart';
+import 'package:Newsroom/Service/AuthService.dart';
+import 'package:Newsroom/main.dart';
 
 enum AuthMode { SignUp, SignIn }
 
@@ -11,19 +11,7 @@ class Auth extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          icon: FaIcon(
-            FontAwesomeIcons.arrowLeft,
-            size: 18,
-            color: Colors.black,
-          ),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-      ),
-      body: Login(),
+      body: Center(child: Login()),
     );
   }
 }
@@ -39,6 +27,17 @@ class _LoginState extends State<Login> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    getJwt();
+  }
+
+  getJwt() async {
+    var jwt = await storage.read(key: "jwt");
+    print(jwt);
+  }
 
   //Future<UserModel> _futureUser;
   final AuthService _authService = AuthService();
@@ -183,7 +182,6 @@ class _LoginState extends State<Login> {
               height: 20,
             ),
             Container(
-              padding: EdgeInsets.all(10),
               child: Form(
                 child: Column(
                   children: <Widget>[

@@ -1,5 +1,6 @@
-import 'package:findadoctor/Model/ArticleModel.dart';
 import 'package:flutter/foundation.dart';
+
+import 'ArticleModel.dart';
 
 class ThemeModel {
   final int id;

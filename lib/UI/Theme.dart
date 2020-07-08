@@ -1,6 +1,6 @@
-import 'package:findadoctor/Model/ThemeModel.dart';
-import 'package:findadoctor/Service/ThemeService.dart';
-import 'package:findadoctor/UI/ThemeArticle.dart';
+import 'package:Newsroom/Model/ThemeModel.dart';
+import 'package:Newsroom/Service/ThemeService.dart';
+import 'package:Newsroom/UI/ThemeArticle.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

@@ -1,5 +1,8 @@
 import 'dart:convert';
-import 'package:findadoctor/Model/ArticleModel.dart';
+
+import 'package:Newsroom/Model/ArticleModel.dart';
+import 'package:Newsroom/Model/FavoritesArticle.dart';
+import 'package:Newsroom/main.dart';
 import 'package:http/http.dart';
 
 class ArticleService {
@@ -19,5 +22,22 @@ class ArticleService {
     } else {
       throw " can't get articles";
     }
+  }
+
+  Future<int> addFavorite(AddFavoriteArticleModel favoriteArticleModel) async {
+    String authorization = await storage.read(key: "jwt");
+
+    String jsEncode;
+    jsEncode = jsonEncode(favoriteArticleModel);
+    final Response response = await post(
+        'https://findadoc.azurewebsites.net/api/FavoriteArticles',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + authorization
+        },
+        body: jsEncode);
+
+    print(response.statusCode);
+    return response.statusCode;
   }
 }

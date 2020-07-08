@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:findadoctor/Model/ThemeModel.dart';
+import 'package:Newsroom/Model/ThemeModel.dart';
 import 'package:http/http.dart';
 
 class ThemeService {

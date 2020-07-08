@@ -1,6 +1,8 @@
-import 'package:findadoctor/Model/ArticleModel.dart';
-import 'package:findadoctor/Service/ArticleService.dart';
-import 'package:findadoctor/UI/ArticleDetail.dart';
+import 'package:Newsroom/Model/ArticleModel.dart';
+
+import 'package:Newsroom/Service/ArticleService.dart';
+import 'package:Newsroom/UI/ArticleDetail.dart';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -104,11 +106,10 @@ class _ArticleListPageState extends State<ArticleList> {
                                               Text("Am 06-07-20"),
                                               IconButton(
                                                 icon: FaIcon(
-                                                  FontAwesomeIcons.bookmark,
+                                                  FontAwesomeIcons.ellipsisV,
                                                   size: 18,
                                                 ),
-                                                onPressed: () =>
-                                                    print("Hello World"),
+                                                onPressed: () async {},
                                               )
                                             ],
                                           ),

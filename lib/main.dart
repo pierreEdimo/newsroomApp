@@ -1,5 +1,5 @@
-import 'package:findadoctor/UI/SearchPage.dart';
-import 'package:findadoctor/UI/userPage.dart';
+import 'package:Newsroom/UI/Login.dart';
+import 'package:Newsroom/UI/Profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -12,15 +12,32 @@ bool isLoggedInR;
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  Future<String> get jwtOrEmpty async {
+    String token = await storage.read(key: "jwt");
+    if (token == null) return "";
+    return token;
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'MyDoctor',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-            fontFamily: 'Monserrat', scaffoldBackgroundColor: Colors.white),
-        home: BottomNavigation());
+      title: 'findadoctor',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+          fontFamily: 'Monserrat', scaffoldBackgroundColor: Colors.white),
+      home: FutureBuilder(
+        future: jwtOrEmpty,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (!snapshot.hasData) return CircularProgressIndicator();
+          if (snapshot.data == "") {
+            return Auth();
+          } else {
+            return BottomNavigation();
+          }
+        },
+      ),
+    );
   }
 }
 
@@ -34,10 +51,9 @@ class _BottomNavigationState extends State<BottomNavigation> {
   int _selectedIndex = 0;
 
   final _widgetOptions = <Widget>[
-    new SearchPage(),
     new ListArticlePage(),
     new ThemePage(),
-    new UserPage()
+    new ProfilePage()
   ];
 
   void _onItemTapped(int index) {
@@ -54,12 +70,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-              icon: FaIcon(
-                FontAwesomeIcons.home,
-                size: 18,
-              ),
-              title: Text("Home")),
           BottomNavigationBarItem(
               icon: FaIcon(
                 FontAwesomeIcons.rss,

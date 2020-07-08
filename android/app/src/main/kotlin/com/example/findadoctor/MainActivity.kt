@@ -1,4 +1,4 @@
-package com.example.findadoctor
+package com.example.newsroom
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
