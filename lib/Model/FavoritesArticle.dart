@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 
+import 'ArticleModel.dart';
+
 class AddFavoriteArticleModel {
   final String userId;
   final int articleId;
@@ -19,4 +21,17 @@ class AddFavoriteArticleModel {
         "userId": userId,
         "articleId": articleId,
       };
+}
+
+class GetFavoriteArticleModel {
+  final String userId;
+  final Article article;
+
+  GetFavoriteArticleModel({@required this.userId, @required this.article});
+
+  factory GetFavoriteArticleModel.fromJson(Map<String, dynamic> json) =>
+      GetFavoriteArticleModel(
+        userId: json["userId"],
+        article: Article.fromJson(json["article"]),
+      );
 }

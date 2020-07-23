@@ -9,6 +9,7 @@ class ThemePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         leading: Image.asset('image/icon.png'),
         backgroundColor: Colors.white,
         centerTitle: true,
@@ -56,7 +57,7 @@ class _ThemeListState extends State<ThemeList> {
                 padding: EdgeInsets.all(10),
                 children: themes
                     .map((ThemeModel theme) => Container(
-                          margin: EdgeInsets.only(bottom: 20.0),
+                          margin: EdgeInsets.only(bottom: 10.0),
                           child: InkWell(
                             onTap: () {
                               Navigator.push(
@@ -86,9 +87,9 @@ class _ThemeListState extends State<ThemeList> {
                                     width: 500,
                                     height: 300,
                                     decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(20.0),
-                                        color: Color.fromRGBO(0, 0, 0, 0.4)),
+                                      borderRadius: BorderRadius.circular(20.0),
+                                      color: Color.fromRGBO(0, 0, 0, 0.2),
+                                    ),
                                   ),
                                   Container(
                                     width: 500,

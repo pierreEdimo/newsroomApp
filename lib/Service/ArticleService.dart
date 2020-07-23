@@ -24,6 +24,25 @@ class ArticleService {
     }
   }
 
+  Future<List<GetFavoriteArticleModel>> getFovites(String userId) async {
+    String jwt = await storage.read(key: "jwt");
+    Response res = await get(
+        'https://findadoc.azurewebsites.net/api/FavoriteArticles?userId=$userId',
+        headers: {'Authorization': 'Bearer ' + jwt});
+
+    if (res.statusCode == 200) {
+      List<dynamic> body = jsonDecode(res.body);
+
+      List<GetFavoriteArticleModel> articles = body
+          .map((dynamic item) => GetFavoriteArticleModel.fromJson(item))
+          .toList();
+
+      return articles;
+    } else {
+      throw "Can't get articles";
+    }
+  }
+
   Future<int> addFavorite(AddFavoriteArticleModel favoriteArticleModel) async {
     String authorization = await storage.read(key: "jwt");
 
@@ -36,7 +55,6 @@ class ArticleService {
           'Authorization': 'Bearer ' + authorization
         },
         body: jsEncode);
-
     print(response.statusCode);
     return response.statusCode;
   }

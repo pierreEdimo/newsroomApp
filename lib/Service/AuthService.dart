@@ -17,13 +17,15 @@ class AuthService {
     if (response.statusCode == 200) {
       String jwt = response.body;
       storage.write(key: "jwt", value: jwt);
+    } else if (response.statusCode == 500) {
       return response.statusCode;
     } else {
       throw "Error";
     }
+    return response.statusCode;
   }
 
-  Future<String> loginUser(LoginModel loginModel) async {
+  Future<int> loginUser(LoginModel loginModel) async {
     Map<String, String> headers = {'Content-Type': 'application/json'};
     String jsEncode;
     jsEncode = jsonEncode(loginModel);
@@ -35,10 +37,12 @@ class AuthService {
     if (response.statusCode == 200) {
       String jwt = response.body;
       storage.write(key: "jwt", value: jwt);
-      return response.body;
+    } else if (response.statusCode == 500) {
+      return response.statusCode;
     } else {
-      throw "Error ";
+      throw "error";
     }
+    return response.statusCode;
   }
 
   Future<UserModel> fethSingleUser() async {
@@ -49,11 +53,9 @@ class AuthService {
     print(authorization);
     if (response.statusCode == 200) {
       final responseJson = json.decode(response.body);
-      print(responseJson['id']);
       storage.write(key: "userId", value: responseJson['id']);
+      print(responseJson['id']);
       return UserModel.fromJson(responseJson);
-    } else {
-      print(response.statusCode);
     }
     return null;
   }

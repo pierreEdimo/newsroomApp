@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:Newsroom/Model/LoginModel.dart';
 import 'package:Newsroom/Model/UserModel.dart';
 import 'package:Newsroom/Service/AuthService.dart';
@@ -26,7 +25,7 @@ class _LoginState extends State<Login> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController _professionController = TextEditingController();
 
   @override
   void initState() {
@@ -148,11 +147,14 @@ class _LoginState extends State<Login> {
                     password: _passwordController.text);
                 var jwt = await _authService.loginUser(loginModel);
                 print(jwt);
-                if (jwt != null) {
+                if (jwt == 200) {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => BottomNavigation()));
+                } else {
+                  displayDialog(context, "Error",
+                      "No account was found matching that username and password,please try again");
                 }
               },
             ),
@@ -226,9 +228,9 @@ class _LoginState extends State<Login> {
                       height: 10,
                     ),
                     TextFormField(
-                      controller: _phoneNumberController,
+                      controller: _professionController,
                       decoration: InputDecoration(
-                          labelText: 'telephone Number',
+                          labelText: 'profession',
                           border: OutlineInputBorder()),
                       keyboardType: TextInputType.text,
                     ),
@@ -256,16 +258,11 @@ class _LoginState extends State<Login> {
               ),
               onTap: () async {
                 UserModel userModel = UserModel(
-                    userName: _usernameController.text,
-                    phoneNumber: _phoneNumberController.text,
-                    location: '',
-                    city: '',
-                    country: '',
-                    poBox: '',
-                    passWord: _passwordController.text,
-                    email: _emailController.text,
-                    firstName: '',
-                    lastName: '');
+                  userName: _usernameController.text,
+                  passWord: _passwordController.text,
+                  email: _emailController.text,
+                  profession: _professionController.text,
+                );
 
                 var res = await _authService.registerUser(userModel);
                 if (res == 200) {
@@ -273,6 +270,9 @@ class _LoginState extends State<Login> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => BottomNavigation()));
+                } else if (res == 500) {
+                  displayDialog(context, "Error",
+                      "Something went wrong , possibles reasons are that your username or Email are already in use, your username should also contains number ,  your E-mail should contains @, and your password should be > 7 characters, please try again.");
                 }
               },
             ),

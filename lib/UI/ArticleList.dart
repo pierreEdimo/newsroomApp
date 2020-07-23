@@ -11,6 +11,7 @@ class ListArticlePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: Colors.white,
         leading: Image.asset('image/icon.png'),
         centerTitle: true,
@@ -53,73 +54,74 @@ class _ArticleListPageState extends State<ArticleList> {
                 return ListView(
                     padding: EdgeInsets.all(10),
                     children: articles
-                        .map((Article article) => Container(
-                              child: Container(
-                                margin: EdgeInsets.only(bottom: 25),
-                                child: InkWell(
-                                  onTap: () => Navigator.of(context)
-                                      .push(MaterialPageRoute(
-                                          builder: (context) => ArticleDetail(
-                                                article: article,
-                                              ))),
-                                  child: Card(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.stretch,
-                                      children: <Widget>[
-                                        Container(
-                                          width: 700,
-                                          height: 250,
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(5.0),
-                                                topRight: Radius.circular(5.0)),
-                                            child: Image.network(
-                                              article.imageUrl,
-                                              fit: BoxFit.fill,
-                                            ),
+                        .map(
+                          (Article article) => Container(
+                            child: Container(
+                              margin: EdgeInsets.only(bottom: 10.0),
+                              child: InkWell(
+                                onTap: () => Navigator.of(context)
+                                    .push(MaterialPageRoute(
+                                        builder: (context) => ArticleDetail(
+                                              article: article,
+                                            ))),
+                                child: Center(
+                                  child: Stack(
+                                    children: <Widget>[
+                                      Container(
+                                        padding: EdgeInsets.only(bottom: 20.0),
+                                        alignment: Alignment.center,
+                                        width: 500,
+                                        height: 300,
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                image: NetworkImage(
+                                                    article.imageUrl),
+                                                fit: BoxFit.cover),
+                                            borderRadius:
+                                                BorderRadius.circular(20.0)),
+                                      ),
+                                      Container(
+                                        padding: EdgeInsets.only(bottom: 20.0),
+                                        alignment: Alignment.center,
+                                        width: 500,
+                                        height: 300,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                          color: Color.fromRGBO(0, 0, 0, 0.2),
+                                        ),
+                                      ),
+                                      Container(
+                                        padding: EdgeInsets.only(bottom: 20.0),
+                                        alignment: Alignment.bottomLeft,
+                                        width: 500,
+                                        height: 300,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                        ),
+                                        child: ListTile(
+                                          title: Text(
+                                            article.title,
+                                            style: TextStyle(
+                                                fontFamily: 'OpenSans',
+                                                fontSize: 18,
+                                                color: Colors.white),
+                                          ),
+                                          subtitle: Text(
+                                            "By ${article.author.name} ",
+                                            style:
+                                                TextStyle(color: Colors.white),
                                           ),
                                         ),
-                                        Container(
-                                            margin: EdgeInsets.only(top: 10.0),
-                                            alignment: Alignment.centerLeft,
-                                            child: ListTile(
-                                              title: Text(
-                                                article.title,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 16.0,
-                                                    fontFamily: 'OpenSans'),
-                                              ),
-                                              subtitle:
-                                                  Text("By ${article.author}"),
-                                            )),
-                                        Container(
-                                          padding: EdgeInsets.only(
-                                            bottom: 5.0,
-                                            left: 20.0,
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: <Widget>[
-                                              Text("Am 06-07-20"),
-                                              IconButton(
-                                                icon: FaIcon(
-                                                  FontAwesomeIcons.ellipsisV,
-                                                  size: 18,
-                                                ),
-                                                onPressed: () async {},
-                                              )
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
+                                      )
+                                    ],
                                   ),
                                 ),
                               ),
-                            ))
+                            ),
+                          ),
+                        )
                         .toList());
               } else if (snapshot.hasError) {
                 return Center(
