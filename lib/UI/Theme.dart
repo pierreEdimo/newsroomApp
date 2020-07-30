@@ -14,7 +14,7 @@ class ThemePage extends StatelessWidget {
         backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
-          "Theme",
+          "Categories",
           style: TextStyle(
               color: Colors.black,
               fontFamily: 'OpenSans',
@@ -73,7 +73,7 @@ class _ThemeListState extends State<ThemeList> {
                                   Container(
                                     alignment: Alignment.center,
                                     width: 500,
-                                    height: 300,
+                                    height: 230,
                                     decoration: BoxDecoration(
                                         image: DecorationImage(
                                           image: NetworkImage(theme.imageUrl),
@@ -85,7 +85,7 @@ class _ThemeListState extends State<ThemeList> {
                                   Container(
                                     alignment: Alignment.center,
                                     width: 500,
-                                    height: 300,
+                                    height: 230,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20.0),
                                       color: Color.fromRGBO(0, 0, 0, 0.2),
@@ -93,7 +93,7 @@ class _ThemeListState extends State<ThemeList> {
                                   ),
                                   Container(
                                     width: 500,
-                                    height: 300,
+                                    height: 230,
                                     alignment: Alignment.center,
                                     child: Text(
                                       theme.name,

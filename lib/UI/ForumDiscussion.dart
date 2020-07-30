@@ -1,6 +1,7 @@
 import 'package:Newsroom/Model/ForumModel.dart';
 import 'package:Newsroom/Service/CommentService.dart';
 import 'package:Newsroom/UI/AddCommentForum.dart';
+import 'package:Newsroom/main.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:Newsroom/Model/CommentsModel.dart';
@@ -42,23 +43,67 @@ class _ForumDiscussionState extends State<ForumDiscussion> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          icon: FaIcon(
-            FontAwesomeIcons.arrowLeft,
-            size: 18,
-            color: Colors.black,
-          ),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        centerTitle: true,
-        title: Text(
-          forum.title,
-          style: TextStyle(
-            fontFamily: 'OpenSans',
-            color: Colors.black,
+      appBar: CustomAppBar(
+        height: 260,
+        child: Container(
+          padding: EdgeInsets.only(top: 38.0),
+          child: Column(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.only(left: 10.0),
+                color: Colors.black,
+                height: 70,
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    IconButton(
+                      icon: FaIcon(
+                        FontAwesomeIcons.arrowLeft,
+                        size: 18,
+                        color: Colors.white,
+                      ),
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
+                    Text(
+                      "Comments",
+                      style: TextStyle(
+                          fontFamily: 'OpenSans',
+                          color: Colors.white,
+                          fontSize: 18),
+                    ),
+                    IconButton(
+                      icon: FaIcon(
+                        FontAwesomeIcons.ellipsisV,
+                        color: Colors.white,
+                        size: 18,
+                      ),
+                      onPressed: () => Navigator.of(context).pop(),
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                alignment: Alignment.topLeft,
+                padding: EdgeInsets.all(20.0),
+                height: 150,
+                transform: Matrix4.translationValues(0.0, -15.0, 0.0),
+                child: Text(
+                  forum.title,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      fontFamily: 'OpenSans',
+                      color: Colors.black),
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20.0),
+                      topRight: Radius.circular(20.0)),
+                ),
+              )
+            ],
           ),
         ),
       ),
@@ -75,7 +120,6 @@ class _ForumDiscussionState extends State<ForumDiscussion> {
                             margin: EdgeInsets.only(bottom: 10.0),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.0),
-                              color: Color.fromRGBO(230, 230, 230, 0.2),
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,

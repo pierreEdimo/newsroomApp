@@ -46,7 +46,6 @@ class _ThemeArticleListState extends State<ThemeArticleList> {
           itemBuilder: (BuildContext context, int index) {
             Article article = themeData.articles[index];
             return Container(
-              margin: EdgeInsets.only(bottom: 10.0),
               child: Container(
                 margin: EdgeInsets.only(bottom: 10.0),
                 child: InkWell(
@@ -61,7 +60,7 @@ class _ThemeArticleListState extends State<ThemeArticleList> {
                           padding: EdgeInsets.only(bottom: 20.0),
                           alignment: Alignment.center,
                           width: 500,
-                          height: 300,
+                          height: 230,
                           decoration: BoxDecoration(
                               image: DecorationImage(
                                   image: NetworkImage(article.imageUrl),
@@ -72,7 +71,7 @@ class _ThemeArticleListState extends State<ThemeArticleList> {
                           padding: EdgeInsets.only(bottom: 20.0),
                           alignment: Alignment.center,
                           width: 500,
-                          height: 300,
+                          height: 230,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20.0),
                             color: Color.fromRGBO(0, 0, 0, 0.2),
@@ -82,7 +81,7 @@ class _ThemeArticleListState extends State<ThemeArticleList> {
                           padding: EdgeInsets.only(bottom: 20.0),
                           alignment: Alignment.bottomLeft,
                           width: 500,
-                          height: 300,
+                          height: 230,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20.0),
                           ),
