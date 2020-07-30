@@ -71,7 +71,7 @@ class _ArticleListPageState extends State<ArticleList> {
                                         padding: EdgeInsets.only(bottom: 20.0),
                                         alignment: Alignment.center,
                                         width: 500,
-                                        height: 300,
+                                        height: 230,
                                         decoration: BoxDecoration(
                                             image: DecorationImage(
                                                 image: NetworkImage(
@@ -84,7 +84,7 @@ class _ArticleListPageState extends State<ArticleList> {
                                         padding: EdgeInsets.only(bottom: 20.0),
                                         alignment: Alignment.center,
                                         width: 500,
-                                        height: 300,
+                                        height: 230,
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(20.0),
@@ -95,7 +95,7 @@ class _ArticleListPageState extends State<ArticleList> {
                                         padding: EdgeInsets.only(bottom: 20.0),
                                         alignment: Alignment.bottomLeft,
                                         width: 500,
-                                        height: 300,
+                                        height: 230,
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(20.0),
