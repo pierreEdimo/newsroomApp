@@ -23,6 +23,93 @@ void displayDialog(context, title, text) => showDialog(
       ),
     );
 
+class CustomAppBar extends PreferredSize {
+  final Widget child;
+  final double height;
+
+  CustomAppBar({@required this.child, this.height = kToolbarHeight});
+
+  @override
+  Size get preferredSize => Size.fromHeight(height);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: preferredSize.height,
+      child: child,
+      color: Colors.white,
+    );
+  }
+}
+
+void showCommentModalSheet(String authorId, BuildContext context) async {
+  String userId = await storage.read(key: "userId");
+  showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        if (authorId == userId) {
+          return Container(
+            color: Color(0xFF737373),
+            height: 130,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.0),
+                  topRight: Radius.circular(20.0),
+                ),
+              ),
+              child: Column(
+                children: <Widget>[
+                  ListTile(
+                    leading: FaIcon(
+                      FontAwesomeIcons.pen,
+                      color: Colors.black,
+                      size: 18,
+                    ),
+                    title: Text('Edit Comment',
+                        style: TextStyle(color: Colors.black)),
+                  ),
+                  ListTile(
+                    leading: FaIcon(
+                      FontAwesomeIcons.trash,
+                      color: Colors.black,
+                      size: 18,
+                    ),
+                    title: Text(
+                      'Delete Comment',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        } else {
+          return Container(
+            color: Color(0xFF737373),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.0),
+                  topRight: Radius.circular(20.0),
+                ),
+              ),
+              child: ListTile(
+                leading: FaIcon(
+                  FontAwesomeIcons.flag,
+                  color: Colors.black,
+                  size: 18,
+                ),
+                title: Text("Report"),
+              ),
+            ),
+          );
+        }
+      });
+}
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
