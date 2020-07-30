@@ -6,6 +6,8 @@ import 'package:Newsroom/UI/CommentDetail.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../main.dart';
+
 class CommentPage extends StatefulWidget {
   final int articleId;
 
@@ -100,7 +102,8 @@ class _CommentPageState extends State<CommentPage> {
                                     size: 18,
                                     color: Colors.black,
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () => showCommentModalSheet(
+                                      comment.uid, context),
                                 ),
                               ),
                               InkWell(
