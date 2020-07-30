@@ -4,6 +4,8 @@ import 'package:Newsroom/UI/AnswerComment.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../main.dart';
+
 class CommentDetail extends StatefulWidget {
   final String commentContent;
   final int commentId;
@@ -43,24 +45,136 @@ class _CommentDetailState extends State<CommentDetail> {
 
   @override
   Widget build(BuildContext context) {
+    void _showModalSheet(String authorId) async {
+      String userId = await storage.read(key: "userId");
+      showModalBottomSheet(
+          context: context,
+          builder: (context) {
+            if (authorId == userId) {
+              return Container(
+                color: Color(0xFF737373),
+                height: 130,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20.0),
+                      topRight: Radius.circular(20.0),
+                    ),
+                  ),
+                  child: Column(
+                    children: <Widget>[
+                      ListTile(
+                        leading: FaIcon(
+                          FontAwesomeIcons.pen,
+                          color: Colors.black,
+                          size: 18,
+                        ),
+                        title: Text('Edit Post',
+                            style: TextStyle(color: Colors.black)),
+                      ),
+                      ListTile(
+                        leading: FaIcon(
+                          FontAwesomeIcons.trash,
+                          color: Colors.black,
+                          size: 18,
+                        ),
+                        title: Text(
+                          'Delete Post',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            } else {
+              return Container(
+                color: Color(0xFF737373),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20.0),
+                      topRight: Radius.circular(20.0),
+                    ),
+                  ),
+                  child: ListTile(
+                    leading: FaIcon(
+                      FontAwesomeIcons.flag,
+                      color: Colors.black,
+                      size: 18,
+                    ),
+                    title: Text("Report"),
+                  ),
+                ),
+              );
+            }
+          });
+    }
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: FaIcon(
-            FontAwesomeIcons.arrowLeft,
-            size: 18,
-            color: Colors.black,
-          ),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        centerTitle: true,
-        title: Text(
-          commentContent,
-          style: TextStyle(
-            fontFamily: 'OpenSans',
-            color: Colors.black,
+      appBar: CustomAppBar(
+        height: 260,
+        child: Container(
+          padding: EdgeInsets.only(top: 38.0),
+          child: Column(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.only(left: 10.0),
+                color: Colors.black,
+                height: 70,
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    IconButton(
+                      icon: FaIcon(
+                        FontAwesomeIcons.arrowLeft,
+                        size: 18,
+                        color: Colors.white,
+                      ),
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
+                    Text(
+                      "Answers",
+                      style: TextStyle(
+                          fontFamily: 'OpenSans',
+                          color: Colors.white,
+                          fontSize: 18),
+                    ),
+                    IconButton(
+                      icon: FaIcon(
+                        FontAwesomeIcons.ellipsisV,
+                        color: Colors.white,
+                        size: 18,
+                      ),
+                      onPressed: () => Navigator.of(context).pop(),
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                alignment: Alignment.topLeft,
+                padding: EdgeInsets.all(20.0),
+                height: 150,
+                transform: Matrix4.translationValues(0.0, -15.0, 0.0),
+                child: Text(
+                  commentContent,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      fontFamily: 'OpenSans',
+                      color: Colors.black),
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20.0),
+                      topRight: Radius.circular(20.0)),
+                ),
+              )
+            ],
           ),
         ),
       ),
@@ -73,10 +187,6 @@ class _CommentDetailState extends State<CommentDetail> {
                 return ListView(
                     children: filterAnswers
                         .map((GetAnsWer answer) => Container(
-                              margin: EdgeInsets.only(bottom: 10.0),
-                              decoration: BoxDecoration(
-                                color: Color.fromRGBO(230, 230, 230, 0.2),
-                              ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: <Widget>[
@@ -102,7 +212,8 @@ class _CommentDetailState extends State<CommentDetail> {
                                         size: 18,
                                         color: Colors.black,
                                       ),
-                                      onPressed: () {},
+                                      onPressed: () =>
+                                          _showModalSheet(answer.uid),
                                     ),
                                   ),
                                   Container(
