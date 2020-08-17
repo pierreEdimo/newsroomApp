@@ -55,7 +55,6 @@ class _AddCommentState extends State<AddComment> {
             var uid = await storage.read(key: "userId");
             AddCommentModel comment = AddCommentModel(
                 articleId: widget.articleId,
-                forumId: 0,
                 uid: uid,
                 content: _contentController.text);
 

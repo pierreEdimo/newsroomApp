@@ -126,7 +126,6 @@ class _CommentDetailState extends State<CommentDetail> {
                 height: 70,
                 alignment: Alignment.centerLeft,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     IconButton(
                       icon: FaIcon(
@@ -143,22 +142,13 @@ class _CommentDetailState extends State<CommentDetail> {
                           color: Colors.white,
                           fontSize: 18),
                     ),
-                    IconButton(
-                      icon: FaIcon(
-                        FontAwesomeIcons.ellipsisV,
-                        color: Colors.white,
-                        size: 18,
-                      ),
-                      onPressed: () => Navigator.of(context).pop(),
-                    )
                   ],
                 ),
               ),
               Container(
                 alignment: Alignment.topLeft,
                 padding: EdgeInsets.all(20.0),
-                height: 150,
-                transform: Matrix4.translationValues(0.0, -15.0, 0.0),
+                height: 152,
                 child: Text(
                   commentContent,
                   style: TextStyle(
@@ -221,7 +211,7 @@ class _CommentDetailState extends State<CommentDetail> {
                                         right: 20.0, left: 20.0, bottom: 20.0),
                                     child: Text(
                                       answer.content,
-                                      style: TextStyle(fontSize: 13.0),
+                                      style: TextStyle(fontSize: 14.0),
                                     ),
                                   )
                                 ],

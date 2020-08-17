@@ -199,7 +199,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
                           SizedBox(
                             width: 10.0,
                           ),
-                          Text("Comment")
+                          Text(" (0) Comment")
                         ],
                       ),
                     ),

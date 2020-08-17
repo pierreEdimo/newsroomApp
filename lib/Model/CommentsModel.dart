@@ -5,26 +5,23 @@ class AddCommentModel {
   final String content;
   final String uid;
   final int articleId;
-  final int forumId;
 
-  AddCommentModel(
-      {@required this.content,
-      @required this.uid,
-      @required this.articleId,
-      @required this.forumId});
+  AddCommentModel({
+    @required this.content,
+    @required this.uid,
+    @required this.articleId,
+  });
 
   factory AddCommentModel.fromJson(Map<String, dynamic> json) =>
       AddCommentModel(
           articleId: json['articleId'] as int,
           content: json['content'] as String,
-          forumId: json['forumId'],
           uid: json['uid'] as String);
 
   Map<String, dynamic> toJson() => {
         "articleId": articleId,
         "content": content,
         "uid": uid,
-        "forumId": forumId,
       };
 }
 
@@ -34,12 +31,10 @@ class GetCommentModel {
   final String uid;
   final UserModel author;
   final int articleId;
-  final int forumId;
 
   GetCommentModel(
       {@required this.id,
       @required this.content,
-      @required this.forumId,
       @required this.uid,
       @required this.author,
       @required this.articleId});
@@ -50,7 +45,6 @@ class GetCommentModel {
         content: json['content'] as String,
         uid: json['uid'] as String,
         articleId: json['articleId'] as int,
-        forumId: json['forumId'] as int,
         author: UserModel.fromJson(json['author']),
       );
 }

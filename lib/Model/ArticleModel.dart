@@ -9,7 +9,6 @@ class Article {
   final String content;
   final int autorId;
   final String createdAt;
-
   final Author author;
 
   Article({

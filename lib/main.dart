@@ -1,6 +1,6 @@
 import 'package:Newsroom/UI/Login.dart';
 import 'package:Newsroom/UI/Profile.dart';
-import 'package:Newsroom/UI/ForumPage.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -37,7 +37,7 @@ class CustomAppBar extends PreferredSize {
     return Container(
       height: preferredSize.height,
       child: child,
-      color: Colors.white,
+      color: Colors.black,
     );
   }
 }
@@ -154,7 +154,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
   final _widgetOptions = <Widget>[
     new ListArticlePage(),
     new ThemePage(),
-    new ForumPage(),
     new ProfilePage()
   ];
 
@@ -177,10 +176,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
               title: Text("NewsFeed")),
           BottomNavigationBarItem(
               icon: FaIcon(FontAwesomeIcons.compass, size: 18),
-              title: Text("Favorites")),
-          BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.penSquare, size: 18),
-              title: Text("Forum")),
+              title: Text("Discover")),
           BottomNavigationBarItem(
               icon: FaIcon(FontAwesomeIcons.user, size: 18),
               title: Text("My Profile"))
