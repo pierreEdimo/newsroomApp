@@ -45,7 +45,7 @@ class _CommentDetailState extends State<CommentDetail> {
 
   @override
   Widget build(BuildContext context) {
-    void _showModalSheet(String authorId) async {
+    void _showModalSheet(String authorId, int id) async {
       String userId = await storage.read(key: "userId");
       showModalBottomSheet(
           context: context,
@@ -74,6 +74,12 @@ class _CommentDetailState extends State<CommentDetail> {
                             style: TextStyle(color: Colors.black)),
                       ),
                       ListTile(
+                        onTap: () {
+                          _commentService
+                              .deleteAnswer(id)
+                              .then((_) => _fetchAnswers());
+                          Navigator.of(context).pop();
+                        },
                         leading: FaIcon(
                           FontAwesomeIcons.trash,
                           color: Colors.black,
@@ -114,58 +120,24 @@ class _CommentDetailState extends State<CommentDetail> {
     }
 
     return Scaffold(
-      appBar: CustomAppBar(
-        height: 260,
-        child: Container(
-          padding: EdgeInsets.only(top: 38.0),
-          child: Column(
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.only(left: 10.0),
-                color: Colors.black,
-                height: 70,
-                alignment: Alignment.centerLeft,
-                child: Row(
-                  children: <Widget>[
-                    IconButton(
-                      icon: FaIcon(
-                        FontAwesomeIcons.arrowLeft,
-                        size: 18,
-                        color: Colors.white,
-                      ),
-                      onPressed: () => Navigator.of(context).pop(),
-                    ),
-                    Text(
-                      "Answers",
-                      style: TextStyle(
-                          fontFamily: 'OpenSans',
-                          color: Colors.white,
-                          fontSize: 18),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                alignment: Alignment.topLeft,
-                padding: EdgeInsets.all(20.0),
-                height: 152,
-                child: Text(
-                  commentContent,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      fontFamily: 'OpenSans',
-                      color: Colors.black),
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20.0),
-                      topRight: Radius.circular(20.0)),
-                ),
-              )
-            ],
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: FaIcon(
+            FontAwesomeIcons.arrowLeft,
+            color: Colors.black,
+            size: 18,
           ),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: Text(
+          commentContent,
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+              fontFamily: 'OpenSans',
+              color: Colors.black),
         ),
       ),
       body: filterAnswers.isEmpty
@@ -202,8 +174,8 @@ class _CommentDetailState extends State<CommentDetail> {
                                         size: 18,
                                         color: Colors.black,
                                       ),
-                                      onPressed: () =>
-                                          _showModalSheet(answer.uid),
+                                      onPressed: () => _showModalSheet(
+                                          answer.uid, answer.id),
                                     ),
                                   ),
                                   Container(
