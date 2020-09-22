@@ -58,4 +58,21 @@ class ArticleService {
     print(response.statusCode);
     return response.statusCode;
   }
+
+  //Future<int> deleteFavorite(int id) async {}##
+
+  Future<int> deleteAnswer(int id) async {
+    String jwt = await storage.read(key: "jwt");
+
+    final Response response = await delete(
+      'https://findadoc.azurewebsites.net/api/Answers/$id',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + jwt
+      },
+    );
+
+    print(response.statusCode);
+    return response.statusCode;
+  }
 }
