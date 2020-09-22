@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../main.dart';
+import 'UpdateCommentPage.dart';
 
 class CommentPage extends StatefulWidget {
   final int articleId;
@@ -38,6 +39,90 @@ class _CommentPageState extends State<CommentPage> {
             comments.where((u) => (u.articleId) == articleId).toList();
       });
     });
+  }
+
+  void showCommentModalSheet(
+      String authorId, int id, BuildContext context) async {
+    String userId = await storage.read(key: "userId");
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          if (authorId == userId) {
+            return Container(
+              color: Color(0xFF737373),
+              height: 130,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20.0),
+                    topRight: Radius.circular(20.0),
+                  ),
+                ),
+                child: Column(
+                  children: <Widget>[
+                    ListTile(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(
+                                builder: (context) => UpdateComment(
+                                      commentId: id,
+                                    )))
+                            .then((_) => _fetchComments());
+                      },
+                      leading: FaIcon(
+                        FontAwesomeIcons.pen,
+                        color: Colors.black,
+                        size: 18,
+                      ),
+                      title: Text('Edit Comment',
+                          style: TextStyle(color: Colors.black)),
+                    ),
+                    ListTile(
+                      onTap: () async {
+                        await _commentService
+                            .deleteComment(id)
+                            .then((_) => _fetchComments());
+                        Navigator.of(context).pop();
+                      },
+                      leading: FaIcon(
+                        FontAwesomeIcons.trash,
+                        color: Colors.black,
+                        size: 18,
+                      ),
+                      title: Text(
+                        'Delete Comment',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          } else {
+            return Container(
+              color: Color(0xFF737373),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20.0),
+                    topRight: Radius.circular(20.0),
+                  ),
+                ),
+                child: ListTile(
+                  leading: FaIcon(
+                    FontAwesomeIcons.flag,
+                    color: Colors.black,
+                    size: 18,
+                  ),
+                  title: Text("Report"),
+                ),
+              ),
+            );
+          }
+        });
   }
 
   @override
@@ -103,7 +188,7 @@ class _CommentPageState extends State<CommentPage> {
                                     color: Colors.black,
                                   ),
                                   onPressed: () => showCommentModalSheet(
-                                      comment.uid, context),
+                                      comment.uid, comment.id, context),
                                 ),
                               ),
                               InkWell(
