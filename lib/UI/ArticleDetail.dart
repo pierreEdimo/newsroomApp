@@ -12,23 +12,33 @@ import 'ArticleFromAuthor.dart';
 
 class ArticleDetail extends StatefulWidget {
   final Article article;
+  final int favId;
 
-  ArticleDetail({@required this.article});
+  ArticleDetail({@required this.article, @required this.favId});
   @override
-  _ArticleDetailState createState() => _ArticleDetailState(article: article);
+  _ArticleDetailState createState() => _ArticleDetailState(
+        article: article,
+        favId: favId,
+      );
 }
 
 class _ArticleDetailState extends State<ArticleDetail> {
   Article article;
+  int favId;
+  bool isAdded = false;
   final ArticleService _articleService = ArticleService();
   final AuthService _authService = AuthService();
 
-  _ArticleDetailState({@required this.article});
+  _ArticleDetailState({
+    @required this.article,
+    @required this.favId,
+  });
 
   @override
   void initState() {
     super.initState();
     _authService.fethSingleUser();
+    print(favId);
   }
 
   @override
@@ -79,6 +89,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
                                 articleId: article.id, userId: userId);
                         int res =
                             await _articleService.addFavorite(articleModel);
+
                         if (res == 201) {
                           displayDialog(context, "Success",
                               "this article has been added to your favorites");
@@ -199,7 +210,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
                           SizedBox(
                             width: 10.0,
                           ),
-                          Text(" (0) Comment")
+                          Text("Comment")
                         ],
                       ),
                     ),
