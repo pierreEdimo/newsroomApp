@@ -57,11 +57,8 @@ class _AddCommentState extends State<AddComment> {
                 articleId: widget.articleId,
                 uid: uid,
                 content: _contentController.text);
-
-            var res = await _commentService.comment(comment);
-            if (res == 201) {
-              Navigator.of(context).pop();
-            }
+            await _commentService.comment(comment);
+            Navigator.of(context).pop();
           }),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
