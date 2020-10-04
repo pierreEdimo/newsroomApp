@@ -139,7 +139,6 @@ class _CommentPageState extends State<CommentPage> {
           ),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        centerTitle: true,
         title: Text(
           "Comments",
           style: TextStyle(
@@ -161,7 +160,6 @@ class _CommentPageState extends State<CommentPage> {
                           margin: EdgeInsets.only(bottom: 10.0),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
-                            color: Color.fromRGBO(230, 230, 230, 0.2),
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -192,14 +190,16 @@ class _CommentPageState extends State<CommentPage> {
                                 ),
                               ),
                               InkWell(
-                                onTap: () => Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => CommentDetail(
-                                      commentId: comment.id,
-                                      commentContent: comment.content,
-                                    ),
-                                  ),
-                                ),
+                                onTap: () => Navigator.of(context)
+                                    .push(
+                                      MaterialPageRoute(
+                                        builder: (context) => CommentDetail(
+                                          commentId: comment.id,
+                                          commentContent: comment.content,
+                                        ),
+                                      ),
+                                    )
+                                    .then((_) => _fetchComments()),
                                 child: Container(
                                   padding: const EdgeInsets.only(
                                     left: 20,
@@ -216,7 +216,7 @@ class _CommentPageState extends State<CommentPage> {
                                 padding: const EdgeInsets.only(
                                     left: 20.0, right: 20.0, bottom: 20.0),
                                 child: Text(
-                                  "0 Answers".toUpperCase(),
+                                  " ${comment.numberOfAnswers} Answer(s)",
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
