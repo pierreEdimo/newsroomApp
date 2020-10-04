@@ -1,6 +1,7 @@
 import 'package:Newsroom/Model/ArticleModel.dart';
 import 'package:Newsroom/Model/ThemeModel.dart';
 import 'package:Newsroom/UI/ArticleDetail.dart';
+import 'package:Newsroom/UI/SearchPage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -23,22 +24,30 @@ class _ThemeArticleListState extends State<ThemeArticleList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          icon: FaIcon(
-            FontAwesomeIcons.arrowLeft,
-            size: 18,
-            color: Colors.black,
+          elevation: 0,
+          backgroundColor: Colors.white,
+          leading: IconButton(
+            icon: FaIcon(
+              FontAwesomeIcons.arrowLeft,
+              size: 18,
+              color: Colors.black,
+            ),
+            onPressed: () => Navigator.pop(context),
           ),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text(
-          themeData.name,
-          style: TextStyle(color: Colors.black, fontFamily: 'OpenSans'),
-        ),
-        centerTitle: true,
-      ),
+          title: Text(
+            themeData.name,
+            style: TextStyle(color: Colors.black, fontFamily: 'OpenSans'),
+          ),
+          actions: <Widget>[
+            IconButton(
+                icon: FaIcon(
+                  FontAwesomeIcons.search,
+                  color: Colors.black,
+                  size: 18,
+                ),
+                onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SearchPage()))),
+          ]),
       body: Center(
         child: ListView.builder(
           padding: EdgeInsets.all(10.0),
@@ -52,6 +61,7 @@ class _ThemeArticleListState extends State<ThemeArticleList> {
                   onTap: () => Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => ArticleDetail(
                             article: article,
+                            favId: 0,
                           ))),
                   child: Center(
                     child: Stack(
