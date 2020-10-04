@@ -114,7 +114,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
               title: Text("My Profile"))
         ],
         currentIndex: _selectedIndex,
-        type: BottomNavigationBarType.shifting,
         selectedItemColor: Colors.red.shade600,
         unselectedItemColor: Colors.black,
         onTap: _onItemTapped,
