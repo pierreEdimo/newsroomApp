@@ -26,12 +26,15 @@ class AddFavoriteArticleModel {
 class GetFavoriteArticleModel {
   final String userId;
   final Article article;
+  final int id;
 
-  GetFavoriteArticleModel({@required this.userId, @required this.article});
+  GetFavoriteArticleModel(
+      {@required this.userId, @required this.id, @required this.article});
 
   factory GetFavoriteArticleModel.fromJson(Map<String, dynamic> json) =>
       GetFavoriteArticleModel(
         userId: json["userId"],
+        id: json["id"],
         article: Article.fromJson(json["article"]),
       );
 }
