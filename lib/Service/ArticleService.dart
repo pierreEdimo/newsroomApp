@@ -6,11 +6,11 @@ import 'package:Newsroom/main.dart';
 import 'package:http/http.dart';
 
 class ArticleService {
-  final String articleUrl =
-      "https://findadoc.azurewebsites.net/api/Article?sortBy=title&sortOrder=desc";
+  final String articleUrl = "";
 
   Future<List<Article>> getArticles() async {
-    Response res = await get(articleUrl);
+    Response res = await get(
+        'https://findadoc.azurewebsites.net/api/Article?sortBy=title&sortOrder=desc');
 
     if (res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);
@@ -24,11 +24,31 @@ class ArticleService {
     }
   }
 
+  Future<List<Article>> getArticlesForSearch(String title) async {
+    String jwt = await storage.read(key: "jwt");
+    Response res = await get(
+      'https://findadoc.azurewebsites.net/api/Article?title=$title',
+      headers: {'Authorization': 'Bearer ' + jwt},
+    );
+
+    if (res.statusCode == 200) {
+      List<dynamic> body = jsonDecode(res.body);
+
+      List<Article> articles =
+          body.map((dynamic item) => Article.fromJson(item)).toList();
+
+      return articles;
+    } else {
+      throw "Article not found";
+    }
+  }
+
   Future<List<GetFavoriteArticleModel>> getFovites(String userId) async {
     String jwt = await storage.read(key: "jwt");
     Response res = await get(
-        'https://findadoc.azurewebsites.net/api/FavoriteArticles?userId=$userId',
-        headers: {'Authorization': 'Bearer ' + jwt});
+      'https://findadoc.azurewebsites.net/api/FavoriteArticles?userId=$userId',
+      headers: {'Authorization': 'Bearer ' + jwt},
+    );
 
     if (res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);
@@ -61,11 +81,11 @@ class ArticleService {
 
   //Future<int> deleteFavorite(int id) async {}##
 
-  Future<int> deleteAnswer(int id) async {
+  Future<int> deleteFavorite(int id) async {
     String jwt = await storage.read(key: "jwt");
 
     final Response response = await delete(
-      'https://findadoc.azurewebsites.net/api/Answers/$id',
+      'https://findadoc.azurewebsites.net/api/FavoriteArticles/$id',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + jwt
