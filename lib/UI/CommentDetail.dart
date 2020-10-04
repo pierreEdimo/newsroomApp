@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../main.dart';
+import 'UpdateAnswer.dart';
 
 class CommentDetail extends StatefulWidget {
   final String commentContent;
@@ -65,6 +66,14 @@ class _CommentDetailState extends State<CommentDetail> {
                   child: Column(
                     children: <Widget>[
                       ListTile(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      UpdateAnswer(answerId: id)))
+                              .then((_) => _fetchAnswers());
+                        },
                         leading: FaIcon(
                           FontAwesomeIcons.pen,
                           color: Colors.black,
