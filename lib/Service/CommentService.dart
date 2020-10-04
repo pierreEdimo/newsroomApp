@@ -116,14 +116,22 @@ class CommentService {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + jwt
       },
-      body: jsonEncode({'id': id, 'uid': uid, 'content': content}),
+      body: jsonEncode({
+        'id': id,
+        'uid': uid,
+        'content': content,
+      }),
     );
 
     print(response.statusCode);
     return response.statusCode;
   }
 
-  Future<int> updateAnswer(int id, String content) async {
+  Future<int> updateAnswer(
+    int id,
+    String uid,
+    String content,
+  ) async {
     String jwt = await storage.read(key: "jwt");
 
     final Response response = await put(
@@ -132,7 +140,11 @@ class CommentService {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + jwt
         },
-        body: jsonEncode({'id': id, 'content': content}));
+        body: jsonEncode({
+          'id': id,
+          'uid': uid,
+          'content': content,
+        }));
 
     return response.statusCode;
   }
