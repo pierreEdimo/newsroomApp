@@ -66,6 +66,7 @@ class _ArticleFromAuthorState extends State<ArticleFromAuthor> {
                 onTap: () => Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => ArticleDetail(
                           article: articlesFromAuthor[index],
+                          favId: 0,
                         ))),
                 child: Center(
                   child: Stack(
