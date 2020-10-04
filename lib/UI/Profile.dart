@@ -27,9 +27,8 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        centerTitle: true,
         title: Text(
-          "Bookmark",
+          "Favorites",
           style: TextStyle(
             color: Colors.black,
             fontFamily: 'OpenSans',
@@ -148,6 +147,7 @@ class _FavoritesArticleListState extends State<FavoritesArticleList> {
                                     .push(MaterialPageRoute(
                                         builder: (context) => ArticleDetail(
                                               article: article.article,
+                                              favId: article.id,
                                             ))),
                                 child: Center(
                                   child: Stack(
