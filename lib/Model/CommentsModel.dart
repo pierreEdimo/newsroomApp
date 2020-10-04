@@ -31,12 +31,14 @@ class GetCommentModel {
   final String uid;
   final UserModel author;
   final int articleId;
+  final int numberOfAnswers;
 
   GetCommentModel(
       {@required this.id,
       @required this.content,
       @required this.uid,
       @required this.author,
+      @required this.numberOfAnswers,
       @required this.articleId});
 
   factory GetCommentModel.fromJson(Map<String, dynamic> json) =>
@@ -45,6 +47,7 @@ class GetCommentModel {
         content: json['content'] as String,
         uid: json['uid'] as String,
         articleId: json['articleId'] as int,
+        numberOfAnswers: json['numberOfAnswers'] as int,
         author: UserModel.fromJson(json['author']),
       );
 }
