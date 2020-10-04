@@ -4,6 +4,8 @@ import 'package:Newsroom/UI/ThemeArticle.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'SearchPage.dart';
+
 class ThemePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -12,7 +14,6 @@ class ThemePage extends StatelessWidget {
         elevation: 0,
         leading: Image.asset('image/icon.png'),
         backgroundColor: Colors.white,
-        centerTitle: true,
         title: Text(
           "Categories",
           style: TextStyle(
@@ -27,7 +28,8 @@ class ThemePage extends StatelessWidget {
               color: Colors.black,
               size: 18,
             ),
-            onPressed: () {},
+            onPressed: () => Navigator.push(
+                context, MaterialPageRoute(builder: (context) => SearchPage())),
           )
         ],
       ),
