@@ -2,7 +2,7 @@ import 'package:Newsroom/Model/ArticleModel.dart';
 
 import 'package:Newsroom/Service/ArticleService.dart';
 import 'package:Newsroom/UI/ArticleDetail.dart';
-
+import 'package:Newsroom/UI/SearchPage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -14,8 +14,7 @@ class ListArticlePage extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.white,
         leading: Image.asset('image/icon.png'),
-        centerTitle: true,
-        title: Text("Newsfeed",
+        title: Text("Latest News ",
             style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
@@ -24,7 +23,12 @@ class ListArticlePage extends StatelessWidget {
           IconButton(
             icon:
                 FaIcon(FontAwesomeIcons.search, color: Colors.black, size: 18),
-            onPressed: () {},
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SearchPage(),
+              ),
+            ),
           )
         ],
       ),
@@ -63,6 +67,7 @@ class _ArticleListPageState extends State<ArticleList> {
                                     .push(MaterialPageRoute(
                                         builder: (context) => ArticleDetail(
                                               article: article,
+                                              favId: 0,
                                             ))),
                                 child: Center(
                                   child: Stack(
