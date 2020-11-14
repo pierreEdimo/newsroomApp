@@ -4,7 +4,6 @@ import 'package:Newsroom/Service/AuthService.dart';
 import 'package:Newsroom/Service/CommentService.dart';
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../main.dart';
 
@@ -27,26 +26,35 @@ class _AddCommentState extends State<AddComment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: FaIcon(
-            FontAwesomeIcons.arrowLeft,
-            color: Colors.black,
-            size: 18,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SafeArea(
+            child: Container(
+              height: 60,
+              padding: EdgeInsets.only(left: 15.0),
+              child: IconButton(
+                icon: Icon(
+                  Icons.keyboard_arrow_left,
+                  color: Colors.black,
+                ),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ),
           ),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-      ),
-      body: FutureBuilder(
-        future: _authService.fethSingleUser(),
-        builder: (BuildContext context, AsyncSnapshot<UserModel> snapshot) {
-          if (snapshot.hasData) {
-            return _buildTextField();
-          }
-          return Text("");
-        },
+          Expanded(
+            child: FutureBuilder(
+              future: _authService.fethSingleUser(),
+              builder:
+                  (BuildContext context, AsyncSnapshot<UserModel> snapshot) {
+                if (snapshot.hasData) {
+                  return _buildTextField();
+                }
+                return Text("");
+              },
+            ),
+          ),
+        ],
       ),
       floatingActionButton: new FloatingActionButton.extended(
           backgroundColor: Colors.red.shade600,
