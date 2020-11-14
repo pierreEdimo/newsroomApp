@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:Newsroom/Model/ArticleModel.dart';
+import 'package:Newsroom/Model/Favorite.dart';
 import 'package:Newsroom/Model/FavoritesArticle.dart';
 import 'package:Newsroom/Model/Suggestion.dart';
 import 'package:Newsroom/main.dart';
@@ -20,6 +21,25 @@ class ArticleService {
           body.map((dynamic item) => Article.fromJson(item)).toList();
 
       return articles;
+    } else {
+      throw " can't get articles";
+    }
+  }
+
+  Future<List<Favorite>> getFavorites(String uid) async {
+    String jwt = await storage.read(key: "jwt");
+    Response res = await get(
+      'https://findadoc.azurewebsites.net/api/Favorite?userId=$uid',
+      headers: {'Authorization': 'Bearer ' + jwt},
+    );
+
+    if (res.statusCode == 200) {
+      List<dynamic> body = jsonDecode(res.body);
+
+      List<Favorite> favorites =
+          body.map((dynamic item) => Favorite.fromJson(item)).toList();
+
+      return favorites;
     } else {
       throw " can't get articles";
     }
@@ -70,26 +90,6 @@ class ArticleService {
       return articles;
     } else {
       throw "Article not found";
-    }
-  }
-
-  Future<List<GetFavoriteArticleModel>> getFavorites(String userId) async {
-    String jwt = await storage.read(key: "jwt");
-    Response res = await get(
-      'https://findadoc.azurewebsites.net/api/FavoriteArticles?userId=$userId',
-      headers: {'Authorization': 'Bearer ' + jwt},
-    );
-
-    if (res.statusCode == 200) {
-      List<dynamic> body = jsonDecode(res.body);
-
-      List<GetFavoriteArticleModel> articles = body
-          .map((dynamic item) => GetFavoriteArticleModel.fromJson(item))
-          .toList();
-
-      return articles;
-    } else {
-      throw "Can't get articles";
     }
   }
 

@@ -1,11 +1,13 @@
+import 'package:Newsroom/Service/AuthService.dart';
+import 'package:Newsroom/UI/FavoriteScreen.dart';
 import 'package:Newsroom/UI/Login.dart';
+
 import 'package:Newsroom/UI/Profile.dart';
+import 'package:Newsroom/UI/SearchPage.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'UI/ArticleList.dart';
-import 'UI/Theme.dart';
+import 'UI/ArticleScreen.dart';
 
 final storage = FlutterSecureStorage();
 void displayDialog(context, title, text) => showDialog(
@@ -22,25 +24,6 @@ void displayDialog(context, title, text) => showDialog(
         ),
       ),
     );
-
-class CustomAppBar extends PreferredSize {
-  final Widget child;
-  final double height;
-
-  CustomAppBar({@required this.child, this.height = kToolbarHeight});
-
-  @override
-  Size get preferredSize => Size.fromHeight(height);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: preferredSize.height,
-      child: child,
-      color: Colors.black,
-    );
-  }
-}
 
 void main() => runApp(MyApp());
 
@@ -81,13 +64,21 @@ class BottomNavigation extends StatefulWidget {
 }
 
 class _BottomNavigationState extends State<BottomNavigation> {
+  final AuthService _authService = AuthService();
   int _selectedIndex = 0;
 
   final _widgetOptions = <Widget>[
-    new ListArticlePage(),
-    new ThemePage(),
+    new ArticleSreen(),
+    new SearchPage(),
+    new FavoriteScreen(),
     new ProfilePage()
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _authService.fethSingleUser();
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -104,14 +95,13 @@ class _BottomNavigationState extends State<BottomNavigation> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.rss, size: 18),
-              title: Text("NewsFeed")),
+              icon: Icon(Icons.rss_feed), title: Text("NewsFeed")),
           BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.compass, size: 18),
-              title: Text("Discover")),
+              icon: Icon(Icons.search), title: Text("Search")),
           BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.user, size: 18),
-              title: Text("My Profile"))
+              icon: Icon(Icons.bookmark_border), title: Text("BookMark")),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person_outline), title: Text("My Profile"))
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.red.shade600,
@@ -120,7 +110,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
         backgroundColor: Colors.white,
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        elevation: 0.0,
       ),
     );
   }
