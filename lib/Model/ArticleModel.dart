@@ -10,23 +10,25 @@ class Article {
   final int autorId;
   final String createdAt;
   final Author author;
+  final int numberOfComments;
 
-  Article({
-    @required this.id,
-    @required this.title,
-    @required this.imageUrl,
-    @required this.content,
-    @required this.autorId,
-    @required this.createdAt,
-    @required this.author,
-  });
+  Article(
+      {@required this.id,
+      @required this.title,
+      @required this.imageUrl,
+      @required this.content,
+      @required this.autorId,
+      @required this.createdAt,
+      @required this.author,
+      @required this.numberOfComments});
 
   factory Article.fromJson(Map<String, dynamic> json) => Article(
       id: json['id'] as int,
       title: json['title'] as String,
       imageUrl: json['imageUrl'] as String,
       content: json['content'] as String,
-      autorId: json['autorId'] as int,
+      autorId: json['authorId'] as int,
       createdAt: json['createdAt'] as String,
+      numberOfComments: json['numberOfComments'],
       author: Author.fromJson(json['author']));
 }
