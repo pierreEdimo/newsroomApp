@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:Newsroom/Model/ThemeModel.dart';
+import 'package:Newsroom/main.dart';
 import 'package:http/http.dart';
 
 class ThemeService {
@@ -16,6 +17,21 @@ class ThemeService {
           body.map((dynamic item) => ThemeModel.fromJson(item)).toList();
 
       return themes;
+    } else {
+      throw "can't get a Theme";
+    }
+  }
+
+  Future<ThemeModel> getAThemebyId(int id) async {
+    String jwt = await storage.read(key: "jwt");
+
+    Response res = await get(
+      "https://findadoc.azurewebsites.net/api/Theme/$id",
+      headers: {'Authorization': 'Bearer ' + jwt},
+    );
+
+    if (res.statusCode == 200) {
+      return ThemeModel.fromJson(jsonDecode(res.body));
     } else {
       throw "can't get a Theme";
     }
