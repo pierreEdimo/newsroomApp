@@ -1,8 +1,6 @@
-import 'package:Newsroom/Model/FavoritesArticle.dart';
-
-import 'package:Newsroom/Service/ArticleService.dart';
+import 'package:Newsroom/Component/Custom.Title.dart';
+import 'package:Newsroom/Model/UserModel.dart';
 import 'package:Newsroom/Service/AuthService.dart';
-import 'package:Newsroom/UI/ArticleDetail.dart';
 import 'package:Newsroom/UI/Login.dart';
 import 'package:Newsroom/main.dart';
 import 'package:flutter/material.dart';
@@ -15,17 +13,22 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   AuthService _authService = AuthService();
+  Future<UserModel> user;
 
   @override
   void initState() {
     super.initState();
-    _authService.fethSingleUser();
+    _fetchUser();
+  }
+
+  _fetchUser() {
+    user = _authService.fethSingleUser();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      /*appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
           "Favorites",
@@ -46,8 +49,55 @@ class _ProfilePageState extends State<ProfilePage> {
         ],
         elevation: 0,
         leading: Image.asset('image/icon.png'),
+      ),*/
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SafeArea(
+              child: IconButton(
+                icon: Icon(Icons.close),
+                onPressed: () => _showModalSheet(),
+              ),
+            ),
+            FutureBuilder(
+              future: user,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  UserModel singleUser = snapshot.data;
+
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      SafeArea(
+                        child: Container(
+                          height: 60,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              listTitle("Hi, ${singleUser.userName}", 22.0),
+                              IconButton(
+                                icon: Icon(
+                                  Icons.settings,
+                                ),
+                                onPressed: () => _showModalSheet(),
+                              )
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  );
+                }
+
+                return Text("");
+              },
+            ),
+          ],
+        ),
       ),
-      body: FavoritesArticleList(),
     );
   }
 
@@ -100,119 +150,5 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           );
         });
-  }
-}
-
-class FavoritesArticleList extends StatefulWidget {
-  @override
-  _FavoritesArticleListState createState() => _FavoritesArticleListState();
-}
-
-class _FavoritesArticleListState extends State<FavoritesArticleList> {
-  final ArticleService _articleService = ArticleService();
-  List<GetFavoriteArticleModel> articles = List();
-  Future<String> user;
-
-  @override
-  initState() {
-    super.initState();
-    _fetchFavoritesArticles();
-  }
-
-  void _fetchFavoritesArticles() async {
-    var userId = await storage.read(key: "userId");
-    _articleService.getFovites(userId).then((value) {
-      setState(() {
-        articles = value;
-      });
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return articles.isEmpty
-        ? Center(child: Text("No Bookmark"))
-        : Builder(
-            builder: (BuildContext context) {
-              if (articles.isNotEmpty) {
-                return ListView(
-                    padding: EdgeInsets.all(10.0),
-                    children: articles
-                        .map(
-                          (GetFavoriteArticleModel article) => Container(
-                            child: Container(
-                              margin: EdgeInsets.only(bottom: 10.0),
-                              child: InkWell(
-                                onTap: () => Navigator.of(context)
-                                    .push(MaterialPageRoute(
-                                        builder: (context) => ArticleDetail(
-                                              article: article.article,
-                                              favId: article.id,
-                                            ))),
-                                child: Center(
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Container(
-                                        padding: EdgeInsets.only(bottom: 20.0),
-                                        alignment: Alignment.center,
-                                        width: 500,
-                                        height: 230,
-                                        decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                                image: NetworkImage(
-                                                    article.article.imageUrl),
-                                                fit: BoxFit.cover),
-                                            borderRadius:
-                                                BorderRadius.circular(20.0)),
-                                      ),
-                                      Container(
-                                        padding: EdgeInsets.only(bottom: 20.0),
-                                        alignment: Alignment.center,
-                                        width: 500,
-                                        height: 230,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20.0),
-                                          color: Color.fromRGBO(0, 0, 0, 0.2),
-                                        ),
-                                      ),
-                                      Container(
-                                        padding: EdgeInsets.only(bottom: 20.0),
-                                        alignment: Alignment.bottomLeft,
-                                        width: 500,
-                                        height: 230,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20.0),
-                                        ),
-                                        child: ListTile(
-                                          title: Text(
-                                            article.article.title,
-                                            style: TextStyle(
-                                                fontFamily: 'OpenSans',
-                                                fontSize: 18,
-                                                color: Colors.white),
-                                          ),
-                                          subtitle: Text(
-                                            "By ${article.article.author.name} ",
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        )
-                        .toList());
-              }
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            },
-          );
   }
 }
