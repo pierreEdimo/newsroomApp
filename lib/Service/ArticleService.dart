@@ -12,7 +12,7 @@ class ArticleService {
 
   Future<List<Article>> getArticles() async {
     Response res = await get(
-        'https://findadoc.azurewebsites.net/api/Article?sortBy=title&sortOrder=desc');
+        'https://findadoc.azurewebsites.net/api/Article?sortBy=title&sortOrder=desc&Size=15');
 
     if (res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);

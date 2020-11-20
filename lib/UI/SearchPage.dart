@@ -162,7 +162,7 @@ class _SearchPageState extends State<SearchPage> {
                                                 article.imageUrl,
                                                 400,
                                                 20,
-                                                350,
+                                                250,
                                                 article.author.imageUrl,
                                                 article.author.name,
                                                 "11.06.2020"),

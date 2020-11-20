@@ -1,5 +1,6 @@
 import 'package:Newsroom/Component/Custom.Card.dart';
 import 'package:Newsroom/Component/Custom.Title.dart';
+import 'package:Newsroom/Component/Theme.Card.dart';
 import 'package:Newsroom/Model/ArticleModel.dart';
 import 'package:Newsroom/Model/ThemeModel.dart';
 
@@ -81,8 +82,13 @@ class _ArticleSreenState extends State<ArticleSreen> {
                                 ),
                                 child: Container(
                                   margin: EdgeInsets.only(right: 20.0),
-                                  child: customCard(theme.name, theme.imageUrl,
-                                      150, 16.0, 200, "", "", ""),
+                                  child: themeCard(
+                                    theme.name,
+                                    theme.imageUrl,
+                                    150,
+                                    16.0,
+                                    200,
+                                  ),
                                 ),
                               ))
                           .toList(),
@@ -97,7 +103,7 @@ class _ArticleSreenState extends State<ArticleSreen> {
             SizedBox(
               height: 20.0,
             ),
-            listTitle('Daily News', 18.0),
+            listTitle('Latest News', 18.0),
             SizedBox(
               height: 20.0,
             ),
@@ -133,10 +139,10 @@ class _ArticleSreenState extends State<ArticleSreen> {
                                     article.imageUrl,
                                     400,
                                     20.0,
-                                    350,
+                                    250,
                                     article.author.imageUrl,
                                     article.author.name,
-                                    "06.11.2020"),
+                                    article.createdAt),
                               ),
                             ),
                           )

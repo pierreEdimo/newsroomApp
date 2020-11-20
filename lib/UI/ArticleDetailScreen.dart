@@ -1,13 +1,11 @@
 import 'package:Newsroom/Component/Custom.Card.dart';
 import 'package:Newsroom/Component/Custom.Title.dart';
 import 'package:Newsroom/Model/ArticleModel.dart';
-import 'package:Newsroom/Model/FavoritesArticle.dart';
+
 import 'package:Newsroom/Service/ArticleService.dart';
 import 'package:Newsroom/Service/AuthService.dart';
 import 'package:Newsroom/UI/CommentPage.dart';
 import 'package:flutter/material.dart';
-
-import '../main.dart';
 
 class ArticleDetailScreen extends StatefulWidget {
   final int articleId;
@@ -85,40 +83,14 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                         SafeArea(
                           child: Container(
                             height: 100,
-                            alignment: Alignment.topCenter,
+                            alignment: Alignment.topLeft,
                             padding: EdgeInsets.all(10.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                IconButton(
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_left,
-                                    color: Colors.white,
-                                  ),
-                                  onPressed: () => Navigator.of(context).pop(),
-                                ),
-                                IconButton(
-                                  icon: Icon(
-                                    Icons.bookmark_border,
-                                    color: Colors.white,
-                                  ),
-                                  onPressed: () async {
-                                    var userId =
-                                        await storage.read(key: "userId");
-                                    AddFavoriteArticleModel articleModel =
-                                        AddFavoriteArticleModel(
-                                            articleId: article.id,
-                                            userId: userId);
-                                    int res = await _articleService
-                                        .addFavorite(articleModel);
-
-                                    if (res == 201) {
-                                      displayDialog(context, "Success",
-                                          "this article has been added to your favorites");
-                                    }
-                                  },
-                                ),
-                              ],
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.keyboard_arrow_left,
+                                color: Colors.white,
+                              ),
+                              onPressed: () => Navigator.of(context).pop(),
                             ),
                           ),
                         ),
@@ -169,7 +141,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold),
                                       ),
-                                      Text("08.11.2020",
+                                      Text(article.createdAt,
                                           style: TextStyle(fontSize: 12.0))
                                     ],
                                   )
@@ -247,10 +219,10 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                                                       article.imageUrl,
                                                       400,
                                                       20.0,
-                                                      170,
+                                                      250,
                                                       article.author.imageUrl,
                                                       article.author.name,
-                                                      "06.11.2020"),
+                                                      article.createdAt),
                                                 ),
                                               ))
                                           .toList(),
