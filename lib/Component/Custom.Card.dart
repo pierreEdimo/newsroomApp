@@ -68,10 +68,15 @@ Widget customCard(String title, String imageUrl, double width, double fontSize,
                         SizedBox(
                           width: 10.0,
                         ),
-                        text(authorName)
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            text(authorName),
+                            text(entryDate),
+                          ],
+                        )
                       ],
                     ),
-                    text(entryDate)
                   ],
                 ),
               ),
