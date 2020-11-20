@@ -1,5 +1,5 @@
 import 'package:Newsroom/Service/AuthService.dart';
-import 'package:Newsroom/UI/FavoriteScreen.dart';
+
 import 'package:Newsroom/UI/Login.dart';
 
 import 'package:Newsroom/UI/Profile.dart';
@@ -70,7 +70,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
   final _widgetOptions = <Widget>[
     new ArticleSreen(),
     new SearchPage(),
-    new FavoriteScreen(),
     new ProfilePage()
   ];
 
@@ -98,8 +97,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
               icon: Icon(Icons.rss_feed), title: Text("NewsFeed")),
           BottomNavigationBarItem(
               icon: Icon(Icons.search), title: Text("Search")),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.bookmark_border), title: Text("BookMark")),
           BottomNavigationBarItem(
               icon: Icon(Icons.person_outline), title: Text("My Profile"))
         ],
