@@ -31,11 +31,10 @@ class _ProfilePageState extends State<ProfilePage> {
       body: SingleChildScrollView(
         padding: EdgeInsets.all(20.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             SafeArea(
               child: Container(
-                height: 60.0,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -47,6 +46,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
               ),
+            ),
+            SizedBox(
+              height: 20.0,
             ),
             FutureBuilder(
               future: user,

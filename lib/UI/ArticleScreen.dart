@@ -42,12 +42,6 @@ class _ArticleSreenState extends State<ArticleSreen> {
     _themes = _themeService.getAllThemes();
   }
 
-  /*+Future<void> _getArticles() async {
-    setState(() {
-      _fetchArticles();
-    });
-  }**/
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,9 +52,11 @@ class _ArticleSreenState extends State<ArticleSreen> {
           children: [
             SafeArea(
               child: Container(
-                height: 60,
                 child: listTitle("hot Topics", 22.0),
               ),
+            ),
+            SizedBox(
+              height: 20.0,
             ),
             Container(
               height: 200,
