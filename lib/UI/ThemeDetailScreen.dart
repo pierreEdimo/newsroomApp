@@ -87,10 +87,10 @@ class _ThemeDetailScreenState extends State<ThemeDetailScreen> {
                                             article.imageUrl,
                                             400,
                                             20.0,
-                                            350,
+                                            250,
                                             article.author.imageUrl,
                                             article.author.name,
-                                            "06.11.2020"),
+                                            article.createdAt),
                                       ),
                                     ))
                                 .toList()),

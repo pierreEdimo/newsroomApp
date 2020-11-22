@@ -1,6 +1,5 @@
 import 'package:Newsroom/Component/Custom.Card.dart';
 import 'package:Newsroom/Model/ArticleModel.dart';
-import 'package:Newsroom/Model/Suggestion.dart';
 import 'package:Newsroom/Service/ArticleService.dart';
 import 'package:Newsroom/UI/ArticleDetailScreen.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +13,10 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   Future<List<Article>> articlesFound;
-  Future<List<Suggestion>> suggestions;
+  Future<List<Article>> _suggestions;
   ArticleService _articleService = ArticleService();
+  String _url =
+      "https://findadoc.azurewebsites.net/api/Article?sortBy=title&sortOrder=desc";
 
   TextEditingController _searchWord = TextEditingController();
 
@@ -39,7 +40,7 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   _fetchSuggestions() {
-    suggestions = _articleService.getSuggestions();
+    _suggestions = _articleService.getArticles(_url);
   }
 
   @override
@@ -89,38 +90,36 @@ class _SearchPageState extends State<SearchPage> {
               child: articlesFound == null
                   ? Container(
                       child: FutureBuilder(
-                        future: suggestions,
+                        future: _suggestions,
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
-                            List<Suggestion> suggestions = snapshot.data;
+                            List<Article> suggestions = snapshot.data;
 
                             return ListView(
                               padding: EdgeInsets.all(20.0),
                               children: suggestions
-                                  .map((Suggestion suggestion) => Container(
+                                  .map((Article suggestion) => Container(
                                         margin: EdgeInsets.only(bottom: 20.0),
                                         child: InkWell(
-                                            onTap: () => Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ArticleDetailScreen(
-                                                            articleId:
-                                                                suggestion
-                                                                    .articleId,
-                                                            authorId: suggestion
-                                                                .article
-                                                                .autorId))),
-                                            child: customCard(
-                                                suggestion.article.title,
-                                                suggestion.article.imageUrl,
-                                                400,
-                                                20,
-                                                200,
-                                                suggestion
-                                                    .article.author.imageUrl,
-                                                suggestion.article.author.name,
-                                                "13.11.2020")),
+                                          onTap: () => Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ArticleDetailScreen(
+                                                          articleId:
+                                                              suggestion.id,
+                                                          authorId: suggestion
+                                                              .autorId))),
+                                          child: customCard(
+                                              suggestion.title,
+                                              suggestion.imageUrl,
+                                              400,
+                                              20,
+                                              250,
+                                              suggestion.author.imageUrl,
+                                              suggestion.author.name,
+                                              suggestion.createdAt),
+                                        ),
                                       ))
                                   .toList(),
                             );
@@ -165,7 +164,7 @@ class _SearchPageState extends State<SearchPage> {
                                                 250,
                                                 article.author.imageUrl,
                                                 article.author.name,
-                                                "11.06.2020"),
+                                                article.createdAt),
                                           ),
                                         ),
                                       )

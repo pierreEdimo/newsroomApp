@@ -24,6 +24,8 @@ class _ArticleSreenState extends State<ArticleSreen> {
 
   Future<List<ThemeModel>> _themes;
   final ThemeService _themeService = ThemeService();
+  String _url =
+      "https://findadoc.azurewebsites.net/api/Article?sortBy=title&sortOrder=desc&Size=15";
 
   @override
   void initState() {
@@ -33,7 +35,7 @@ class _ArticleSreenState extends State<ArticleSreen> {
   }
 
   _fetchArticles() {
-    _articles = _articleService.getArticles();
+    _articles = _articleService.getArticles(_url);
   }
 
   _fetchThemes() {

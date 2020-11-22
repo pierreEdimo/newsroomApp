@@ -28,37 +28,24 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /*appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(
-          "Favorites",
-          style: TextStyle(
-            color: Colors.black,
-            fontFamily: 'OpenSans',
-          ),
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: FaIcon(
-              FontAwesomeIcons.cog,
-              color: Colors.black,
-              size: 18,
-            ),
-            onPressed: () => _showModalSheet(),
-          )
-        ],
-        elevation: 0,
-        leading: Image.asset('image/icon.png'),
-      ),*/
       body: SingleChildScrollView(
         padding: EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SafeArea(
-              child: IconButton(
-                icon: Icon(Icons.close),
-                onPressed: () => _showModalSheet(),
+              child: Container(
+                height: 60.0,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    listTitle("Settings", 22.0),
+                    IconButton(
+                      icon: Icon(Icons.settings),
+                      onPressed: () => _showModalSheet(),
+                    ),
+                  ],
+                ),
               ),
             ),
             FutureBuilder(
@@ -70,24 +57,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      SafeArea(
-                        child: Container(
-                          height: 60,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              listTitle("Hi, ${singleUser.userName}", 22.0),
-                              IconButton(
-                                icon: Icon(
-                                  Icons.settings,
-                                ),
-                                onPressed: () => _showModalSheet(),
-                              )
-                            ],
-                          ),
-                        ),
-                      )
+                      Container(
+                        height: 60,
+                        child: listTitle("Hi, ${singleUser.userName}", 18.0),
+                      ),
                     ],
                   );
                 }
