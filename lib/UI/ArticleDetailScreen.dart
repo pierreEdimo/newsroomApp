@@ -1,7 +1,7 @@
 import 'package:Newsroom/Component/Custom.Card.dart';
 import 'package:Newsroom/Component/Custom.Title.dart';
 import 'package:Newsroom/Model/ArticleModel.dart';
-
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:Newsroom/Service/ArticleService.dart';
 import 'package:Newsroom/Service/AuthService.dart';
 import 'package:Newsroom/UI/CommentPage.dart';
@@ -151,8 +151,12 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                             SizedBox(
                               height: 20.0,
                             ),
-                            Text(article.content,
-                                style: TextStyle(fontSize: 16.0)),
+                            Markdown(
+                              data: article.content,
+                              shrinkWrap: true,
+                              physics: ClampingScrollPhysics(),
+                              padding: EdgeInsets.all(0.0),
+                            ),
                             SizedBox(
                               height: 20.0,
                             ),
