@@ -1,12 +1,11 @@
 import 'package:Newsroom/Service/AuthService.dart';
-
+import 'package:Newsroom/UI/CategoriScreen.dart';
+import 'package:Newsroom/UI/FavoriteScreen.dart';
 import 'package:Newsroom/UI/Login.dart';
-
 import 'package:Newsroom/UI/Profile.dart';
-import 'package:Newsroom/UI/SearchPage.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'UI/ArticleScreen.dart';
 
 final storage = FlutterSecureStorage();
@@ -69,7 +68,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   final _widgetOptions = <Widget>[
     new ArticleSreen(),
-    new SearchPage(),
+    new CategoriScreen(),
+    new FavoriteScreen(),
     new ProfilePage()
   ];
 
@@ -94,11 +94,17 @@ class _BottomNavigationState extends State<BottomNavigation> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              icon: Icon(Icons.rss_feed), title: Text("NewsFeed")),
+              icon: Icon(Icons.rss_feed), label: "NewsFeed"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.search), title: Text("Search")),
+              icon: FaIcon(
+                FontAwesomeIcons.compass,
+                size: 20,
+              ),
+              label: "Categories"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline), title: Text("My Profile"))
+              icon: Icon(Icons.bookmark_border_outlined), label: 'Favorites'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person_outline), label: "My Profile")
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.red.shade600,
