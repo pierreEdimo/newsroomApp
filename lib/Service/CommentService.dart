@@ -10,7 +10,7 @@ class CommentService {
     String jsEncode;
     jsEncode = jsonEncode(commentModel);
     final Response response = await post(
-        'https://findadoc.azurewebsites.net/api/Comment',
+        'https://newsplace.azurewebsites.net/api/Comment',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + jwt
@@ -21,10 +21,10 @@ class CommentService {
     return response.statusCode;
   }
 
-  Future<List<GetCommentModel>> getComments() async {
+  Future<List<GetCommentModel>> getComments(int articleId) async {
     String jwt = await storage.read(key: "jwt");
     Response response = await get(
-        'https://findadoc.azurewebsites.net/api/Comment',
+        'https://newsplace.azurewebsites.net/api/Comment?articleId=$articleId&&sortOrder=desc',
         headers: {'Authorization': 'Bearer ' + jwt});
 
     if (response.statusCode == 200) {
@@ -43,7 +43,7 @@ class CommentService {
     String jwt = await storage.read(key: "jwt");
 
     final Response response = await delete(
-      'https://findadoc.azurewebsites.net/api/Comment/$id',
+      'https://newsplace.azurewebsites.net/api/Comment/$id',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + jwt
@@ -51,20 +51,6 @@ class CommentService {
     );
 
     print(response.statusCode);
-    return response.statusCode;
-  }
-
-  Future<int> deleteAnswer(int id) async {
-    String jwt = await storage.read(key: "jwt");
-
-    final Response response = await delete(
-      'https://findadoc.azurewebsites.net/api/Answers/$id',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + jwt
-      },
-    );
-
     return response.statusCode;
   }
 
@@ -89,28 +75,6 @@ class CommentService {
     );
 
     print(response.statusCode);
-    return response.statusCode;
-  }
-
-  Future<int> updateAnswer(
-    int id,
-    String uid,
-    String content,
-  ) async {
-    String jwt = await storage.read(key: "jwt");
-
-    final Response response = await put(
-        'https://findadoc.azurewebsites.net/api/Answers/$id',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + jwt
-        },
-        body: jsonEncode({
-          'id': id,
-          'uid': uid,
-          'content': content,
-        }));
-
     return response.statusCode;
   }
 }
