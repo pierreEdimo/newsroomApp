@@ -25,7 +25,6 @@ class _LoginState extends State<Login> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _professionController = TextEditingController();
 
   @override
   void initState() {
@@ -97,12 +96,6 @@ class _LoginState extends State<Login> {
                     decoration: InputDecoration(
                         labelText: 'E-mail', border: OutlineInputBorder()),
                     keyboardType: TextInputType.emailAddress,
-                    validator: (value) {
-                      if (value.isEmpty || !value.contains('@')) {
-                        return "Invalid E-mail";
-                      }
-                      return value;
-                    },
                   ),
                   SizedBox(
                     height: 10,
@@ -113,12 +106,6 @@ class _LoginState extends State<Login> {
                         labelText: 'Password', border: OutlineInputBorder()),
                     obscureText: true,
                     keyboardType: TextInputType.visiblePassword,
-                    validator: (value) {
-                      if (value.isEmpty || value.length < 8) {
-                        return "Invalid PassWord";
-                      }
-                      return value;
-                    },
                   )
                 ],
               ),
@@ -148,7 +135,7 @@ class _LoginState extends State<Login> {
                 var jwt = await _authService.loginUser(loginModel);
                 print(jwt);
                 if (jwt == 200) {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => BottomNavigation()));
@@ -192,12 +179,6 @@ class _LoginState extends State<Login> {
                       decoration: InputDecoration(
                           labelText: 'E-mail', border: OutlineInputBorder()),
                       keyboardType: TextInputType.emailAddress,
-                      validator: (value) {
-                        if (value.isEmpty || !value.contains('@')) {
-                          return "Invalid E-mail";
-                        }
-                        return value;
-                      },
                     ),
                     SizedBox(
                       height: 10,
@@ -208,12 +189,6 @@ class _LoginState extends State<Login> {
                           labelText: 'Password', border: OutlineInputBorder()),
                       obscureText: true,
                       keyboardType: TextInputType.visiblePassword,
-                      validator: (value) {
-                        if (value.isEmpty || value.length < 8) {
-                          return "Invalid PassWord";
-                        }
-                        return value;
-                      },
                     ),
                     SizedBox(
                       height: 10,
@@ -222,16 +197,6 @@ class _LoginState extends State<Login> {
                       controller: _usernameController,
                       decoration: InputDecoration(
                           labelText: 'Usermame', border: OutlineInputBorder()),
-                      keyboardType: TextInputType.text,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    TextFormField(
-                      controller: _professionController,
-                      decoration: InputDecoration(
-                          labelText: 'profession',
-                          border: OutlineInputBorder()),
                       keyboardType: TextInputType.text,
                     ),
                   ],
@@ -261,12 +226,11 @@ class _LoginState extends State<Login> {
                   userName: _usernameController.text,
                   passWord: _passwordController.text,
                   email: _emailController.text,
-                  profession: _professionController.text,
                 );
 
                 var res = await _authService.registerUser(userModel);
                 if (res == 200) {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => BottomNavigation()));
