@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-Widget text(String text) {
+Widget text(String text, double size, Color color) {
   return Text(
     text,
-    style: TextStyle(color: Colors.white, fontSize: 13.0),
+    style: TextStyle(color: color, fontSize: size, fontWeight: FontWeight.bold),
   );
 }
 
@@ -71,8 +71,8 @@ Widget customCard(String title, String imageUrl, double width, double fontSize,
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            text(authorName),
-                            text(entryDate),
+                            text(authorName, 13.0, Colors.white),
+                            text(entryDate, 12.0, Colors.white),
                           ],
                         )
                       ],
