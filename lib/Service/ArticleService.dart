@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:Newsroom/Model/ArticleModel.dart';
+import 'package:Newsroom/Model/FavoriteArticleModel.dart';
 
 import 'package:Newsroom/main.dart';
 import 'package:http/http.dart';
@@ -27,7 +28,7 @@ class ArticleService {
 
   Future<List<Article>> getArticleFromAuthor(int authorId) async {
     Response res = await get(
-        'https://findadoc.azurewebsites.net/api/Article/GetArticleFromAuthor?authorId=$authorId');
+        'https://newsplace.azurewebsites.net/api/Article/GetArticleFromAuthor?authorId=$authorId');
 
     if (res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);
@@ -44,7 +45,7 @@ class ArticleService {
   Future<Article> fetchArticle(int id) async {
     String jwt = await storage.read(key: "jwt");
     Response res = await get(
-        'https://findadoc.azurewebsites.net/api/Article/$id',
+        'https://newsplace.azurewebsites.net/api/Article/$id',
         headers: {'Authorization': 'Bearer ' + jwt});
 
     if (res.statusCode == 200) {
@@ -57,7 +58,7 @@ class ArticleService {
   Future<List<Article>> getArticlesForSearch(String title) async {
     String jwt = await storage.read(key: "jwt");
     Response res = await get(
-      'https://findadoc.azurewebsites.net/api/Article?title=$title',
+      'https://newsplace.azurewebsites.net/api/Article?title=$title',
       headers: {'Authorization': 'Bearer ' + jwt},
     );
 
@@ -71,5 +72,41 @@ class ArticleService {
     } else {
       throw "Article not found";
     }
+  }
+
+  Future<List<FavoriteModel>> getFavArticles(String userId) async {
+    String jwt = await storage.read(key: "jwt");
+    Response res = await get(
+      'https://newsplace.azurewebsites.net/api/Favorites?userId=$userId',
+      headers: {'Authorization': 'Bearer ' + jwt},
+    );
+
+    if (res.statusCode == 200) {
+      List<dynamic> body = jsonDecode(res.body);
+
+      List<FavoriteModel> articles =
+          body.map((dynamic item) => FavoriteModel.fromJson(item)).toList();
+
+      return articles;
+    } else {
+      throw " Favorite not found";
+    }
+  }
+
+  Future<int> addToFavorites(String userId, int articleId) async {
+    String jwt = await storage.read(key: "jwt");
+
+    Response res = await post(
+      'https://newsplace.azurewebsites.net/api/Favorites',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + jwt
+      },
+      body: jsonEncode(
+        {'userId': userId, 'articleId': articleId},
+      ),
+    );
+
+    return res.statusCode;
   }
 }
