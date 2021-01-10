@@ -1,4 +1,5 @@
-import 'package:Newsroom/Component/Custom.Title.dart';
+import 'package:Newsroom/Component/EmptyArray.dart';
+import 'package:Newsroom/Component/HeaderDetail.dart';
 import 'package:Newsroom/Model/CommentsModel.dart';
 import 'package:Newsroom/Service/CommentService.dart';
 import 'package:Newsroom/UI/AddCommentPage.dart';
@@ -21,23 +22,18 @@ class _CommentPageState extends State<CommentPage> {
   int articleId;
   _CommentPageState({@required this.articleId});
 
-  List<GetCommentModel> comments = List();
-  List<GetCommentModel> filterComments = List();
+  Future<List<GetCommentModel>> _comments;
   CommentService _commentService = CommentService();
 
   @override
   void initState() {
     super.initState();
-    _fetchComments();
+    _comments = _commentService.getComments(articleId);
   }
 
-  void _fetchComments() async {
-    _commentService.getComments().then((commentFromServer) {
-      setState(() {
-        comments = commentFromServer;
-        filterComments =
-            comments.where((u) => (u.articleId) == articleId).toList();
-      });
+  Future<void> _fetchComments() async {
+    setState(() {
+      _comments = _commentService.getComments(articleId);
     });
   }
 
@@ -128,110 +124,97 @@ class _CommentPageState extends State<CommentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
+      body: Container(
         padding: EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             SafeArea(
-              child: Container(
-                height: 60,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    listTitle("Comments", 22.0),
-                    IconButton(
-                      icon: Icon(Icons.close),
-                      onPressed: () => Navigator.of(context).pop(),
-                    )
-                  ],
-                ),
-              ),
+              child: headerDetail("Comments", context),
             ),
             SizedBox(
               height: 20.0,
             ),
-            Builder(
-              builder: (BuildContext context) {
-                return filterComments.isEmpty
-                    ? Center(
-                        child: Text("No Comments"),
-                      )
-                    : ListView(
-                        shrinkWrap: true,
-                        padding: EdgeInsets.all(0.0),
-                        physics: ClampingScrollPhysics(),
-                        children: filterComments
-                            .map(
-                              (GetCommentModel comment) => Container(
-                                margin: EdgeInsets.only(bottom: 20.0),
-                                padding: EdgeInsets.all(20.0),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  color: Colors.grey.shade200,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.8),
-                                      spreadRadius: 2,
-                                      blurRadius: 3,
-                                      offset: Offset(0, 2),
-                                    )
-                                  ],
-                                ),
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: <Widget>[
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
+            Expanded(
+              child: Container(
+                child: FutureBuilder(
+                  future: _comments,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      List<GetCommentModel> comments = snapshot.data;
+
+                      return comments.length < 1
+                          ? Center(
+                              child: emptyArray(
+                                  "No Comments, please add the first comment ! ",
+                                  context),
+                            )
+                          : ListView(
+                              padding: EdgeInsets.all(0.0),
+                              children: comments
+                                  .map(
+                                    (GetCommentModel comment) => Container(
+                                        margin: EdgeInsets.only(bottom: 20.0),
+                                        padding: EdgeInsets.all(15.0),
+                                        width: 500,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20.0),
+                                            color: Colors.grey.shade100),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.stretch,
                                           children: [
-                                            CircleAvatar(
-                                              backgroundImage: NetworkImage(
-                                                  "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS5LGSA_ar1nJAEJYCVNxoW77y4z-HGl0Yfug&usqp=CAU"),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                      comment.author.userName,
+                                                      style: TextStyle(
+                                                          fontSize: 18,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 3,
+                                                    ),
+                                                    Text(
+                                                      " am 22.1.2021",
+                                                      style: TextStyle(
+                                                          color: Colors.grey,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    )
+                                                  ],
+                                                ),
+                                                IconButton(
+                                                    icon: Icon(Icons
+                                                        .more_horiz_outlined),
+                                                    onPressed: () =>
+                                                        print("Hello World ! "))
+                                              ],
                                             ),
                                             SizedBox(
-                                              width: 10.0,
+                                              height: 10.0,
                                             ),
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  comment.author.userName,
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                Text(comment.author.profession)
-                                              ],
-                                            )
+                                            Text(comment.content)
                                           ],
-                                        ),
-                                        IconButton(
-                                          icon: Icon(Icons.more_vert),
-                                          onPressed: () =>
-                                              showCommentModalSheet(comment.uid,
-                                                  comment.id, context),
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(height: 10.0),
-                                    Container(
-                                      child: Text(
-                                        comment.content,
-                                        style: TextStyle(fontSize: 16.0),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            )
-                            .toList(),
-                      );
-              },
+                                        )),
+                                  )
+                                  .toList(),
+                            );
+                    }
+
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  },
+                ),
+              ),
             ),
           ],
         ),
