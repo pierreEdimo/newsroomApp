@@ -5,7 +5,8 @@ import 'package:Newsroom/main.dart';
 import 'package:http/http.dart';
 
 class ThemeService {
-  final String url = "https://findadoc.azurewebsites.net/api/Theme?sortBy=name";
+  final String url =
+      "https://newsplace.azurewebsites.net/api/Theme?sortBy=name";
 
   Future<List<ThemeModel>> getAllThemes() async {
     Response res = await get(url);
@@ -26,7 +27,7 @@ class ThemeService {
     String jwt = await storage.read(key: "jwt");
 
     Response res = await get(
-      "https://findadoc.azurewebsites.net/api/Theme/$id",
+      "https://newsplace.azurewebsites.net/api/Theme/$id",
       headers: {'Authorization': 'Bearer ' + jwt},
     );
 
