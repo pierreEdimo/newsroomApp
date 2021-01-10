@@ -11,7 +11,7 @@ class AuthService {
     String jsEncode;
     jsEncode = jsonEncode(userModel);
     final Response response = await post(
-        'https://findadoc.azurewebsites.net/api/User/Register',
+        'https://newsplace.azurewebsites.net/api/User/Register',
         headers: headers,
         body: jsEncode);
     if (response.statusCode == 200) {
@@ -30,7 +30,7 @@ class AuthService {
     String jsEncode;
     jsEncode = jsonEncode(loginModel);
     final Response response = await post(
-        'https://findadoc.azurewebsites.net/api/User/Login',
+        'https://newsplace.azurewebsites.net/api/User/Login',
         headers: headers,
         body: jsEncode);
 
@@ -48,7 +48,7 @@ class AuthService {
   Future<UserModel> fethSingleUser() async {
     String authorization = await storage.read(key: "jwt");
     final response = await get(
-        'https://findadoc.azurewebsites.net/api/User/GetUser',
+        'https://newsplace.azurewebsites.net/api/User/GetUser',
         headers: {'Authorization': 'Bearer ' + authorization});
     print(authorization);
     if (response.statusCode == 200) {
