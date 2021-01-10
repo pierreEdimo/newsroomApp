@@ -1,6 +1,7 @@
 import 'package:Newsroom/Component/Custom.Card.dart';
 import 'package:Newsroom/Component/Custom.Title.dart';
 import 'package:Newsroom/Model/ArticleModel.dart';
+import 'package:Newsroom/main.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:Newsroom/Service/ArticleService.dart';
 import 'package:Newsroom/Service/AuthService.dart';
@@ -85,12 +86,37 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                             height: 100,
                             alignment: Alignment.topLeft,
                             padding: EdgeInsets.all(10.0),
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.keyboard_arrow_left,
-                                color: Colors.white,
-                              ),
-                              onPressed: () => Navigator.of(context).pop(),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                IconButton(
+                                  icon: Icon(
+                                    Icons.keyboard_arrow_left,
+                                    color: Colors.white,
+                                  ),
+                                  onPressed: () => Navigator.of(context).pop(),
+                                ),
+                                IconButton(
+                                  icon: Icon(
+                                    Icons.bookmark_border_outlined,
+                                    color: Colors.white,
+                                  ),
+                                  onPressed: () async {
+                                    var userId =
+                                        await storage.read(key: 'userId');
+
+                                    var result = await _articleService
+                                        .addToFavorites(userId, articleId);
+                                    if (result == 201) {
+                                      displayDialog(context, "Success",
+                                          "your article has been successfully bookmarked");
+                                    } else {
+                                      displayDialog(context, "Error",
+                                          "Your article has already been saved");
+                                    }
+                                  },
+                                )
+                              ],
                             ),
                           ),
                         ),
