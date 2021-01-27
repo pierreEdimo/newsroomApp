@@ -1,5 +1,4 @@
 import 'package:Newsroom/Component/Custom.Card.dart';
-import 'package:Newsroom/Component/Custom.Title.dart';
 import 'package:Newsroom/Model/ArticleModel.dart';
 import 'package:Newsroom/main.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -7,6 +6,7 @@ import 'package:Newsroom/Service/ArticleService.dart';
 import 'package:Newsroom/Service/AuthService.dart';
 import 'package:Newsroom/UI/CommentPage.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ArticleDetailScreen extends StatefulWidget {
   final int articleId;
@@ -30,6 +30,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
   AuthService _authService = AuthService();
   ArticleService _articleService = ArticleService();
   Future<Article> article;
+  bool isAdded;
 
   @override
   void initState() {
@@ -69,14 +70,14 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                     Stack(
                       children: <Widget>[
                         Container(
-                          height: 370,
+                          height: 350,
                           decoration: BoxDecoration(
                               image: DecorationImage(
                                   image: NetworkImage(article.imageUrl),
                                   fit: BoxFit.cover)),
                         ),
                         Container(
-                          height: 370,
+                          height: 350,
                           decoration: BoxDecoration(
                             color: Color.fromRGBO(0, 0, 0, 0.3),
                           ),
@@ -96,25 +97,8 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                                   ),
                                   onPressed: () => Navigator.of(context).pop(),
                                 ),
-                                IconButton(
-                                  icon: Icon(
-                                    Icons.bookmark_border_outlined,
-                                    color: Colors.white,
-                                  ),
-                                  onPressed: () async {
-                                    var userId =
-                                        await storage.read(key: 'userId');
-
-                                    var result = await _articleService
-                                        .addToFavorites(userId, articleId);
-                                    if (result == 201) {
-                                      displayDialog(context, "Success",
-                                          "your article has been successfully bookmarked");
-                                    } else {
-                                      displayDialog(context, "Error",
-                                          "Your article has already been saved");
-                                    }
-                                  },
+                                SnackBarPage(
+                                  articleId: articleId,
                                 )
                               ],
                             ),
@@ -124,7 +108,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                           alignment: Alignment.bottomLeft,
                           padding: EdgeInsets.only(
                               bottom: 50.0, left: 20.0, right: 20.0),
-                          height: 370,
+                          height: 350,
                           child: Text(
                             article.title,
                             style: TextStyle(
@@ -151,26 +135,13 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                               alignment: Alignment.center,
                               child: Row(
                                 children: [
-                                  CircleAvatar(
-                                    backgroundImage:
-                                        NetworkImage(article.author.imageUrl),
-                                  ),
+                                  text('By ${article.author.name}. ', 12.0,
+                                      Colors.black),
                                   SizedBox(
-                                    width: 10.0,
+                                    width: 5.0,
                                   ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        article.author.name,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Text(article.createdAt,
-                                          style: TextStyle(fontSize: 12.0))
-                                    ],
-                                  )
+                                  text('Added on ${article.createdAt} ', 12.0,
+                                      Colors.black),
                                 ],
                               ),
                             ),
@@ -178,11 +149,13 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                               height: 20.0,
                             ),
                             Markdown(
-                              data: article.content,
-                              shrinkWrap: true,
-                              physics: ClampingScrollPhysics(),
-                              padding: EdgeInsets.all(0.0),
-                            ),
+                                data: article.content,
+                                shrinkWrap: true,
+                                physics: ClampingScrollPhysics(),
+                                padding: EdgeInsets.all(0.0),
+                                onTapLink: (url, href, title) {
+                                  launch(href);
+                                }),
                             SizedBox(
                               height: 20.0,
                             ),
@@ -209,60 +182,6 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                                 ),
                               ),
                             ),
-                            SizedBox(
-                              height: 20.0,
-                            ),
-                            listTitle('From the Same Author', 18.0),
-                            SizedBox(height: 20.0),
-                            Container(
-                              child: FutureBuilder(
-                                future: articlesFromAuthor,
-                                builder: (BuildContext context,
-                                    AsyncSnapshot<List<Article>> snapshot) {
-                                  if (snapshot.hasData) {
-                                    List<Article> articleFromAuthor =
-                                        snapshot.data;
-
-                                    return ListView(
-                                      shrinkWrap: true,
-                                      primary: false,
-                                      padding: EdgeInsets.all(0.0),
-                                      physics: ClampingScrollPhysics(),
-                                      children: articleFromAuthor
-                                          .map((Article article) => Container(
-                                                margin: EdgeInsets.only(
-                                                    bottom: 20.0),
-                                                child: InkWell(
-                                                  onTap: () => Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            ArticleDetailScreen(
-                                                              articleId:
-                                                                  article.id,
-                                                              authorId: article
-                                                                  .autorId,
-                                                            )),
-                                                  ),
-                                                  child: customCard(
-                                                      article.title,
-                                                      article.imageUrl,
-                                                      400,
-                                                      20.0,
-                                                      250,
-                                                      article.author.imageUrl,
-                                                      article.author.name,
-                                                      article.createdAt),
-                                                ),
-                                              ))
-                                          .toList(),
-                                    );
-                                  }
-
-                                  return Text("");
-                                },
-                              ),
-                            )
                           ],
                         ),
                       ),
@@ -277,6 +196,44 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
           },
         ),
       ),
+    );
+  }
+}
+
+class SnackBarPage extends StatelessWidget {
+  final ArticleService _articleService = ArticleService();
+  final int articleId;
+
+  SnackBarPage({@required this.articleId});
+
+  showSnack(String message, BuildContext context) {
+    final snackBar = SnackBar(
+      duration: const Duration(seconds: 1),
+      content: Text(message),
+    );
+
+    Scaffold.of(context).showSnackBar(snackBar);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(
+        Icons.bookmark_border_outlined,
+        color: Colors.white,
+      ),
+      onPressed: () async {
+        var userId = await storage.read(key: 'userId');
+
+        var result = await _articleService.addToFavorites(userId, articleId);
+        if (result == 201) {
+          showSnack("article has been added", context);
+        } else {
+          _articleService
+              .deleteFavorite(articleId)
+              .then((_) => showSnack("article has been removed", context));
+        }
+      },
     );
   }
 }
