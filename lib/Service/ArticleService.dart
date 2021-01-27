@@ -93,6 +93,21 @@ class ArticleService {
     }
   }
 
+  Future<int> deleteFavorite(int id) async {
+    String jwt = await storage.read(key: "jwt");
+
+    final Response response = await delete(
+      'https://newsplace.azurewebsites.net/api/Favorites/$id',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + jwt
+      },
+    );
+
+    print(response.statusCode);
+    return response.statusCode;
+  }
+
   Future<int> addToFavorites(String userId, int articleId) async {
     String jwt = await storage.read(key: "jwt");
 
