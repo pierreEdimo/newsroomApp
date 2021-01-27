@@ -1,4 +1,5 @@
-import 'package:Newsroom/Component/SearchResult.dart';
+import 'package:Newsroom/Component/Custom.Card.dart';
+
 import 'package:Newsroom/Model/ArticleModel.dart';
 import 'package:Newsroom/Model/SearchWord.dart';
 import 'package:Newsroom/Service/ArticleService.dart';
@@ -50,12 +51,16 @@ class _ArticleSearchState extends State<ArticleSearch> {
               onSubmitted: (value) async {
                 String userId = await storage.read(key: 'userId');
                 value = _articleController.text;
-                setState(() {
-                  _articles = _articleService
-                      .getArticlesForSearch(_articleController.text);
-                });
-                _searchService.addWord(_articleController.text, userId);
-                _articleController.clear();
+                if (_articleController.text.isEmpty) {
+                  displayDialog(context, "Error", "please type something");
+                } else {
+                  setState(() {
+                    _articles = _articleService
+                        .getArticlesForSearch(_articleController.text);
+                  });
+                  _searchService.addWord(_articleController.text, userId);
+                  _articleController.clear();
+                }
               },
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.all(20.0),
@@ -173,12 +178,19 @@ class _ArticleSearchState extends State<ArticleSearch> {
                                                           articleId: article.id,
                                                           authorId: article
                                                               .autorId))),
-                                          child: searchResult(
-                                              article.imageUrl,
+                                          child: Container(
+                                            margin:
+                                                EdgeInsets.only(bottom: 20.0),
+                                            child: customCard(
                                               article.title,
+                                              article.imageUrl,
+                                              400,
+                                              18.0,
+                                              250.0,
                                               article.author.name,
                                               article.createdAt,
-                                              article.author.imageUrl),
+                                            ),
+                                          ),
                                         ),
                                       )
                                       .toList(),
