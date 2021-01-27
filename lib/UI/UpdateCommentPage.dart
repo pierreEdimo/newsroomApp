@@ -9,23 +9,27 @@ import '../main.dart';
 
 class UpdateComment extends StatefulWidget {
   final int commentId;
+  final String word;
 
-  UpdateComment({@required this.commentId});
+  UpdateComment({@required this.commentId, @required this.word});
 
   @override
   _UpdateCommentState createState() =>
-      _UpdateCommentState(commentId: commentId);
+      _UpdateCommentState(commentId: commentId, word: word);
 }
 
 class _UpdateCommentState extends State<UpdateComment> {
-  final TextEditingController _contentController = TextEditingController();
   int commentId;
+  String word;
+
+  final TextEditingController _contentController = TextEditingController()
+    ..text;
 
   CommentService _commentService = CommentService();
 
   AuthService _authService = AuthService();
 
-  _UpdateCommentState({@required this.commentId});
+  _UpdateCommentState({@required this.commentId, @required this.word});
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +79,7 @@ class _UpdateCommentState extends State<UpdateComment> {
       child: Container(
         height: maxLines * 24.0,
         child: TextField(
-          controller: _contentController,
+          controller: _contentController..text = word,
           maxLines: maxLines,
           decoration: InputDecoration(
               border: InputBorder.none,
