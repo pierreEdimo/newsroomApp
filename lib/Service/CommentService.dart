@@ -62,7 +62,7 @@ class CommentService {
     String jwt = await storage.read(key: "jwt");
 
     final Response response = await put(
-      'https://findadoc.azurewebsites.net/api/Comment/$id',
+      'https://newsplace.azurewebsites.net/api/Comment/$id',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + jwt
