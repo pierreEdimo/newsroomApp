@@ -37,8 +37,8 @@ class _CommentPageState extends State<CommentPage> {
     });
   }
 
-  void showCommentModalSheet(
-      String authorId, int id, BuildContext context) async {
+  void _showCommentModalSheet(
+      String authorId, int id, String content, BuildContext context) async {
     String userId = await storage.read(key: "userId");
     showModalBottomSheet(
         context: context,
@@ -64,6 +64,7 @@ class _CommentPageState extends State<CommentPage> {
                             .push(MaterialPageRoute(
                                 builder: (context) => UpdateComment(
                                       commentId: id,
+                                      word: content,
                                     )))
                             .then((_) => _fetchComments());
                       },
@@ -183,7 +184,7 @@ class _CommentPageState extends State<CommentPage> {
                                                       width: 3,
                                                     ),
                                                     Text(
-                                                      " am 22.1.2021",
+                                                      '21.01.2020',
                                                       style: TextStyle(
                                                           color: Colors.grey,
                                                           fontWeight:
@@ -192,10 +193,16 @@ class _CommentPageState extends State<CommentPage> {
                                                   ],
                                                 ),
                                                 IconButton(
-                                                    icon: Icon(Icons
-                                                        .more_horiz_outlined),
-                                                    onPressed: () =>
-                                                        print("Hello World ! "))
+                                                  icon: Icon(Icons
+                                                      .more_horiz_outlined),
+                                                  onPressed: () =>
+                                                      _showCommentModalSheet(
+                                                    comment.uid,
+                                                    comment.id,
+                                                    comment.content,
+                                                    context,
+                                                  ),
+                                                )
                                               ],
                                             ),
                                             SizedBox(
