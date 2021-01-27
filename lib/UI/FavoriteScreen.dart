@@ -26,6 +26,12 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     _articles = _fetchFavs();
   }
 
+  Future<void> _loadFavs() async {
+    setState(() {
+      _articles = _fetchFavs();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,24 +63,31 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             children: articles
                                 .map(
                                   (FavoriteModel article) => InkWell(
-                                    onTap: () => Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            ArticleDetailScreen(
-                                                articleId: article.articleId,
-                                                authorId:
-                                                    article.article.autorId),
-                                      ),
+                                    onTap: () => Navigator.of(context)
+                                        .push(
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ArticleDetailScreen(
+                                                    articleId:
+                                                        article.articleId,
+                                                    authorId: article
+                                                        .article.autorId),
+                                          ),
+                                        )
+                                        .then(
+                                          (_) => _loadFavs(),
+                                        ),
+                                    child: Container(
+                                      margin: EdgeInsets.only(bottom: 20.0),
+                                      child: customCard(
+                                          article.article.title,
+                                          article.article.imageUrl,
+                                          400,
+                                          18.0,
+                                          250.0,
+                                          article.article.author.name,
+                                          article.article.createdAt),
                                     ),
-                                    child: customCard(
-                                        article.article.title,
-                                        article.article.imageUrl,
-                                        400,
-                                        20.0,
-                                        250.0,
-                                        article.article.author.imageUrl,
-                                        article.article.author.name,
-                                        article.article.createdAt),
                                   ),
                                 )
                                 .toList(),
