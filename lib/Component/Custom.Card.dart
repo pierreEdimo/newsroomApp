@@ -8,7 +8,7 @@ Widget text(String text, double size, Color color) {
 }
 
 Widget customCard(String title, String imageUrl, double width, double fontSize,
-    double height, String authorImageUrl, String authorName, String entryDate) {
+    double height, String authorName, String entryDate) {
   return Container(
     child: Stack(
       children: [
@@ -55,26 +55,11 @@ Widget customCard(String title, String imageUrl, double width, double fontSize,
                   children: [
                     Row(
                       children: [
-                        Container(
-                          width: 30.0,
-                          height: 30.0,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50.0),
-                            image: DecorationImage(
-                                image: NetworkImage(authorImageUrl),
-                                fit: BoxFit.cover),
-                          ),
-                        ),
+                        text('by $authorName. ', 12.0, Colors.white70),
                         SizedBox(
-                          width: 10.0,
+                          width: 2.0,
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            text(authorName, 13.0, Colors.white),
-                            text(entryDate, 12.0, Colors.white),
-                          ],
-                        )
+                        text('Added on $entryDate', 12.0, Colors.white70),
                       ],
                     ),
                   ],
@@ -83,18 +68,22 @@ Widget customCard(String title, String imageUrl, double width, double fontSize,
               SizedBox(
                 height: 20.0,
               ),
-              Container(
-                alignment: Alignment.bottomLeft,
-                height: 58,
+              Flexible(
                 child: Container(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    title,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'OpenSans',
-                        fontSize: fontSize),
+                  alignment: Alignment.bottomLeft,
+                  height: 58,
+                  child: Container(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      title,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'OpenSans',
+                          fontSize: fontSize),
+                    ),
                   ),
                 ),
               ),
