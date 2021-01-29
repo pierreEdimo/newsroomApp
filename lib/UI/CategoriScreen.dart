@@ -1,3 +1,4 @@
+import 'package:Newsroom/Component/Center.Error.dart';
 import 'package:Newsroom/Component/Header.dart';
 import 'package:Newsroom/Component/Theme.Card.dart';
 import 'package:Newsroom/Model/ThemeModel.dart';
@@ -61,6 +62,8 @@ class _CategoriScreenState extends State<CategoriScreen> {
                           )
                           .toList(),
                     );
+                  } else if (snapshot.hasError) {
+                    return centerError();
                   }
                   return Center(
                     child: CircularProgressIndicator(),

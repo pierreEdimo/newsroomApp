@@ -148,7 +148,17 @@ class _LoginState extends State<Login> {
             SizedBox(
               height: 20,
             ),
-            switchButton()
+            switchButton(),
+            SizedBox(
+              height: 20,
+            ),
+            InkWell(
+              onTap: () => print("Hello World ! "),
+              child: Text(
+                "forgot password ?",
+                style: TextStyle(color: Colors.blue),
+              ),
+            )
           ],
         ),
       ),

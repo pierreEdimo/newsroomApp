@@ -1,3 +1,4 @@
+import 'package:Newsroom/Component/Center.Error.dart';
 import 'package:Newsroom/Component/Custom.Card.dart';
 
 import 'package:Newsroom/Component/Header.dart';
@@ -92,6 +93,8 @@ class _ArticleSreenState extends State<ArticleSreen> {
                               )
                               .toList(),
                         );
+                      } else if (snapshot.hasError) {
+                        return centerError();
                       }
                       return Center(
                         child: CircularProgressIndicator(),

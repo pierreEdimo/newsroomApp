@@ -160,7 +160,7 @@ class _CommentPageState extends State<CommentPage> {
                                         width: 500,
                                         decoration: BoxDecoration(
                                             borderRadius:
-                                                BorderRadius.circular(20.0),
+                                                BorderRadius.circular(10.0),
                                             color: Colors.grey.shade100),
                                         child: Column(
                                           crossAxisAlignment:
@@ -176,7 +176,7 @@ class _CommentPageState extends State<CommentPage> {
                                                     Text(
                                                       comment.author.userName,
                                                       style: TextStyle(
-                                                          fontSize: 18,
+                                                          fontSize: 16,
                                                           fontWeight:
                                                               FontWeight.bold),
                                                     ),
@@ -184,9 +184,10 @@ class _CommentPageState extends State<CommentPage> {
                                                       width: 3,
                                                     ),
                                                     Text(
-                                                      '21.01.2020',
+                                                      comment.createdAt,
                                                       style: TextStyle(
                                                           color: Colors.grey,
+                                                          fontSize: 12.0,
                                                           fontWeight:
                                                               FontWeight.bold),
                                                     )

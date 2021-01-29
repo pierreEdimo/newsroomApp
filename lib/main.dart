@@ -1,6 +1,5 @@
 import 'package:Newsroom/Service/AuthService.dart';
 import 'package:Newsroom/UI/CategoriScreen.dart';
-import 'package:Newsroom/UI/FavoriteScreen.dart';
 import 'package:Newsroom/UI/Login.dart';
 import 'package:Newsroom/UI/Profile.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +68,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
   final _widgetOptions = <Widget>[
     new ArticleSreen(),
     new CategoriScreen(),
-    new FavoriteScreen(),
     new ProfilePage()
   ];
 
@@ -101,8 +99,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
                 size: 20,
               ),
               label: "Categories"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.bookmark_border_outlined), label: 'Favorites'),
           BottomNavigationBarItem(
               icon: Icon(Icons.person_outline), label: "My Profile")
         ],

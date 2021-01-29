@@ -1,13 +1,19 @@
-import 'package:Newsroom/Component/Custom.Tile.dart';
+import 'package:Newsroom/Component/Center.Error.dart';
+import 'package:Newsroom/Component/Custom.Card.dart';
+
 import 'package:Newsroom/Component/Custom.Title.dart';
+import 'package:Newsroom/Model/FavoriteArticleModel.dart';
 import 'package:Newsroom/Model/UserModel.dart';
+import 'package:Newsroom/Service/ArticleService.dart';
 import 'package:Newsroom/Service/AuthService.dart';
 import 'package:Newsroom/UI/About.dart';
+
 import 'package:Newsroom/UI/Login.dart';
 import 'package:Newsroom/main.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:Newsroom/UI/LicenseScreen.dart';
+
+import 'ArticleDetailScreen.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -22,6 +28,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
     _fetchUser();
+    _articles = _fetchFavs();
   }
 
   _fetchUser() {
@@ -35,6 +42,21 @@ class _ProfilePageState extends State<ProfilePage> {
     } else {
       throw 'Could not launch $url';
     }
+    Navigator.of(context).pop();
+  }
+
+  final ArticleService _articleService = ArticleService();
+  Future<List<FavoriteModel>> _articles;
+
+  Future<List<FavoriteModel>> _fetchFavs() async {
+    var userId = await storage.read(key: "userId");
+    return _articleService.getFavArticles(userId);
+  }
+
+  Future<void> _loadFavs() async {
+    setState(() {
+      _articles = _fetchFavs();
+    });
   }
 
   @override
@@ -50,7 +72,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    listTitle("Settings", 22.0),
+                    listTitle("Profile", 22.0),
                     IconButton(
                       icon: Icon(Icons.settings),
                       onPressed: () => _showModalSheet(),
@@ -63,81 +85,60 @@ class _ProfilePageState extends State<ProfilePage> {
               height: 20.0,
             ),
             Expanded(
-              child: FutureBuilder(
-                future: user,
+              flex: 1,
+              child: Container(
+                  child: FutureBuilder(
+                future: _articles,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    UserModel singleUser = snapshot.data;
+                    List<FavoriteModel> articles = snapshot.data;
 
-                    return ListView(
-                      padding: EdgeInsets.all(0.0),
-                      children: [
-                        customTile(
-                          Icon(
-                            Icons.email_outlined,
-                            color: Colors.blue.shade400,
-                          ),
-                          singleUser.email,
-                          Icon(Icons.keyboard_arrow_right_outlined),
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        listTitle("General Settings", 22.0),
-                        SizedBox(height: 20.0),
-                        InkWell(
-                          onTap: () => _sendEmail(),
-                          child: customTile(
-                            Icon(
-                              Icons.email_outlined,
-                              color: Colors.blue.shade400,
-                            ),
-                            "Contact us",
-                            Icon(Icons.keyboard_arrow_right_outlined),
-                          ),
-                        ),
-                        SizedBox(height: 20.0),
-                        InkWell(
-                          onTap: () => Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => LicenseScreen())),
-                          child: customTile(
-                            Icon(
-                              Icons.attach_file_outlined,
-                              color: Colors.orange.shade400,
-                            ),
-                            "Licence",
-                            Icon(Icons.keyboard_arrow_right_outlined),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        InkWell(
-                          onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => AboutScreen(),
-                            ),
-                          ),
-                          child: customTile(
-                            Icon(
-                              Icons.info_outline_rounded,
-                              color: Colors.green.shade400,
-                            ),
-                            "About us",
-                            Icon(Icons.keyboard_arrow_right_outlined),
-                          ),
-                        )
-                      ],
-                    );
+                    return articles.length < 1
+                        ? Center(
+                            child: Text("there are no articles bookmarked yet"))
+                        : ListView(
+                            padding: EdgeInsets.all(0.0),
+                            children: articles
+                                .map(
+                                  (FavoriteModel article) => InkWell(
+                                    onTap: () => Navigator.of(context)
+                                        .push(
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ArticleDetailScreen(
+                                                    articleId:
+                                                        article.articleId,
+                                                    authorId: article
+                                                        .article.autorId),
+                                          ),
+                                        )
+                                        .then(
+                                          (_) => _loadFavs(),
+                                        ),
+                                    child: Container(
+                                      margin: EdgeInsets.only(bottom: 20.0),
+                                      child: customCard(
+                                          article.article.title,
+                                          article.article.imageUrl,
+                                          400,
+                                          18.0,
+                                          250.0,
+                                          article.article.author.name,
+                                          article.article.createdAt),
+                                    ),
+                                  ),
+                                )
+                                .toList(),
+                          );
+                  } else if (snapshot.hasError) {
+                    return centerError();
                   }
-
                   return Center(
                     child: CircularProgressIndicator(),
                   );
                 },
-              ),
-            ),
+              )),
+            )
           ],
         ),
       ),
@@ -168,16 +169,51 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               child: Container(
-                child: ListTile(
-                  onTap: () => _logout(context),
-                  leading: Icon(
-                    Icons.logout,
-                    color: Colors.red.shade400,
-                  ),
-                  title: Text(
-                    'Logout',
-                    style: TextStyle(color: Colors.black),
-                  ),
+                height: 240,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    ListTile(
+                      leading: Icon(
+                        Icons.edit_outlined,
+                        color: Colors.blue.shade400,
+                      ),
+                      title: Text("edit Profile"),
+                    ),
+                    ListTile(
+                      onTap: () => _sendEmail(),
+                      leading: Icon(
+                        Icons.email_outlined,
+                        color: Colors.blue.shade400,
+                      ),
+                      title: Text("Contact us"),
+                    ),
+                    ListTile(
+                      onTap: () => Navigator.of(context)
+                          .push(
+                            MaterialPageRoute(
+                              builder: (context) => AboutScreen(),
+                            ),
+                          )
+                          .then((_) => Navigator.of(context).pop()),
+                      leading: Icon(
+                        Icons.info_outlined,
+                        color: Colors.green.shade400,
+                      ),
+                      title: Text("About !"),
+                    ),
+                    ListTile(
+                      onTap: () => _logout(context),
+                      leading: Icon(
+                        Icons.logout,
+                        color: Colors.red.shade400,
+                      ),
+                      title: Text(
+                        'Logout',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
