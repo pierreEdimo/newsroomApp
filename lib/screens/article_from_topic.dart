@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:newsroom/service/article_service.dart';
 import 'package:newsroom/widget/custom_app_bar.dart';
 import 'package:newsroom/widget/list_of_articles.dart';
 import 'package:newsroom/widget/title_row.dart';
+import 'package:provider/provider.dart';
 
 class ArticleFromTopic extends StatelessWidget {
   final int topicId;
@@ -27,6 +29,8 @@ class ArticleFromTopic extends StatelessWidget {
         ),
       ),
       body: listOfArticles(
+        Provider.of<ArticleService>(context).fetchArticles(
+            "https://newsplace.azurewebsites.net/api/articles/Filter?TopicId=$topicId"),
         "https://newsplace.azurewebsites.net/api/articles/Filter?TopicId=$topicId",
         context,
       ),

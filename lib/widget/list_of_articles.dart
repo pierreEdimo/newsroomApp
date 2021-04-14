@@ -14,11 +14,12 @@ Future<void> _fechtArticles(
 }
 
 Widget listOfArticles(
+  Future<List<Article>> articles,
   String url,
   context,
 ) {
   return FutureBuilder(
-    future: Provider.of<ArticleService>(context).fetchArticles(url),
+    future: articles,
     builder: (context, snapshot) {
       if (snapshot.hasError)
         return Center(
