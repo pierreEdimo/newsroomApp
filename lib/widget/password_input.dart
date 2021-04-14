@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+final passWordRex =
+    RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!?@#\$&*~]).{6,}$');
+
 Widget passwordInput(TextEditingController passwordController) {
   return TextFormField(
     controller: passwordController,
@@ -11,8 +14,9 @@ Widget passwordInput(TextEditingController passwordController) {
       value = passwordController.text;
       if (value == null || value.isEmpty) {
         return 'password is required';
-      } else if (value.length < 7) {
-        return 'password is too weak';
+      }
+      if (!passWordRex.hasMatch(value)) {
+        return 'invalid password';
       }
       return null;
     },
