@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:newsroom/model/article.dart';
 import 'package:newsroom/service/article_service.dart';
-import 'package:newsroom/widget/article_container.dart';
 import 'package:newsroom/widget/custom_app_bar.dart';
+import 'package:newsroom/widget/list_of_articles.dart';
 import 'package:provider/provider.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -75,32 +75,10 @@ class _SearchScreenState extends State<SearchScreen> {
       ),
       body: _controller.text.isEmpty
           ? Container()
-          : FutureBuilder(
-              future: _articles,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  List<Article> articles = snapshot.data;
-                  return articles.length < 1
-                      ? Center(
-                          child: Text("No Articles found"),
-                        )
-                      : ListView(
-                          padding: EdgeInsets.only(
-                            bottom: 10.0,
-                            right: 25.0,
-                            left: 25.0,
-                          ),
-                          children: articles
-                              .map(
-                                (Article article) =>
-                                    articleContainer(article, context),
-                              )
-                              .toList(),
-                        );
-                }
-                return Center(child: CircularProgressIndicator());
-              },
-            ),
+          : listOfArticles(
+              _articles,
+              "https://newsplace.azurewebsites.net/api/Articles/Filter?Title=${_controller.text}",
+              context),
     );
   }
 }
