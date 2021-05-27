@@ -63,7 +63,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       showErrorDialog(
                         context,
                         "Error",
-                        "Neither your Email or PassWord was found in our database, please try again",
+                        "Neither your Email or Password was found in our database, please try again",
                       );
                     } else {
                       Navigator.pushReplacement(
