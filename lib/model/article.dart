@@ -8,11 +8,13 @@ class Article {
   final String createdAt;
   final Author author;
   final int commentCount;
+  final String imageCredits;
 
   Article({
     this.content,
     this.id,
     this.createdAt,
+    this.imageCredits,
     this.imageUrl,
     this.title,
     this.author,
@@ -26,6 +28,7 @@ class Article {
         createdAt: json['createdAt'] as String,
         imageUrl: json['imageUrl'] as String,
         commentCount: json['commentCount'] as int,
+        imageCredits: json['imageCredits'] as String,
         author: Author.fromJson(json['author']),
       );
 }
