@@ -19,11 +19,6 @@ class AuthService extends ChangeNotifier {
     if (response.statusCode == 200) {
       String jwt = response.body;
       storage.write(key: "jwt", value: jwt);
-    } else if (response.statusCode != 500) {
-      print(response.statusCode);
-      return response.statusCode;
-    } else {
-      throw "Error";
     }
     return response.statusCode;
   }
@@ -40,11 +35,8 @@ class AuthService extends ChangeNotifier {
     if (response.statusCode == 200) {
       String jwt = response.body;
       storage.write(key: "jwt", value: jwt);
-    } else if (response.statusCode != 200) {
-      return response.statusCode;
-    } else {
-      throw "Error";
     }
+
     return response.statusCode;
   }
 
