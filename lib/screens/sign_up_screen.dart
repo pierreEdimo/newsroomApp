@@ -74,7 +74,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             context,
                             "Error",
                             " something went wrong" +
-                                "your email or your username are probably beign used, please try with another one");
+                                " your email or your username are probably beign used, please try with another one");
                       } else {
                         Navigator.pushReplacement(
                           context,
