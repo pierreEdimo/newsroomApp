@@ -44,7 +44,7 @@ Widget imageContainer(
         Padding(
           padding: EdgeInsets.only(left: 10.0),
           child: Text(
-            "image from unsplash",
+            "image from ${article.imageCredits}",
             style: TextStyle(
               color: Colors.grey,
               fontStyle: FontStyle.italic,
