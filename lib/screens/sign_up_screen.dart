@@ -69,20 +69,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       var res =
                           await Provider.of<AuthService>(context, listen: false)
                               .registerUser(userModel);
-                      if (res == 200) {
+                      if (res != 200) {
+                        showErrorDialog(
+                            context,
+                            "Error",
+                            " something went wrong" +
+                                "your email or your username are probably beign used, please try with another one");
+                      } else {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) => BottomNavigation(),
                           ),
                         );
-                      }
-                      if (res == 400) {
-                        showErrorDialog(
-                            context,
-                            "Error",
-                            " something went wrong" +
-                                "your email or your username are probably beign used, please try with another one");
                       }
                     }
                   },

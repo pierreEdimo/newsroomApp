@@ -59,18 +59,18 @@ class _SignInScreenState extends State<SignInScreen> {
                     var statusCode =
                         await Provider.of<AuthService>(context, listen: false)
                             .loginUser(loginModel);
-                    if (statusCode == 200) {
+                    if (statusCode != 200) {
+                      showErrorDialog(
+                        context,
+                        "Error",
+                        "Neither your Email or PassWord was found in our database, please try again",
+                      );
+                    } else {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) => BottomNavigation(),
                         ),
-                      );
-                    } else {
-                      showErrorDialog(
-                        context,
-                        "Error",
-                        "Neither your Email or PassWord was found in our database, please try again",
                       );
                     }
                   }
