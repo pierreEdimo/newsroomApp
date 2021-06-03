@@ -31,7 +31,7 @@ we have topics like Tech, Religion, Sport , Health and so on...
 - Save Articles in the Bookmark 
 - Remove Articles from the Bookmark
 - Register new user
-- Sign user 
+- Sign In registered user 
 - Log out user
 - Edit personal Datas
 - Search an Article by Name
@@ -49,6 +49,7 @@ you need to clone the repository.
    - Git
 
 ```
+
 # Clone this repository
 $ git clone https://github.com/pierreEdimo/newsroomApp
 
