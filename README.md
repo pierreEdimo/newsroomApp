@@ -39,6 +39,10 @@ we have topics like Tech, Religion, Sport , Health and so on...
 
 ## Illustrations
 
+![](https://github.com/pierreEdimo/newsroomApp/blob/master/image/newsroom.PNG)
+![](https://github.com/pierreEdimo/newsroomApp/blob/master/image/newsroom1.PNG)
+![](https://github.com/pierreEdimo/newsroomApp/blob/master/image/newsroom3.PNG)
+
 ## Setup
 this project has not been released yet. In order to test it, 
 you need to clone the repository.
