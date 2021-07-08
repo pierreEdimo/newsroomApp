@@ -72,10 +72,10 @@ $ flutter run
 Project is: _in progress_
 
 ## To Do
-- [] Add a method to share an url in differents application
-- [] Add a method to upvote/downvote an article
-- [] Add push Notification
-- [] Add a Recommandation System
+- [ ] Add a method to share an url in differents application
+- [ ] Add a method to upvote/downvote an article
+- [ ] Add push Notification
+- [ ] Add a Recommandation System
 - [x] Add a forgot password method()
 
 ## Contact

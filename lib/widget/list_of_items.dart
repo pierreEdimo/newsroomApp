@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:newsroom/model/userModel.dart';
+import 'package:newsroom/model/user_,model.dart';
 import 'package:newsroom/service/auth_service.dart';
 import 'package:newsroom/widget/about_tile.dart';
 import 'package:newsroom/widget/bookmark_tile.dart';
+import 'package:newsroom/widget/change_theme.dart';
 import 'package:newsroom/widget/contact_tile.dart';
 import 'package:newsroom/widget/email_tile.dart';
 import 'package:newsroom/widget/lougout_tile.dart';
@@ -11,7 +12,7 @@ import 'package:provider/provider.dart';
 Widget listOfItem(context) {
   return FutureBuilder(
     future: Provider.of<AuthService>(context).fethSingleUser(),
-    builder: (context, snapshot) {
+    builder: (context, AsyncSnapshot<UserModel> snapshot) {
       if (snapshot.hasError)
         return Container(
           height: MediaQuery.of(context).size.height * 0.75,
@@ -23,7 +24,7 @@ Widget listOfItem(context) {
           ),
         );
       if (snapshot.hasData) {
-        UserModel user = snapshot.data;
+        UserModel user = snapshot.data!;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -31,6 +32,7 @@ Widget listOfItem(context) {
             emailTile(user.email, context),
             bookMarkTile(context),
             contactTile(context),
+            ChangeTheme(),
             aboutTile(context),
             logoutTile(context),
           ],

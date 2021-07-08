@@ -6,8 +6,8 @@ import 'package:newsroom/widget/title_row.dart';
 import 'package:provider/provider.dart';
 
 class ArticleFromTopic extends StatelessWidget {
-  final int topicId;
-  final String topicName;
+  final int? topicId;
+  final String? topicName;
 
   ArticleFromTopic({
     @required this.topicId,
@@ -17,16 +17,16 @@ class ArticleFromTopic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        height: 100,
-        child: titleRow(
-          topicName,
+      appBar: customAppBar(
+        titleRow(
+          topicName!,
           IconButton(
             icon: Icon(Icons.close_outlined),
             onPressed: () => Navigator.of(context).pop(),
           ),
           context,
         ),
+        80.0,
       ),
       body: listOfArticles(
         Provider.of<ArticleService>(context).fetchArticles(

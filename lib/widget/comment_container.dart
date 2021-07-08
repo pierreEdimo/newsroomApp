@@ -23,7 +23,7 @@ Widget commentContainer(
                 Row(
                   children: [
                     Text(
-                      "${comment.author.userName}",
+                      "${comment.author!.userName!}",
                       style: TextStyle(
                         fontSize: 18.0,
                         fontWeight: FontWeight.bold,
@@ -41,7 +41,7 @@ Widget commentContainer(
                 IconButton(
                   icon: Icon(Icons.more_vert_outlined),
                   onPressed: () => commentModal(
-                    comment.authorId,
+                    comment.authorId!,
                     context,
                     comment,
                   ),

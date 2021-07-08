@@ -7,11 +7,11 @@ Widget articleRow(Article article) {
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       Text(
-        article.author.name,
+        article.author!.name!,
         style: textandDateStyle,
       ),
       Text(
-        article.createdAt,
+        article.createdAt!,
         style: textandDateStyle,
       ),
     ],

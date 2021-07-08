@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:newsroom/model/loginModel.dart';
 import 'package:newsroom/service/auth_service.dart';
 import 'package:newsroom/widget/bottom_navigation.dart';
 import 'package:newsroom/widget/display_diagog.dart';
 import 'package:newsroom/widget/email_input.dart';
+import 'package:newsroom/widget/forgot_password_button.dart';
 import 'package:newsroom/widget/go_to_signup.dart';
 import 'package:newsroom/widget/password_input.dart';
 import 'package:provider/provider.dart';
@@ -27,20 +29,21 @@ class _SignInScreenState extends State<SignInScreen> {
           key: _formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              emailInput(_emailController),
+              emailInput(_emailController, 'please enter your E-mail'),
               SizedBox(
                 height: 10,
               ),
-              passwordInput(_passWordController),
+              passwordInput(_passWordController, "please choose your password"),
               SizedBox(
                 height: 20.0,
               ),
               InkWell(
                 child: Container(
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      color: Colors.red.shade600),
+                      borderRadius: BorderRadius.circular(5.0),
+                      color: Colors.black),
                   padding: EdgeInsets.all(15.0),
                   width: 150,
                   child: Text(
@@ -52,27 +55,21 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                 ),
                 onTap: () async {
-                  if (_formKey.currentState.validate()) {
+                  if (_formKey.currentState!.validate()) {
                     LoginModel loginModel = LoginModel(
                         email: _emailController.text,
                         password: _passWordController.text);
-                    var statusCode =
+
+                    Response response =
                         await Provider.of<AuthService>(context, listen: false)
                             .loginUser(loginModel);
-                    if (statusCode != 200) {
-                      showErrorDialog(
-                        context,
-                        "Error",
-                        "Neither your Email or Password was found in our database, please try again",
-                      );
-                    } else {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => BottomNavigation(),
-                        ),
-                      );
-                    }
+
+                    if (response.statusCode != 200)
+                      showErrorDialog(context, "Error",
+                          "Sorry, Neither your password nor your email were found");
+                    else
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => BottomNavigation()));
                   }
                 },
               ),
@@ -80,6 +77,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 height: 20.0,
               ),
               goToSignUp(context),
+              forgotPassWordButton(context),
             ],
           ),
         ),

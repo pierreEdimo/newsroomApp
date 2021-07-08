@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-Widget commentInput(TextEditingController controller, maxLines) {
+Widget commentInput(TextEditingController controller) {
   return TextFormField(
     controller: controller,
-    maxLines: maxLines,
+    maxLines: null,
+    minLines: 4,
     decoration: InputDecoration(
       border: InputBorder.none,
       focusedBorder: InputBorder.none,
@@ -11,7 +12,6 @@ Widget commentInput(TextEditingController controller, maxLines) {
       errorBorder: InputBorder.none,
       disabledBorder: InputBorder.none,
       hintText: "Add a comment",
-      fillColor: Colors.white,
       filled: true,
     ),
   );

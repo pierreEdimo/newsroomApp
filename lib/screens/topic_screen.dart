@@ -9,8 +9,8 @@ class TopicScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        child: titleRow(
+      appBar: customAppBar(
+        titleRow(
             "Topic",
             IconButton(
               icon: Icon(Icons.search),
@@ -21,7 +21,7 @@ class TopicScreen extends StatelessWidget {
               ),
             ),
             context),
-        height: 100,
+        80.0,
       ),
       body: gridofTopics(context),
     );

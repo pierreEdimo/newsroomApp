@@ -1,6 +1,6 @@
 class Author {
-  final int id;
-  final String name;
+  final int? id;
+  final String? name;
 
   Author({
     this.id,

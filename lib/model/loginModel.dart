@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 
 class LoginModel {
-  final String email;
-  final String password;
+  final String? email;
+  final String? password;
 
   LoginModel({
     @required this.email,

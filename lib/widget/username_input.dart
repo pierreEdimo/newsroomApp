@@ -8,7 +8,7 @@ Widget userNameInput(TextEditingController userNameController) {
     keyboardType: TextInputType.text,
     validator: (value) {
       value = userNameController.text;
-      if (value == null || value.isEmpty) {
+      if (value.isEmpty) {
         return 'userName is required';
       }
       return null;

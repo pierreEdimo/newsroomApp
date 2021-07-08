@@ -5,22 +5,22 @@ import 'package:newsroom/widget/list_of_comments.dart';
 import 'package:newsroom/widget/title_row.dart';
 
 class CommentScreen extends StatelessWidget {
-  final int articleId;
+  final int? articleId;
 
   CommentScreen({@required this.articleId});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        height: 100,
-        child: titleRow(
+      appBar: customAppBar(
+        titleRow(
             "Comment",
             IconButton(
               icon: Icon(Icons.close_outlined),
               onPressed: () => Navigator.of(context).pop(),
             ),
             context),
+        80.0,
       ),
       body: listOfComments(
         context,
@@ -41,6 +41,7 @@ class CommentScreen extends StatelessWidget {
           "Comment",
           style: TextStyle(
             fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
         ),
         backgroundColor: Colors.black,

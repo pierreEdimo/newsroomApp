@@ -12,20 +12,23 @@ class BookMarkSerivce extends ChangeNotifier {
     AddBookMark bookMark,
   ) async {
     Map<String, String> headers = {'Content-Type': 'application/json'};
-    String jsEncode;
-    jsEncode = jsonEncode(bookMark);
+    String jsEncode = jsonEncode(bookMark);
+    var url =
+        Uri.parse('https://newsplace.azurewebsites.net/api/FavoritesArticles');
     final Response response = await post(
-        'https://newsplace.azurewebsites.net/api/FavoritesArticles',
-        headers: headers,
-        body: jsEncode);
-    notifyListeners();
+      url,
+      headers: headers,
+      body: jsEncode,
+    );
+
     return response.statusCode;
   }
 
   Future<List<BookMark>> fetchBookMark() async {
-    String userId = await storage.read(key: "userId");
-    Response response = await get(
+    String? userId = await storage.read(key: "userId");
+    var url = Uri.parse(
         'https://newsplace.azurewebsites.net/api/FavoritesArticles/FilterFavorites?UserId=$userId&&SortOrder=asc');
+    Response response = await get(url);
 
     if (response.statusCode == 200) {
       List<dynamic> body = jsonDecode(response.body);
@@ -43,12 +46,14 @@ class BookMarkSerivce extends ChangeNotifier {
   }
 
   Future<int> deleteFavorite(int id) async {
-    String jwt = await storage.read(key: "jwt");
+    String? jwt = await storage.read(key: "jwt");
+    var url = Uri.parse(
+        'https://newsplace.azurewebsites.net/api/FavoritesArticles/$id');
     final Response response = await delete(
-      'https://newsplace.azurewebsites.net/api/FavoritesArticles/$id',
+      url,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + jwt,
+        'Authorization': 'Bearer ' + jwt!,
       },
     );
     notifyListeners();

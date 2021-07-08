@@ -7,15 +7,15 @@ import 'package:newsroom/widget/title_row.dart';
 import 'package:provider/provider.dart';
 
 class EditmailScreen extends StatefulWidget {
-  final String email;
+  final String? email;
 
   EditmailScreen({@required this.email});
   @override
-  _EditmailScreenState createState() => _EditmailScreenState(email: email);
+  _EditmailScreenState createState() => _EditmailScreenState(email: email!);
 }
 
 class _EditmailScreenState extends State<EditmailScreen> {
-  String email;
+  String? email;
 
   _EditmailScreenState({@required this.email});
 
@@ -24,17 +24,17 @@ class _EditmailScreenState extends State<EditmailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _controller.text = email;
+    _controller.text = email!;
     return Scaffold(
-      appBar: CustomAppBar(
-        child: titleRow(
+      appBar: customAppBar(
+        titleRow(
             "email",
             IconButton(
               icon: Icon(Icons.close_outlined),
               onPressed: () => Navigator.of(context).pop(),
             ),
             context),
-        height: 100,
+        80.0,
       ),
       body: Container(
         padding: EdgeInsets.only(
@@ -44,7 +44,7 @@ class _EditmailScreenState extends State<EditmailScreen> {
         ),
         child: Form(
           key: _formKey,
-          child: emailInput(_controller),
+          child: emailInput(_controller, ""),
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
@@ -53,7 +53,7 @@ class _EditmailScreenState extends State<EditmailScreen> {
         ),
         backgroundColor: Colors.black,
         onPressed: () async {
-          if (_formKey.currentState.validate()) {
+          if (_formKey.currentState!.validate()) {
             EditEmail email = new EditEmail(
               email: _controller.text,
             );

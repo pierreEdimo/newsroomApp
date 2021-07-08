@@ -4,7 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
 
 class ArticleService extends ChangeNotifier {
-  Future<List<Article>> fetchArticles(String url) async {
+  Future<List<Article>> fetchArticles(String uri) async {
+    var url = Uri.parse(uri);
     Response response = await get(url);
 
     if (response.statusCode == 200) {
@@ -13,7 +14,6 @@ class ArticleService extends ChangeNotifier {
       List<Article> articles =
           body.map((dynamic article) => Article.fromJson(article)).toList();
 
-      notifyListeners();
       return articles;
     } else {
       throw "No Articles";
@@ -21,8 +21,8 @@ class ArticleService extends ChangeNotifier {
   }
 
   Future<Article> fetchArticle(int id) async {
-    Response response =
-        await get('https://newsplace.azurewebsites.net/api/Articles/$id');
+    var url = Uri.parse('https://newsplace.azurewebsites.net/api/Articles/$id');
+    Response response = await get(url);
 
     if (response.statusCode == 200) {
       return Article.fromJson(jsonDecode(response.body));

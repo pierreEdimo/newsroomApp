@@ -2,75 +2,107 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
 import 'package:newsroom/model/edit_email.dart';
 import 'package:newsroom/model/loginModel.dart';
-import 'package:newsroom/model/userModel.dart';
+import 'package:newsroom/model/registerModel.dart';
+import 'package:newsroom/model/user_,model.dart';
 import 'dart:convert';
 
 import '../main.dart';
 
 class AuthService extends ChangeNotifier {
-  Future<int> registerUser(UserModel userModel) async {
+  Future<Response> registerUser(RegisterModel userModel) async {
     Map<String, String> headers = {'Content-Type': 'application/json'};
     String jsEncode;
     jsEncode = jsonEncode(userModel);
+    var url =
+        Uri.parse('https://newsplace.azurewebsites.net/api/User/Register');
     final Response response = await post(
-        'https://newsplace.azurewebsites.net/api/User/Register',
-        headers: headers,
-        body: jsEncode);
+      url,
+      headers: headers,
+      body: jsEncode,
+    );
     if (response.statusCode == 200) {
-      String jwt = response.body;
-      storage.write(key: "jwt", value: jwt);
+      final responseJson = json.decode(response.body);
+      storage.write(key: "userId", value: responseJson['userDto']['id']);
+      storage.write(key: "jwt", value: responseJson['token']);
+      notifyListeners();
+      //storage.write(key: "jwt", value: jwt);
     }
-    return response.statusCode;
+    return response;
   }
 
-  Future<int> loginUser(LoginModel loginModel) async {
+  Future<Response> loginUser(LoginModel loginModel) async {
     Map<String, String> headers = {'Content-Type': 'application/json'};
     String jsEncode;
     jsEncode = jsonEncode(loginModel);
+    var url = Uri.parse('https://newsplace.azurewebsites.net/api/User/Login');
     final Response response = await post(
-        'https://newsplace.azurewebsites.net/api/User/Login',
-        headers: headers,
-        body: jsEncode);
+      url,
+      headers: headers,
+      body: jsEncode,
+    );
 
     if (response.statusCode == 200) {
-      String jwt = response.body;
-      storage.write(key: "jwt", value: jwt);
+      final responseJson = json.decode(response.body);
+      storage.write(key: "userId", value: responseJson['userDto']['id']);
+      storage.write(key: "jwt", value: responseJson['token']);
+      notifyListeners();
     }
 
-    return response.statusCode;
+    return response;
+  }
+
+  Future<Response> resetPassword(LoginModel login) async {
+    Map<String, String> headers = {'Content-Type': 'application/json'};
+    String jsEncode = jsonEncode(login);
+    var url = Uri.parse(
+        'https://newsplace.azurewebsites.net/api/User/ForgotPassWord');
+    final Response response = await post(
+      url,
+      headers: headers,
+      body: jsEncode,
+    );
+
+    if (response.statusCode == 200) {
+      final responseJson = json.decode(response.body);
+      storage.write(key: "userId", value: responseJson['userDto']['id']);
+      storage.write(key: "jwt", value: responseJson['token']);
+      notifyListeners();
+    }
+    return response;
   }
 
   Future<Response> editEmail(EditEmail email) async {
-    String authorization = await storage.read(key: "jwt");
-    String jsEncode;
-    jsEncode = jsonEncode(email);
-    final Response response =
-        await post('https://newsplace.azurewebsites.net/api/User/updateEmail',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer ' + authorization,
-            },
-            body: jsEncode);
+    String? authorization = await storage.read(key: "jwt");
+    String jsEncode = jsonEncode(email);
+    var url =
+        Uri.parse('https://newsplace.azurewebsites.net/api/User/updateEmail');
+    final Response response = await post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + authorization!,
+      },
+      body: jsEncode,
+    );
 
     if (response.statusCode == 200) {
-      String jwt = response.body;
-      storage.write(key: "jwt", value: jwt);
+      final responseJson = json.decode(response.body);
+      storage.write(key: "userId", value: responseJson['userDto']['id']);
+      storage.write(key: "jwt", value: responseJson['token']);
       notifyListeners();
     }
     return response;
   }
 
   Future<UserModel> fethSingleUser() async {
-    String authorization = await storage.read(key: "jwt");
-    final response = await get(
-        'https://newsplace.azurewebsites.net/api/User/GetUser',
-        headers: {'Authorization': 'Bearer ' + authorization});
-    print(authorization);
+    String? authorization = await storage.read(key: "jwt");
+    var url = Uri.parse('https://newsplace.azurewebsites.net/api/User/GetUser');
+    final response =
+        await get(url, headers: {'Authorization': 'Bearer ' + authorization!});
     if (response.statusCode == 200) {
       final responseJson = json.decode(response.body);
-      storage.write(key: "userId", value: responseJson['id']);
       return UserModel.fromJson(responseJson);
     }
-    return null;
+    throw "could not fetch the User";
   }
 }

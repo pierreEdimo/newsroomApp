@@ -7,10 +7,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        height: 100,
-        child: inTheCenter("Settings"),
-      ),
+      appBar: customAppBar(inTheCenter("Settings"), 80.0),
       body: SingleChildScrollView(
         child: listOfItem(context),
       ),

@@ -7,7 +7,7 @@ import 'package:newsroom/utilities/constants.dart';
 import 'package:provider/provider.dart';
 
 commentModal(String authorId, context, Comment comment) async {
-  String userId = await storage.read(key: "userId");
+  String? userId = await storage.read(key: "userId");
   showModalBottomSheet(
     context: context,
     builder: (context) {
@@ -17,7 +17,6 @@ commentModal(String authorId, context, Comment comment) async {
               child: Container(
                 height: 130,
                 decoration: BoxDecoration(
-                  color: Colors.white,
                   borderRadius: onlyRadius,
                 ),
                 child: Column(
@@ -27,7 +26,7 @@ commentModal(String authorId, context, Comment comment) async {
                       onTap: () async {
                         await Provider.of<CommentService>(context,
                                 listen: false)
-                            .deleteComment(comment.id)
+                            .deleteComment(comment.id!)
                             .then(
                               (_) => Navigator.of(context).pop(),
                             );

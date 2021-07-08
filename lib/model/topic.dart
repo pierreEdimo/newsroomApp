@@ -1,7 +1,7 @@
 class Topic {
-  final int id;
-  final String name;
-  final String imageUrl;
+  final int? id;
+  final String? name;
+  final String? imageUrl;
 
   Topic({
     this.id,

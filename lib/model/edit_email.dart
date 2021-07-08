@@ -1,5 +1,5 @@
 class EditEmail {
-  final String email;
+  final String? email;
 
   EditEmail({this.email});
 

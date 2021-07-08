@@ -24,7 +24,7 @@ Widget bookMarkContainer(
         child: Stack(
           children: [
             backgroundImageContainer(
-              bookMark.article.imageUrl,
+              bookMark.article!.imageUrl!,
               context,
             ),
             blur(context),
@@ -35,7 +35,7 @@ Widget bookMarkContainer(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   flexibleTitle(
-                    bookMark.article.title,
+                    bookMark.article!.title!,
                   ),
                 ],
               ),

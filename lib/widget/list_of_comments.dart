@@ -4,7 +4,7 @@ import 'package:newsroom/service/comment_service.dart';
 import 'package:newsroom/widget/comment_container.dart';
 import 'package:provider/provider.dart';
 
-Future<void> _fetchComments(
+Future<List<Comment>> _fetchComments(
   context,
   articleId,
 ) async {
@@ -18,9 +18,9 @@ Widget listOfComments(
 ) {
   return FutureBuilder(
     future: Provider.of<CommentService>(context).fetchComments(articleId),
-    builder: (context, snapshot) {
+    builder: (context, AsyncSnapshot<List<Comment>> snapshot) {
       if (snapshot.hasData) {
-        List<Comment> comments = snapshot.data;
+        List<Comment> comments = snapshot.data!;
 
         return comments.length < 1
             ? Center(

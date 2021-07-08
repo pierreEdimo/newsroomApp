@@ -4,14 +4,14 @@ import 'package:newsroom/service/topic_service.dart';
 import 'package:newsroom/widget/topic_container.dart';
 import 'package:provider/provider.dart';
 
-Future<void> _fecthTopics(context) async {
+Future<List<Topic>> _fecthTopics(context) async {
   return await Provider.of<TopicService>(context, listen: false).fetchTopics();
 }
 
 Widget gridofTopics(context) {
   return FutureBuilder(
     future: Provider.of<TopicService>(context).fetchTopics(),
-    builder: (context, snapshot) {
+    builder: (context, AsyncSnapshot<List<Topic>> snapshot) {
       if (snapshot.hasError)
         return Center(
           child: Text(
@@ -20,7 +20,7 @@ Widget gridofTopics(context) {
           ),
         );
       if (snapshot.hasData) {
-        List<Topic> topics = snapshot.data;
+        List<Topic> topics = snapshot.data!;
 
         return RefreshIndicator(
           onRefresh: () => _fecthTopics(context),

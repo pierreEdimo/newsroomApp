@@ -23,7 +23,7 @@ Widget articleContainer(
       child: Container(
         child: Stack(children: [
           backgroundImageContainer(
-            article.imageUrl,
+            article.imageUrl!,
             context,
           ),
           blur(context),
@@ -33,7 +33,7 @@ Widget articleContainer(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                flexibleTitle(article.title),
+                flexibleTitle(article.title!),
                 verticalSpace,
                 articleRow(article),
               ],

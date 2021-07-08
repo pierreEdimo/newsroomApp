@@ -41,15 +41,15 @@ class AboutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        height: 100,
-        child: titleRow(
+      appBar: customAppBar(
+        titleRow(
             "About",
             IconButton(
               icon: Icon(Icons.close_outlined),
               onPressed: () => Navigator.of(context).pop(),
             ),
             context),
+        80.0,
       ),
       body: inforMationContainer(
         data,

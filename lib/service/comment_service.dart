@@ -9,8 +9,9 @@ class CommentService extends ChangeNotifier {
   Future<List<Comment>> fetchComments(
     int id,
   ) async {
-    Response response = await get(
+    var url = Uri.parse(
         'https://newsplace.azurewebsites.net/api/Comments/FilterComments?ArticleId=$id');
+    Response response = await get(url);
 
     if (response.statusCode == 200) {
       List<dynamic> body = jsonDecode(response.body);
@@ -20,7 +21,6 @@ class CommentService extends ChangeNotifier {
             (dynamic comment) => Comment.fromJson(comment),
           )
           .toList();
-      notifyListeners();
       return comments;
     } else {
       throw "No Articles";
@@ -31,19 +31,17 @@ class CommentService extends ChangeNotifier {
     AddComment comment,
   ) async {
     Map<String, String> headers = {'Content-Type': 'application/json'};
-    String jsEncode;
-    jsEncode = jsonEncode(comment);
-    final Response response = await post(
-        'https://newsplace.azurewebsites.net/api/comments',
-        headers: headers,
-        body: jsEncode);
+    String jsEncode = jsonEncode(comment);
+    var url = Uri.parse('https://newsplace.azurewebsites.net/api/comments');
+    final Response response = await post(url, headers: headers, body: jsEncode);
     notifyListeners();
     return response;
   }
 
   Future<Response> deleteComment(int id) async {
+    var url = Uri.parse('https://newsplace.azurewebsites.net/api/Comments/$id');
     Response response = await delete(
-      'https://newsplace.azurewebsites.net/api/Comments/$id',
+      url,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -56,14 +54,15 @@ class CommentService extends ChangeNotifier {
     AddComment comment,
     int id,
   ) async {
-    String jsEncode;
-    jsEncode = jsonEncode(comment);
-    Response response =
-        await put("https://newsplace.azurewebsites.net/api/Comments/$id",
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: jsEncode);
+    String jsEncode = jsonEncode(comment);
+    var url = Uri.parse("https://newsplace.azurewebsites.net/api/Comments/$id");
+    Response response = await put(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsEncode,
+    );
 
     notifyListeners();
     return response;

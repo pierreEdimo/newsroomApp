@@ -1,6 +1,6 @@
 class AddBookMark {
-  final String ownerId;
-  final int articleId;
+  final String? ownerId;
+  final int? articleId;
 
   AddBookMark({
     this.ownerId,

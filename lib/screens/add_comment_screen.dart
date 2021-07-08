@@ -7,7 +7,7 @@ import 'package:newsroom/widget/custom_app_bar.dart';
 import 'package:provider/provider.dart';
 
 class AddCommentScreen extends StatelessWidget {
-  final int articleId;
+  final int? articleId;
 
   AddCommentScreen({@required this.articleId});
 
@@ -17,10 +17,8 @@ class AddCommentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        height: 100,
-        child: SafeArea(
-          child: Center(
+      appBar: customAppBar(
+          Center(
             child: Container(
               alignment: Alignment.centerRight,
               child: Padding(
@@ -32,8 +30,7 @@ class AddCommentScreen extends StatelessWidget {
               ),
             ),
           ),
-        ),
-      ),
+          80.0),
       floatingActionButton: FloatingActionButton.extended(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0),
@@ -59,6 +56,7 @@ class AddCommentScreen extends StatelessWidget {
           "Post",
           style: TextStyle(
             fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
         ),
         backgroundColor: Colors.black,
@@ -73,7 +71,7 @@ class AddCommentScreen extends StatelessWidget {
         ),
         child: Container(
           height: maxLines * 24.0,
-          child: commentInput(_controller, maxLines),
+          child: commentInput(_controller),
         ),
       ),
     );

@@ -1,6 +1,6 @@
 class BookMark {
-  final int articleId;
-  final ArticleBookMark article;
+  final int? articleId;
+  final ArticleBookMark? article;
 
   BookMark({
     this.articleId,
@@ -16,10 +16,10 @@ class BookMark {
 }
 
 class ArticleBookMark {
-  final int id;
-  final String title;
-  final String content;
-  final String imageUrl;
+  final int? id;
+  final String? title;
+  final String? content;
+  final String? imageUrl;
 
   ArticleBookMark({
     this.id,

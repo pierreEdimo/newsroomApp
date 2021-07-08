@@ -12,7 +12,7 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   TextEditingController _controller = TextEditingController();
-  Future<List<Article>> _articles;
+  Future<List<Article>>? _articles;
 
   Future<List<Article>> _fechtArticles(
     context,
@@ -25,58 +25,56 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        height: 120,
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                InkWell(
-                  onTap: () => Navigator.of(context).pop(),
-                  child: Icon(Icons.keyboard_arrow_left_outlined),
-                ),
-                SizedBox(
-                  width: 10.0,
-                ),
-                Expanded(
-                  child: TextFormField(
-                    autofocus: false,
-                    textInputAction: TextInputAction.search,
-                    controller: _controller,
-                    decoration: InputDecoration(
-                      contentPadding: new EdgeInsets.symmetric(
-                          vertical: 5.0, horizontal: 10.0),
-                      border: OutlineInputBorder(),
-                      hintText: "search...",
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            _controller.text = "";
-                          });
-                        },
-                        icon: Icon(Icons.close),
-                      ),
+      appBar: customAppBar(
+        Padding(
+          padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              InkWell(
+                onTap: () => Navigator.of(context).pop(),
+                child: Icon(Icons.keyboard_arrow_left_outlined),
+              ),
+              SizedBox(
+                width: 10.0,
+              ),
+              Expanded(
+                child: TextFormField(
+                  autofocus: false,
+                  textInputAction: TextInputAction.search,
+                  controller: _controller,
+                  decoration: InputDecoration(
+                    contentPadding: new EdgeInsets.symmetric(
+                        vertical: 5.0, horizontal: 10.0),
+                    border: OutlineInputBorder(),
+                    hintText: "search...",
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _controller.text = "";
+                        });
+                      },
+                      icon: Icon(Icons.close),
                     ),
-                    onFieldSubmitted: (value) {
-                      value = _controller.text;
-                      setState(() {
-                        _articles = _fechtArticles(context,
-                            "https://newsplace.azurewebsites.net/api/Articles/Filter?Title=${_controller.text}");
-                      });
-                    },
                   ),
+                  onFieldSubmitted: (value) {
+                    value = _controller.text;
+                    setState(() {
+                      _articles = _fechtArticles(context,
+                          "https://newsplace.azurewebsites.net/api/Articles/Filter?Title=${_controller.text}");
+                    });
+                  },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
+        120.0,
       ),
       body: _controller.text.isEmpty
           ? Container()
           : listOfArticles(
-              _articles,
+              _articles!,
               "https://newsplace.azurewebsites.net/api/Articles/Filter?Title=${_controller.text}",
               context),
     );

@@ -11,20 +11,19 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        child: titleRow(
-            "Home",
-            IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => SearchScreen(),
+      appBar: customAppBar(
+          titleRow(
+              "Home",
+              IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => SearchScreen(),
+                  ),
                 ),
               ),
-            ),
-            context),
-        height: 100,
-      ),
+              context),
+          80.0),
       body: listOfArticles(
         Provider.of<ArticleService>(context).fetchArticles(url),
         url,

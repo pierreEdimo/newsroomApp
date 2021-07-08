@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import '../main.dart';
 
 class UpdateCommentScreen extends StatelessWidget {
-  final Comment comment;
+  final Comment? comment;
 
   UpdateCommentScreen({@required this.comment});
 
@@ -19,24 +19,22 @@ class UpdateCommentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _controller.text = comment.content;
+    _controller.text = comment!.content!;
     return Scaffold(
-      appBar: CustomAppBar(
-        height: 100,
-        child: SafeArea(
-          child: Center(
-            child: Container(
-              alignment: Alignment.centerRight,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 25.0),
-                child: IconButton(
-                  icon: Icon(Icons.close_outlined),
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
+      appBar: customAppBar(
+        Center(
+          child: Container(
+            alignment: Alignment.centerRight,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 25.0),
+              child: IconButton(
+                icon: Icon(Icons.close_outlined),
+                onPressed: () => Navigator.of(context).pop(),
               ),
             ),
           ),
         ),
+        80.0,
       ),
       floatingActionButton: FloatingActionButton.extended(
         shape: RoundedRectangleBorder(
@@ -47,13 +45,13 @@ class UpdateCommentScreen extends StatelessWidget {
           if (_controller.text.isNotEmpty) {
             AddComment addComment = new AddComment(
               content: _controller.text,
-              articleId: comment.articleId,
+              articleId: comment!.articleId,
               authorId: uid,
             );
             Provider.of<CommentService>(context, listen: false)
                 .updateComment(
                   addComment,
-                  comment.id,
+                  comment!.id!,
                 )
                 .then((_) => _controller.text = "")
                 .then(
@@ -80,7 +78,7 @@ class UpdateCommentScreen extends StatelessWidget {
         ),
         child: Container(
           height: maxLines * 24.0,
-          child: commentInput(_controller, maxLines),
+          child: commentInput(_controller),
         ),
       ),
     );

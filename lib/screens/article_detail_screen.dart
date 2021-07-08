@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:newsroom/widget/article_detail_container.dart';
 
 class ArticleDetail extends StatelessWidget {
-  final int id;
+  final int? id;
 
   ArticleDetail({@required this.id});
 
@@ -10,9 +10,8 @@ class ArticleDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: articleDetailContainer(
-          id,
-          context,
+        child: ArticleDetailContainer(
+          id: id!,
         ),
       ),
     );

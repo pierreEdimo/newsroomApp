@@ -1,12 +1,12 @@
-import 'package:newsroom/model/userModel.dart';
+import 'package:newsroom/model/user_,model.dart';
 
 class Comment {
-  final int id;
-  final String createdAt;
-  final int articleId;
-  final UserModel author;
-  final String content;
-  final String authorId;
+  final int? id;
+  final String? createdAt;
+  final int? articleId;
+  final UserModel? author;
+  final String? content;
+  final String? authorId;
 
   Comment(
       {this.articleId,

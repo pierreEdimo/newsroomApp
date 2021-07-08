@@ -7,19 +7,19 @@ import 'package:provider/provider.dart';
 import '../main.dart';
 
 class SnackBarPage extends StatefulWidget {
-  final Article article;
+  final Article? article;
 
   SnackBarPage({@required this.article});
   @override
-  _SnackBarPageState createState() => _SnackBarPageState(article: article);
+  _SnackBarPageState createState() => _SnackBarPageState(article: article!);
 }
 
 class _SnackBarPageState extends State<SnackBarPage> {
-  Article article;
-  String userId;
+  Article? article;
+  String? userId;
 
   _SnackBarPageState({
-    @required this.article,
+    this.article,
   });
 
   @protected
@@ -49,22 +49,22 @@ class _SnackBarPageState extends State<SnackBarPage> {
     return IconButton(
       icon: Icon(
         Icons.bookmark_outline_outlined,
+        color: Colors.black,
       ),
       onPressed: () async {
-        String uid = await storage.read(key: "userId");
+        String? uid = await storage.read(key: "userId");
         AddBookMark bookMark = AddBookMark(
           ownerId: uid,
-          articleId: article.id,
+          articleId: article!.id!,
         );
         var statusCode =
             await Provider.of<BookMarkSerivce>(context, listen: false)
                 .addBookMark(bookMark);
         if (statusCode == 201) {
-          print("userId:" + userId);
           showSnack("article has been added", context);
         } else {
           await Provider.of<BookMarkSerivce>(context, listen: false)
-              .deleteFavorite(article.id)
+              .deleteFavorite(article!.id!)
               .then(
                 (_) => showSnack(
                   "article has been removed",

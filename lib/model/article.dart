@@ -1,14 +1,14 @@
 import 'author.dart';
 
 class Article {
-  final int id;
-  final String title;
-  final String imageUrl;
-  final String content;
-  final String createdAt;
-  final Author author;
-  final int commentCount;
-  final String imageCredits;
+  final int? id;
+  final String? title;
+  final String? imageUrl;
+  final String? content;
+  final String? createdAt;
+  final Author? author;
+  final int? commentCount;
+  final String? imageCredits;
 
   Article({
     this.content,

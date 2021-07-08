@@ -1,7 +1,7 @@
 class AddComment {
-  final String authorId;
-  final String content;
-  final int articleId;
+  final String? authorId;
+  final String? content;
+  final int? articleId;
 
   AddComment({
     this.authorId,

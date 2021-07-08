@@ -15,7 +15,7 @@ Widget imageContainer(
           width: MediaQuery.of(context).size.width * 1,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: NetworkImage(article.imageUrl),
+              image: NetworkImage(article.imageUrl!),
               fit: BoxFit.cover,
             ),
           ),
@@ -31,6 +31,7 @@ Widget imageContainer(
                 IconButton(
                   icon: Icon(
                     Icons.keyboard_arrow_left_outlined,
+                    color: Colors.black,
                   ),
                   onPressed: () => Navigator.of(context).pop(),
                 ),

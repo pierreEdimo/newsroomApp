@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import 'article_container.dart';
 
-Future<void> _fechtArticles(
+Future<List<Article>> _fechtArticles(
   context,
   String url,
 ) async {
@@ -20,7 +20,7 @@ Widget listOfArticles(
 ) {
   return FutureBuilder(
     future: articles,
-    builder: (context, snapshot) {
+    builder: (context, AsyncSnapshot<List<Article>> snapshot) {
       if (snapshot.hasError)
         return Center(
           child: Text(
@@ -29,7 +29,7 @@ Widget listOfArticles(
           ),
         );
       if (snapshot.hasData) {
-        List<Article> articles = snapshot.data;
+        List<Article> articles = snapshot.data!;
 
         return articles.length < 1
             ? Center(
