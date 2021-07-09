@@ -4,16 +4,18 @@ import 'package:newsroom/screens/article_from_topic.dart';
 import 'package:newsroom/widget/blur_container.dart';
 
 Widget topicContainer(Topic topic, context) {
-  return InkWell(
-    onTap: () => Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => ArticleFromTopic(
-          topicId: topic.id,
-          topicName: topic.name,
+  return Material(
+    elevation: 10.0,
+    borderRadius: BorderRadius.circular(5.0),
+    child: InkWell(
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => ArticleFromTopic(
+            topicId: topic.id,
+            topicName: topic.name,
+          ),
         ),
       ),
-    ),
-    child: Card(
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),

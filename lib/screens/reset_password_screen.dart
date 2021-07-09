@@ -31,7 +31,6 @@ class ResetPassword extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(25.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Form(
               key: _formKey,

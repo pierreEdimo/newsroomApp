@@ -64,10 +64,10 @@ class AddCommentScreen extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Padding(
         padding: EdgeInsets.only(
-          right: 25.0,
-          left: 25.0,
-          top: 10.0,
-          bottom: 10.0,
+          right: 30.0,
+          left: 30.0,
+          top: 15.0,
+          bottom: 15.0,
         ),
         child: Container(
           height: maxLines * 24.0,

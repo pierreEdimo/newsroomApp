@@ -30,6 +30,8 @@ Widget gridofTopics(context) {
               right: 25.0,
             ),
             crossAxisCount: 2,
+            mainAxisSpacing: 10.0,
+            crossAxisSpacing: 10.0,
             children: topics
                 .map(
                   (Topic topic) => topicContainer(
