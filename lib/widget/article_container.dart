@@ -11,35 +11,39 @@ Widget articleContainer(
   Article article,
   context,
 ) {
-  return InkWell(
-    onTap: () => Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => ArticleDetail(id: article.id),
+  return Material(
+    borderRadius: BorderRadius.circular(5.0),
+    elevation: 10,
+    child: InkWell(
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => ArticleDetail(id: article.id),
+        ),
       ),
-    ),
-    child: Container(
-      width: MediaQuery.of(context).size.width * 1,
-      height: MediaQuery.of(context).size.height * 0.35,
       child: Container(
-        child: Stack(children: [
-          backgroundImageContainer(
-            article.imageUrl!,
-            context,
-          ),
-          blur(context),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                flexibleTitle(article.title!),
-                verticalSpace,
-                articleRow(article),
-              ],
+        width: MediaQuery.of(context).size.width * 1,
+        height: MediaQuery.of(context).size.height * 0.35,
+        child: Container(
+          child: Stack(children: [
+            backgroundImageContainer(
+              article.imageUrl!,
+              context,
             ),
-          ),
-        ]),
+            blur(context),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  flexibleTitle(article.title!),
+                  verticalSpace,
+                  articleRow(article),
+                ],
+              ),
+            ),
+          ]),
+        ),
       ),
     ),
   );
