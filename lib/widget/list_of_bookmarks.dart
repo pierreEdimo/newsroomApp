@@ -25,12 +25,9 @@ Widget listOfBookMarks(
                 ),
                 children: bookmarks
                     .map(
-                      (BookMark bookMark) => Container(
-                        margin: EdgeInsets.only(bottom: 10.0),
-                        child: bookMarkContainer(
-                          bookMark,
-                          context,
-                        ),
+                      (BookMark bookMark) => bookMarkContainer(
+                        bookMark,
+                        context,
                       ),
                     )
                     .toList(),
