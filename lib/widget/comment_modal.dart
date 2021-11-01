@@ -3,7 +3,6 @@ import 'package:newsroom/main.dart';
 import 'package:newsroom/model/comment.dart';
 import 'package:newsroom/screens/update_comment_screen.dart';
 import 'package:newsroom/service/comment_service.dart';
-import 'package:newsroom/utilities/constants.dart';
 import 'package:provider/provider.dart';
 
 commentModal(String authorId, context, Comment comment) async {
@@ -16,9 +15,6 @@ commentModal(String authorId, context, Comment comment) async {
               color: Color(0xFF737373),
               child: Container(
                 height: 130,
-                decoration: BoxDecoration(
-                  borderRadius: onlyRadius,
-                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -56,10 +52,6 @@ commentModal(String authorId, context, Comment comment) async {
           : Container(
               color: Color(0xFF737373),
               child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: onlyRadius,
-                ),
                 child: ListTile(
                   leading: Icon(
                     Icons.flag_outlined,
