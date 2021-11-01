@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:hive/hive.dart';
 import 'package:http/http.dart';
 import 'package:newsroom/model/edit_email.dart';
 import 'package:newsroom/model/loginModel.dart';
@@ -9,6 +10,8 @@ import 'dart:convert';
 import '../main.dart';
 
 class AuthService extends ChangeNotifier {
+  var box = Hive.box('userId');
+
   Future<Response> registerUser(RegisterModel userModel) async {
     Map<String, String> headers = {'Content-Type': 'application/json'};
     String jsEncode;
@@ -23,6 +26,7 @@ class AuthService extends ChangeNotifier {
     if (response.statusCode == 200) {
       final responseJson = json.decode(response.body);
       storage.write(key: "userId", value: responseJson['userDto']['id']);
+      box.put('userId', responseJson['userDto']['id']);
       storage.write(key: "jwt", value: responseJson['token']);
       notifyListeners();
       //storage.write(key: "jwt", value: jwt);
@@ -44,6 +48,7 @@ class AuthService extends ChangeNotifier {
     if (response.statusCode == 200) {
       final responseJson = json.decode(response.body);
       storage.write(key: "userId", value: responseJson['userDto']['id']);
+      box.put('userId', responseJson['userDto']['id']);
       storage.write(key: "jwt", value: responseJson['token']);
       notifyListeners();
     }
@@ -65,6 +70,7 @@ class AuthService extends ChangeNotifier {
     if (response.statusCode == 200) {
       final responseJson = json.decode(response.body);
       storage.write(key: "userId", value: responseJson['userDto']['id']);
+      box.put('userId', responseJson['userDto']['id']);
       storage.write(key: "jwt", value: responseJson['token']);
       notifyListeners();
     }
@@ -88,6 +94,7 @@ class AuthService extends ChangeNotifier {
     if (response.statusCode == 200) {
       final responseJson = json.decode(response.body);
       storage.write(key: "userId", value: responseJson['userDto']['id']);
+      box.put('userId', responseJson['userDto']['id']);
       storage.write(key: "jwt", value: responseJson['token']);
       notifyListeners();
     }
