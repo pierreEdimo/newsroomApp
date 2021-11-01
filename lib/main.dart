@@ -2,6 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:newsroom/screens/sign_in_screen.dart';
 import 'package:newsroom/service/article_service.dart';
 import 'package:newsroom/service/auth_service.dart';
+import 'package:newsroom/service/saved_word_service.dart';
 import 'package:newsroom/service/theme_service.dart';
 import 'package:newsroom/service/bookmark_service.dart';
 import 'package:newsroom/service/comment_service.dart';
@@ -11,10 +12,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:newsroom/widget/custom_themes.dart';
 import 'package:provider/provider.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 final storage = FlutterSecureStorage();
 
 void main() async {
+  await Hive.initFlutter();
+
+  await Hive.openBox('userId');
+
   runApp(MyApp());
 }
 
@@ -40,6 +47,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => CommentService()),
         ChangeNotifierProvider(create: (context) => BookMarkSerivce()),
         ChangeNotifierProvider(create: (context) => ThemeService()),
+        ChangeNotifierProvider(create: (context) => SavedWordService())
       ],
       builder: (context, child) {
         var currentMode = Provider.of<ThemeService>(context);
