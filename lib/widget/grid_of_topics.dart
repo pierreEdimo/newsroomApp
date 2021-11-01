@@ -25,9 +25,9 @@ Widget gridofTopics(context) {
         return RefreshIndicator(
           onRefresh: () => _fecthTopics(context),
           child: GridView.count(
-            padding: EdgeInsets.only(
-              left: 25.0,
-              right: 25.0,
+            padding: EdgeInsets.symmetric(
+              vertical: 10.0,
+              horizontal: 25.0,
             ),
             crossAxisCount: 2,
             mainAxisSpacing: 10.0,
