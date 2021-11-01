@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:newsroom/model/article.dart';
 import 'package:newsroom/screens/comment_screen.dart';
-
 import 'package:newsroom/service/article_service.dart';
 import 'package:newsroom/utilities/constants.dart';
-
-import 'package:newsroom/widget/button_row.dart';
 import 'package:newsroom/widget/image_container.dart';
 import 'package:newsroom/widget/text_container.dart';
 import 'package:newsroom/widget/title_container.dart';
@@ -46,7 +43,10 @@ class _ArticleDetailContainerState extends State<ArticleDetailContainer> {
                 context,
               ),
               Padding(
-                padding: EdgeInsets.all(30.0),
+                padding: EdgeInsets.symmetric(
+                  vertical: 15.0,
+                  horizontal: 30.0,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

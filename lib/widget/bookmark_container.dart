@@ -9,38 +9,44 @@ Widget bookMarkContainer(
   BookMark bookMark,
   context,
 ) {
-  return InkWell(
-    onTap: () => Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => ArticleDetail(
-          id: bookMark.articleId,
+  return Card(
+    child: Material(
+      borderRadius: BorderRadius.circular(5.0),
+      elevation: 10,
+      child: InkWell(
+        onTap: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => ArticleDetail(
+              id: bookMark.articleId,
+            ),
+          ),
         ),
-      ),
-    ),
-    child: Container(
-      width: MediaQuery.of(context).size.width * 1,
-      height: MediaQuery.of(context).size.height * 0.35,
-      child: Container(
-        child: Stack(
-          children: [
-            backgroundImageContainer(
-              bookMark.article!.imageUrl!,
-              context,
-            ),
-            blur(context),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  flexibleTitle(
-                    bookMark.article!.title!,
+        child: Container(
+          width: MediaQuery.of(context).size.width * 1,
+          height: MediaQuery.of(context).size.height * 0.25,
+          child: Container(
+            child: Stack(
+              children: [
+                backgroundImageContainer(
+                  bookMark.article!.imageUrl!,
+                  context,
+                ),
+                blur(context),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      flexibleTitle(
+                        bookMark.article!.title!,
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     ),
