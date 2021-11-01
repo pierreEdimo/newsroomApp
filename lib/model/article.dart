@@ -1,4 +1,5 @@
 import 'author.dart';
+import 'has_favorite.dart';
 
 class Article {
   final int? id;
@@ -9,6 +10,7 @@ class Article {
   final Author? author;
   final int? commentCount;
   final String? imageCredits;
+  final List<HasFavorite>? hasFavorites;
 
   Article({
     this.content,
@@ -19,6 +21,7 @@ class Article {
     this.title,
     this.author,
     this.commentCount,
+    this.hasFavorites,
   });
 
   factory Article.fromJson(Map<String, dynamic> json) => Article(
@@ -30,5 +33,7 @@ class Article {
         commentCount: json['commentCount'] as int,
         imageCredits: json['imageCredits'] as String,
         author: Author.fromJson(json['author']),
+        hasFavorites: List<HasFavorite>.from(
+            json["hasFavorites"].map((x) => HasFavorite.fromJson(x))),
       );
 }
