@@ -16,6 +16,7 @@ Future<List<Article>> _fechtArticles(
 Widget listOfArticles(
   Future<List<Article>> articles,
   String url,
+  String msg,
   context,
 ) {
   return FutureBuilder(
@@ -32,8 +33,17 @@ Widget listOfArticles(
         List<Article> articles = snapshot.data!;
 
         return articles.length < 1
-            ? Center(
-                child: Text("No Articles"),
+            ? Padding(
+                padding: const EdgeInsets.only(
+                  right: 25.0,
+                  left: 25.0,
+                ),
+                child: Center(
+                  child: Text(
+                    msg,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
               )
             : RefreshIndicator(
                 onRefresh: () => _fechtArticles(
@@ -49,7 +59,6 @@ Widget listOfArticles(
                   children: articles
                       .map(
                         (Article article) => Container(
-                          margin: EdgeInsets.only(bottom: 10.0),
                           child: articleContainer(
                             article,
                             context,
