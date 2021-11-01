@@ -27,6 +27,7 @@ class HomeScreen extends StatelessWidget {
       body: listOfArticles(
         Provider.of<ArticleService>(context).fetchArticles(url),
         url,
+        "No Articles",
         context,
       ),
     );

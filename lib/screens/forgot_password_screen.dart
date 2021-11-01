@@ -35,34 +35,26 @@ class ForgoPassWordScreen extends StatelessWidget {
                 ),
               ),
             ),
-            InkWell(
-              onTap: () {
-                if (_formKey.currentState!.validate()) {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ResetPassword(
-                        email: _emailController.text,
-                      ),
-                    ),
-                  );
-                }
-              },
-              child: Container(
-                padding: EdgeInsets.only(
-                    left: 30.0, right: 30.0, top: 15.0, bottom: 15.0),
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(5.0),
-                  ),
-                ),
-                child: Text(
-                  "Save",
-                  style: TextStyle(color: Colors.white),
+          ],
+        ),
+      ),
+      floatingActionButton: TextButton(
+        onPressed: () {
+          if (_formKey.currentState!.validate()) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => ResetPassword(
+                  email: _emailController.text,
                 ),
               ),
-            )
-          ],
+            );
+          }
+        },
+        child: Text(
+          "Save",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );

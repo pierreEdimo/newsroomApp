@@ -47,11 +47,7 @@ class _EditmailScreenState extends State<EditmailScreen> {
           child: emailInput(_controller, ""),
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        backgroundColor: Colors.black,
+      floatingActionButton: TextButton(
         onPressed: () async {
           if (_formKey.currentState!.validate()) {
             EditEmail email = new EditEmail(
@@ -62,7 +58,7 @@ class _EditmailScreenState extends State<EditmailScreen> {
                 .then((_) => Navigator.of(context).pop());
           }
         },
-        label: Text(
+        child: Text(
           "Save",
           style: TextStyle(
             fontWeight: FontWeight.bold,

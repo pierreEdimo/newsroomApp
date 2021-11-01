@@ -26,10 +26,7 @@ class CommentScreen extends StatelessWidget {
         context,
         articleId,
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0),
-        ),
+      floatingActionButton: TextButton(
         onPressed: () => Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => AddCommentScreen(
@@ -37,16 +34,13 @@ class CommentScreen extends StatelessWidget {
             ),
           ),
         ),
-        label: Text(
+        child: Text(
           "Comment",
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Colors.white,
           ),
         ),
-        backgroundColor: Colors.black,
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

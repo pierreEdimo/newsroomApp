@@ -32,6 +32,7 @@ class ArticleFromTopic extends StatelessWidget {
         Provider.of<ArticleService>(context).fetchArticles(
             "https://newsplace.azurewebsites.net/api/articles/Filter?TopicId=$topicId"),
         "https://newsplace.azurewebsites.net/api/articles/Filter?TopicId=$topicId",
+        "No Articles",
         context,
       ),
     );

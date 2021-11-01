@@ -18,23 +18,22 @@ class AddCommentScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar(
-          Center(
-            child: Container(
-              alignment: Alignment.centerRight,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 25.0),
-                child: IconButton(
-                  icon: Icon(Icons.close_outlined),
-                  onPressed: () => Navigator.of(context).pop(),
+          SafeArea(
+            child: Center(
+              child: Container(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 25.0),
+                  child: IconButton(
+                    icon: Icon(Icons.close_outlined),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
                 ),
               ),
             ),
           ),
           80.0),
-      floatingActionButton: FloatingActionButton.extended(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0),
-        ),
+      floatingActionButton: TextButton(
         onPressed: () async {
           var uid = await storage.read(key: "userId");
           if (_controller.text.isNotEmpty) {
@@ -52,16 +51,13 @@ class AddCommentScreen extends StatelessWidget {
           }
           DoNothingAction();
         },
-        label: Text(
+        child: Text(
           "Post",
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Colors.white,
           ),
         ),
-        backgroundColor: Colors.black,
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Padding(
         padding: EdgeInsets.only(
           right: 30.0,
