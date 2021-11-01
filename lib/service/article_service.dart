@@ -13,7 +13,7 @@ class ArticleService extends ChangeNotifier {
 
       List<Article> articles =
           body.map((dynamic article) => Article.fromJson(article)).toList();
-
+      notifyListeners();
       return articles;
     } else {
       throw "No Articles";
@@ -25,6 +25,7 @@ class ArticleService extends ChangeNotifier {
     Response response = await get(url);
 
     if (response.statusCode == 200) {
+      notifyListeners();
       return Article.fromJson(jsonDecode(response.body));
     } else {
       throw "Failed to load Article";
