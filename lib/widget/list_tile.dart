@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:newsroom/utilities/constants.dart';
 
 Widget listTile(
   Icon icon,
   String title,
 ) {
   return Padding(
-    padding: const EdgeInsets.only(
-      left: 25.0,
-      top: 20.0,
-      bottom: 20.0,
-      right: 25.0,
-    ),
+    padding: completePadding,
     child: Row(
       children: [
         icon,
-        SizedBox(
-          width: 20.0,
-        ),
+        horizontalSpace,
         Text(title),
       ],
     ),

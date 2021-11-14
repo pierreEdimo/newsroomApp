@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newsroom/service/saved_word_service.dart';
+import 'package:newsroom/utilities/constants.dart';
 import 'package:newsroom/widget/saved_word_container.dart';
 import 'package:provider/provider.dart';
 
@@ -35,11 +36,7 @@ class _ListOFSavedWordsState extends State<ListOFSavedWords> {
                   ),
                 )
               : ListView(
-                  padding: EdgeInsets.only(
-                    top: 10.0,
-                    left: 25.0,
-                    right: 25.0,
-                  ),
+                  padding: completePadding,
                   children: words
                       .map(
                         (String savedWord) => InkWell(

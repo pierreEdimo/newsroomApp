@@ -51,47 +51,45 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar(
-        SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                InkWell(
-                  onTap: () => Navigator.of(context).pop(),
-                  child: Icon(Icons.keyboard_arrow_left_outlined),
-                ),
-                SizedBox(
-                  width: 10.0,
-                ),
-                Expanded(
-                  child: TextFormField(
-                    autofocus: true,
-                    textInputAction: TextInputAction.search,
-                    controller: _controller,
-                    decoration: InputDecoration(
-                      contentPadding: new EdgeInsets.symmetric(
-                          vertical: 5.0, horizontal: 10.0),
-                      border: OutlineInputBorder(),
-                      hintText: "search...",
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            _controller.text = "";
-                          });
-                        },
-                        icon: Icon(Icons.close),
-                      ),
+        Padding(
+          padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              InkWell(
+                onTap: () => Navigator.of(context).pop(),
+                child: Icon(Icons.keyboard_arrow_left_outlined),
+              ),
+              SizedBox(
+                width: 10.0,
+              ),
+              Expanded(
+                child: TextFormField(
+                  autofocus: true,
+                  textInputAction: TextInputAction.search,
+                  controller: _controller,
+                  decoration: InputDecoration(
+                    contentPadding: new EdgeInsets.symmetric(
+                        vertical: 5.0, horizontal: 10.0),
+                    border: OutlineInputBorder(),
+                    hintText: "search...",
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _controller.text = "";
+                        });
+                      },
+                      icon: Icon(Icons.close),
                     ),
-                    onChanged: (value) => _search(value),
-                    onFieldSubmitted: (value) {
-                      _search(value);
-                      _saveWord();
-                    },
                   ),
+                  onChanged: (value) => _search(value),
+                  onFieldSubmitted: (value) {
+                    _search(value);
+                    _saveWord();
+                  },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
         80.0,

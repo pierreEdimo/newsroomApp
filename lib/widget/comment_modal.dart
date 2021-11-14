@@ -50,7 +50,6 @@ commentModal(String authorId, context, Comment comment) async {
               ),
             )
           : Container(
-              color: Color(0xFF737373),
               child: Container(
                 child: ListTile(
                   leading: Icon(

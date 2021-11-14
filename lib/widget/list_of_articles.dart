@@ -1,6 +1,7 @@
 import 'package:newsroom/model/article.dart';
 import 'package:newsroom/service/article_service.dart';
 import 'package:flutter/material.dart';
+import 'package:newsroom/utilities/constants.dart';
 import 'package:provider/provider.dart';
 
 import 'article_container.dart';
@@ -51,11 +52,7 @@ Widget listOfArticles(
                   url,
                 ),
                 child: ListView(
-                  padding: EdgeInsets.only(
-                    bottom: 10.0,
-                    right: 25.0,
-                    left: 25.0,
-                  ),
+                  padding: completePadding,
                   children: articles
                       .map(
                         (Article article) => Container(

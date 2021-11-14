@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newsroom/model/comment.dart';
+import 'package:newsroom/utilities/constants.dart';
 import 'package:newsroom/widget/comment_modal.dart';
 
 Widget commentContainer(
@@ -34,7 +35,7 @@ Widget commentContainer(
                     ),
                     Text(
                       "${comment.createdAt}",
-                      style: TextStyle(fontSize: 11.0),
+                      style: smalltext,
                     )
                   ],
                 ),
@@ -48,9 +49,7 @@ Widget commentContainer(
                 )
               ],
             ),
-            SizedBox(
-              height: 15.0,
-            ),
+            verticalSpace,
             Text("${comment.content}")
           ],
         ),

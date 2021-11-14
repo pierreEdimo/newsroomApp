@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newsroom/model/comment.dart';
 import 'package:newsroom/service/comment_service.dart';
+import 'package:newsroom/utilities/constants.dart';
 import 'package:newsroom/widget/comment_container.dart';
 import 'package:provider/provider.dart';
 
@@ -35,10 +36,7 @@ Widget listOfComments(
                   articleId,
                 ),
                 child: ListView(
-                  padding: EdgeInsets.only(
-                    left: 25.0,
-                    right: 25.0,
-                  ),
+                  padding: horizontalPadding,
                   children: comments
                       .map(
                         (Comment comment) => Container(

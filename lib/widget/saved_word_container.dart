@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newsroom/utilities/constants.dart';
 
 Widget savedWordContainer(String savedWord) {
   return Card(
@@ -7,9 +8,7 @@ Widget savedWordContainer(String savedWord) {
       child: Row(
         children: [
           Icon(Icons.history_outlined),
-          SizedBox(
-            width: 25.0,
-          ),
+          horizontalSpace,
           Text(
             savedWord,
             style: TextStyle(

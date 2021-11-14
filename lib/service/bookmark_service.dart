@@ -11,7 +11,11 @@ class BookMarkSerivce extends ChangeNotifier {
   Future<int> addBookMark(
     AddBookMark bookMark,
   ) async {
-    Map<String, String> headers = {'Content-Type': 'application/json'};
+    String? authorization = await storage.read(key: "jwt");
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + authorization!
+    };
     String jsEncode = jsonEncode(bookMark);
     var url =
         Uri.parse('https://newsplace.azurewebsites.net/api/FavoritesArticles');
@@ -26,9 +30,11 @@ class BookMarkSerivce extends ChangeNotifier {
 
   Future<List<BookMark>> fetchBookMark() async {
     String? userId = await storage.read(key: "userId");
+    String? authorization = await storage.read(key: "jwt");
     var url = Uri.parse(
         'https://newsplace.azurewebsites.net/api/FavoritesArticles/FilterFavorites?UserId=$userId&&SortOrder=asc');
-    Response response = await get(url);
+    Response response =
+        await get(url, headers: {'Authorization': 'Bearer ' + authorization!});
 
     if (response.statusCode == 200) {
       List<dynamic> body = jsonDecode(response.body);

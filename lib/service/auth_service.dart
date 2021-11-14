@@ -57,7 +57,9 @@ class AuthService extends ChangeNotifier {
   }
 
   Future<Response> resetPassword(LoginModel login) async {
-    Map<String, String> headers = {'Content-Type': 'application/json'};
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+    };
     String jsEncode = jsonEncode(login);
     var url = Uri.parse(
         'https://newsplace.azurewebsites.net/api/User/ForgotPassWord');

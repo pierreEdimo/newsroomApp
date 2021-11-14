@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newsroom/model/article.dart';
+import 'package:newsroom/utilities/constants.dart';
 import 'package:newsroom/widget/snack_bar_page.dart';
 
 Widget imageContainer(
@@ -21,10 +22,7 @@ Widget imageContainer(
           ),
           child: Container(
             alignment: Alignment.topCenter,
-            padding: EdgeInsets.only(
-              left: 25.0,
-              right: 25.0,
-            ),
+            padding: horizontalPadding,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

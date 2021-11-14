@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:newsroom/main.dart';
 import 'package:newsroom/model/add_comment.dart';
 import 'package:newsroom/service/comment_service.dart';
+import 'package:newsroom/utilities/constants.dart';
 import 'package:newsroom/widget/comment_input.dart';
 import 'package:newsroom/widget/custom_app_bar.dart';
 import 'package:provider/provider.dart';
@@ -18,16 +19,14 @@ class AddCommentScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar(
-          SafeArea(
-            child: Center(
-              child: Container(
-                alignment: Alignment.centerRight,
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 25.0),
-                  child: IconButton(
-                    icon: Icon(Icons.close_outlined),
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
+          Center(
+            child: Container(
+              alignment: Alignment.centerRight,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 25.0),
+                child: IconButton(
+                  icon: Icon(Icons.close_outlined),
+                  onPressed: () => Navigator.of(context).pop(),
                 ),
               ),
             ),
@@ -59,12 +58,7 @@ class AddCommentScreen extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.only(
-          right: 30.0,
-          left: 30.0,
-          top: 15.0,
-          bottom: 15.0,
-        ),
+        padding: completePadding,
         child: Container(
           height: maxLines * 24.0,
           child: commentInput(_controller),

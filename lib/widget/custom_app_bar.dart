@@ -5,7 +5,7 @@ PreferredSize customAppBar(Widget child, double height) {
       child: Container(
         color: Colors.transparent,
         alignment: Alignment.center,
-        child: child,
+        child: SafeArea(child: child),
       ),
       preferredSize: Size.fromHeight(height));
 }

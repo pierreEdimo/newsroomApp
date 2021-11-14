@@ -6,8 +6,10 @@ const titleStyle = TextStyle(
   fontFamily: 'OpenSansBold',
 );
 
+const smalltext = TextStyle(fontSize: 11.0);
+
 const horizontalSpace = SizedBox(
-  width: 5.0,
+  width: 20.0,
 );
 
 const textandDateStyle = TextStyle(
@@ -19,7 +21,15 @@ const verticalSpace = SizedBox(
   height: 20.0,
 );
 
-const onlyRadius = BorderRadius.only(
-  topLeft: Radius.circular(5.0),
-  topRight: Radius.circular(5.0),
+EdgeInsets standardPadding = EdgeInsets.symmetric(
+  vertical: 15.0,
+  horizontal: 30.0,
+);
+
+EdgeInsets completePadding =
+    EdgeInsets.symmetric(vertical: 20.0, horizontal: 25.0);
+
+EdgeInsets horizontalPadding = EdgeInsets.only(
+  left: 25.0,
+  right: 25.0,
 );

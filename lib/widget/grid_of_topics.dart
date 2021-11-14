@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newsroom/model/topic.dart';
 import 'package:newsroom/service/topic_service.dart';
+import 'package:newsroom/utilities/constants.dart';
 import 'package:newsroom/widget/topic_container.dart';
 import 'package:provider/provider.dart';
 
@@ -25,13 +26,10 @@ Widget gridofTopics(context) {
         return RefreshIndicator(
           onRefresh: () => _fecthTopics(context),
           child: GridView.count(
-            padding: EdgeInsets.symmetric(
-              vertical: 10.0,
-              horizontal: 25.0,
-            ),
+            padding: completePadding,
             crossAxisCount: 2,
-            mainAxisSpacing: 10.0,
-            crossAxisSpacing: 10.0,
+            mainAxisSpacing: 15.0,
+            crossAxisSpacing: 15.0,
             children: topics
                 .map(
                   (Topic topic) => topicContainer(

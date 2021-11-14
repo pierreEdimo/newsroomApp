@@ -70,8 +70,11 @@ class _SignInScreenState extends State<SignInScreen> {
                       showErrorDialog(context, "Error",
                           "Sorry, Neither your password nor your email were found");
                     else
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => BottomNavigation()));
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => BottomNavigation(),
+                        ),
+                      );
                   }
                 },
               ),

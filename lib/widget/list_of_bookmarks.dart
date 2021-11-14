@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newsroom/model/bookmark.dart';
 import 'package:newsroom/service/bookmark_service.dart';
+import 'package:newsroom/utilities/constants.dart';
 import 'package:newsroom/widget/bookmark_container.dart';
 import 'package:provider/provider.dart';
 
@@ -18,11 +19,7 @@ Widget listOfBookMarks(
                 child: Text(" No Articles yet"),
               )
             : ListView(
-                padding: EdgeInsets.only(
-                  left: 25.0,
-                  right: 25.0,
-                  bottom: 10.0,
-                ),
+                padding: completePadding,
                 children: bookmarks
                     .map(
                       (BookMark bookMark) => bookMarkContainer(

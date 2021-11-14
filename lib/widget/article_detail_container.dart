@@ -43,10 +43,7 @@ class _ArticleDetailContainerState extends State<ArticleDetailContainer> {
                 context,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: 15.0,
-                  horizontal: 30.0,
-                ),
+                padding: standardPadding,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

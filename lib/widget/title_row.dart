@@ -7,19 +7,17 @@ Widget titleRow(
   context,
 ) {
   return Padding(
-    padding: EdgeInsets.only(left: 25.0, right: 25.0),
-    child: SafeArea(
-      child: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: titleStyle,
-            ),
-            icon,
-          ],
-        ),
+    padding: horizontalPadding,
+    child: Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: titleStyle,
+          ),
+          icon,
+        ],
       ),
     ),
   );

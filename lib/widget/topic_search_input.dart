@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:newsroom/screens/search_screen.dart';
+import 'package:newsroom/utilities/constants.dart';
 
 Widget topicSearchInput(context) {
   return SafeArea(
     child: Padding(
-      padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+      padding: horizontalPadding,
       child: TextField(
         onTap: () => Navigator.of(context).push(
           MaterialPageRoute(
