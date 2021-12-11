@@ -28,7 +28,10 @@ commentModal(String authorId, context, Comment comment) async {
                             );
                       },
                       leading: Icon(Icons.delete_outline),
-                      title: Text("delete"),
+                      title: Text(
+                        "delete",
+                        style: TextStyle(fontFamily: 'OpenSansBold'),
+                      ),
                     ),
                     ListTile(
                       onTap: () => Navigator.of(context)
@@ -43,7 +46,10 @@ commentModal(String authorId, context, Comment comment) async {
                             (_) => Navigator.of(context).pop(),
                           ),
                       leading: Icon(Icons.edit_outlined),
-                      title: Text("edit"),
+                      title: Text(
+                        "edit",
+                        style: TextStyle(fontFamily: 'OpenSansBold'),
+                      ),
                     )
                   ],
                 ),
@@ -55,7 +61,10 @@ commentModal(String authorId, context, Comment comment) async {
                   leading: Icon(
                     Icons.flag_outlined,
                   ),
-                  title: Text("Report"),
+                  title: Text(
+                    "Report",
+                    style: TextStyle(fontFamily: 'OpenSansBold'),
+                  ),
                 ),
               ),
             );

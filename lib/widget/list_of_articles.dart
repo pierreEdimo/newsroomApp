@@ -3,7 +3,6 @@ import 'package:newsroom/service/article_service.dart';
 import 'package:flutter/material.dart';
 import 'package:newsroom/utilities/constants.dart';
 import 'package:provider/provider.dart';
-
 import 'article_container.dart';
 
 Future<List<Article>> _fechtArticles(
@@ -32,13 +31,9 @@ Widget listOfArticles(
         );
       if (snapshot.hasData) {
         List<Article> articles = snapshot.data!;
-
         return articles.length < 1
-            ? Padding(
-                padding: const EdgeInsets.only(
-                  right: 25.0,
-                  left: 25.0,
-                ),
+            ? Container(
+                padding: horizontalPadding,
                 child: Center(
                   child: Text(
                     msg,

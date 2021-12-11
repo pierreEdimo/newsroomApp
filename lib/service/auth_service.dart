@@ -10,7 +10,7 @@ import 'dart:convert';
 import '../main.dart';
 
 class AuthService extends ChangeNotifier {
-  var box = Hive.box('userId');
+  var box = Hive.box('newsBox');
 
   Future<Response> registerUser(RegisterModel userModel) async {
     Map<String, String> headers = {'Content-Type': 'application/json'};
@@ -29,7 +29,6 @@ class AuthService extends ChangeNotifier {
       box.put('userId', responseJson['userDto']['id']);
       storage.write(key: "jwt", value: responseJson['token']);
       notifyListeners();
-      //storage.write(key: "jwt", value: jwt);
     }
     return response;
   }

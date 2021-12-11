@@ -10,7 +10,7 @@ Widget aboutTile(context) {
       ),
     ),
     child: listTile(
-      Icon(Icons.info_outline),
+      Icon(Icons.info_outline, size: 25,),
       "About",
     ),
   );

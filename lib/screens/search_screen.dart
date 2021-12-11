@@ -4,6 +4,7 @@ import 'package:newsroom/model/add_saved_word.dart';
 import 'package:newsroom/model/article.dart';
 import 'package:newsroom/service/article_service.dart';
 import 'package:newsroom/service/saved_word_service.dart';
+import 'package:newsroom/utilities/constants.dart';
 import 'package:newsroom/widget/custom_app_bar.dart';
 import 'package:newsroom/widget/list_of_articles.dart';
 import 'package:newsroom/widget/list_of_saved_words.dart';
@@ -18,7 +19,6 @@ class _SearchScreenState extends State<SearchScreen> {
   TextEditingController _controller = TextEditingController();
   Future<List<Article>>? _articles;
   SavedWordService service = SavedWordService();
-
   Future<List<Article>> _fechtArticles(
     context,
     String url,
@@ -51,48 +51,35 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar(
-        Padding(
-          padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              InkWell(
-                onTap: () => Navigator.of(context).pop(),
-                child: Icon(Icons.keyboard_arrow_left_outlined),
-              ),
-              SizedBox(
-                width: 10.0,
-              ),
-              Expanded(
-                child: TextFormField(
-                  autofocus: true,
-                  textInputAction: TextInputAction.search,
-                  controller: _controller,
-                  decoration: InputDecoration(
-                    contentPadding: new EdgeInsets.symmetric(
-                        vertical: 5.0, horizontal: 10.0),
-                    border: OutlineInputBorder(),
-                    hintText: "search...",
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          _controller.text = "";
-                        });
-                      },
-                      icon: Icon(Icons.close),
-                    ),
-                  ),
-                  onChanged: (value) => _search(value),
-                  onFieldSubmitted: (value) {
-                    _search(value);
-                    _saveWord();
+          Container(
+            padding: horizontalPadding,
+            child: TextFormField(
+              autofocus: true,
+              textInputAction: TextInputAction.search,
+              controller: _controller,
+              decoration: InputDecoration(
+                hintText: "search...",
+                border: InputBorder.none,
+                prefixIcon: IconButton(
+                  onPressed: () => Navigator.of(context).pop() ,
+                  icon: Icon(Icons.keyboard_arrow_left_outlined),
+                ) ,
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      _controller.text = "";
+                    });
                   },
+                  icon: Icon(Icons.close),
                 ),
               ),
-            ],
+              onChanged: (value) => _search(value),
+              onFieldSubmitted: (value) {
+                _search(value);
+                _saveWord();
+              },
+            ),
           ),
-        ),
-        80.0,
       ),
       body: _controller.text.isEmpty
           ? Container(

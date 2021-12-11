@@ -4,6 +4,8 @@ import 'package:newsroom/model/add_bookmark.dart';
 import 'package:newsroom/model/article.dart';
 import 'package:newsroom/service/article_service.dart';
 import 'package:newsroom/service/bookmark_service.dart';
+import 'package:newsroom/utilities/constants.dart';
+import 'package:newsroom/widget/display_diagog.dart';
 import 'package:provider/provider.dart';
 
 import '../main.dart';
@@ -19,7 +21,7 @@ class SnackBarPage extends StatefulWidget {
 class _SnackBarPageState extends State<SnackBarPage> {
   Article? article;
   String? userId;
-
+  var box = Hive.box('newsBox');
   Icon stantdardIcon = Icon(
     Icons.bookmark_outline_outlined,
     color: Colors.black,
@@ -60,9 +62,7 @@ class _SnackBarPageState extends State<SnackBarPage> {
   }
 
   bookMarkIcon() {
-    var box = Hive.box('userId');
     String user = box.get('userId');
-
     for (int index = 0; index < article!.hasFavorites!.length; index++) {
       if (user == article!.hasFavorites![index].ownerId) {
         Icon icon = Icon(
@@ -78,11 +78,14 @@ class _SnackBarPageState extends State<SnackBarPage> {
 
   @override
   Widget build(BuildContext context) {
-    return checkbookmark();
+    return checkBookmark();
   }
 
   _addBookMark() async {
     String? uid = await storage.read(key: "userId");
+    if(uid == null){
+      showErrorDialog(context, "Error", unloggedTextError + "to add an Article in the bookmark");
+    }
     AddBookMark bookMark = AddBookMark(
       ownerId: uid,
       articleId: article!.id!,
@@ -101,11 +104,11 @@ class _SnackBarPageState extends State<SnackBarPage> {
             ),
           );
     }
-
+    print(statusCode);
     _refetchArticle();
   }
 
-  checkbookmark() {
+  checkBookmark() {
     return IconButton(
       icon: article!.hasFavorites!.length < 1 ? standardIcon() : bookMarkIcon(),
       onPressed: () {

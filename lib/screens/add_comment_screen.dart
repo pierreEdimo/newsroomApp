@@ -31,7 +31,7 @@ class AddCommentScreen extends StatelessWidget {
               ),
             ),
           ),
-          80.0),
+        ),
       floatingActionButton: TextButton(
         onPressed: () async {
           var uid = await storage.read(key: "userId");

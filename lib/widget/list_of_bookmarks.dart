@@ -11,9 +11,16 @@ Widget listOfBookMarks(
   return FutureBuilder(
     future: Provider.of<BookMarkSerivce>(context).fetchBookMark(),
     builder: (context, AsyncSnapshot<List<BookMark>> snapshot) {
+      if (snapshot.hasError) {
+        return Center(
+          child: Text(
+            unloggedTextError + "to access the bookmarked Articles" ,
+            textAlign: TextAlign.center,
+          ),
+        );
+      }
       if (snapshot.hasData) {
         List<BookMark> bookmarks = snapshot.data!;
-
         return bookmarks.length < 1
             ? Center(
                 child: Text(" No Articles yet"),

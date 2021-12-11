@@ -23,7 +23,7 @@ Widget bookMarkContainer(
         ),
         child: Container(
           width: MediaQuery.of(context).size.width * 1,
-          height: MediaQuery.of(context).size.height * 0.28,
+          height: MediaQuery.of(context).size.height * 0.30,
           child: Container(
             child: Stack(
               children: [

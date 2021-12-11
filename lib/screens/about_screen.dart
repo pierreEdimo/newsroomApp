@@ -49,7 +49,6 @@ class AboutScreen extends StatelessWidget {
               onPressed: () => Navigator.of(context).pop(),
             ),
             context),
-        80.0,
       ),
       body: inforMationContainer(
         data,

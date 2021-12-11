@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:newsroom/model/loginModel.dart';
 import 'package:newsroom/service/auth_service.dart';
+import 'package:newsroom/utilities/constants.dart';
 import 'package:newsroom/widget/bottom_navigation.dart';
 import 'package:newsroom/widget/display_diagog.dart';
 import 'package:newsroom/widget/email_input.dart';
@@ -78,12 +79,18 @@ class _SignInScreenState extends State<SignInScreen> {
                   }
                 },
               ),
-              SizedBox(
-                height: 20.0,
-              ),
+              verticalSpace,
               goToSignUp(context),
               forgotPassWordButton(context),
             ],
+          ),
+        ),
+      ),
+      floatingActionButton: TextButton(
+        child: Text("Skip", style: TextStyle(fontWeight: FontWeight.bold), ),
+        onPressed: () => Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => BottomNavigation(),
           ),
         ),
       ),

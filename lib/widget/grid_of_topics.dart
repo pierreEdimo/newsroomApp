@@ -28,8 +28,8 @@ Widget gridofTopics(context) {
           child: GridView.count(
             padding: completePadding,
             crossAxisCount: 2,
-            mainAxisSpacing: 15.0,
-            crossAxisSpacing: 15.0,
+            mainAxisSpacing: 10.0,
+            crossAxisSpacing: 10.0,
             children: topics
                 .map(
                   (Topic topic) => topicContainer(

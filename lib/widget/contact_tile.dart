@@ -15,7 +15,7 @@ Widget contactTile(context) {
   return InkWell(
     onTap: () => _sendEmail(),
     child: listTile(
-      Icon(Icons.email_outlined),
+      Icon(Icons.email_outlined, size: 25,),
       "Contact",
     ),
   );

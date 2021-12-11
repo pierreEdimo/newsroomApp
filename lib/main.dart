@@ -18,9 +18,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 final storage = FlutterSecureStorage();
 
 void main() async {
-  await Hive.initFlutter();
 
-  await Hive.openBox('userId');
+   await Hive.initFlutter();
+
+  await Hive.openBox('newsBox');
 
   runApp(MyApp());
 }

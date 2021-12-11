@@ -34,7 +34,6 @@ class UpdateCommentScreen extends StatelessWidget {
             ),
           ),
         ),
-        80.0,
       ),
       floatingActionButton: FloatingActionButton.extended(
         shape: RoundedRectangleBorder(

@@ -11,7 +11,7 @@ class TopicScreen extends StatelessWidget {
     return Scaffold(
       appBar: customAppBar(
         titleRow(
-            "Topic",
+            "Discover",
             IconButton(
               icon: Icon(Icons.search),
               onPressed: () => Navigator.of(context).push(
@@ -21,7 +21,6 @@ class TopicScreen extends StatelessWidget {
               ),
             ),
             context),
-        80.0,
       ),
       body: gridofTopics(context),
     );

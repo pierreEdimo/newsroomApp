@@ -26,7 +26,6 @@ class ArticleFromTopic extends StatelessWidget {
           ),
           context,
         ),
-        80.0,
       ),
       body: listOfArticles(
         Provider.of<ArticleService>(context).fetchArticles(

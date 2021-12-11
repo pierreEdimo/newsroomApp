@@ -14,7 +14,11 @@ Future<void> showErrorDialog(
           content: SingleChildScrollView(
             child: ListBody(
               children: [
-                Text(msg),
+                Text(
+                  msg,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 14.0 ),
+                ),
               ],
             ),
           ),

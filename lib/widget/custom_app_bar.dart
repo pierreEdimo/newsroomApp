@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 
-PreferredSize customAppBar(Widget child, double height) {
+PreferredSize customAppBar(Widget child) {
   return PreferredSize(
-      child: Container(
-        color: Colors.transparent,
-        alignment: Alignment.center,
-        child: SafeArea(child: child),
+      child: Material(
+        elevation: 0.3,
+        child: SafeArea(
+          child: Container(
+            color: Colors.transparent,
+            alignment: Alignment.center,
+            child:  child,
+          ),
+        ),
       ),
-      preferredSize: Size.fromHeight(height));
+      preferredSize: Size.fromHeight(60.0));
 }

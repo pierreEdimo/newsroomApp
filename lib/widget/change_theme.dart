@@ -11,17 +11,17 @@ class ChangeTheme extends StatelessWidget {
     return Consumer<ThemeService>(builder: (context, themeService, child) {
       return InkWell(
         onTap: () => themeService.switchTheme(),
-        child: Padding(
-          padding: completePadding,
+        child: Container(
+          padding: verticalPadding,
           child: Row(
             children: [
               themeService.getTheme() == ThemeMode.light
                   ? Icon(Icons.dark_mode_outlined)
                   : Icon(Icons.light_mode_outlined),
               horizontalSpace,
-              themeService.getTheme() == ThemeMode.light
-                  ? Text("Dark Mode")
-                  : Text("Light Mode")
+              Text(themeService.getTheme() == ThemeMode.light
+                  ? "Dark theme"
+                  : "Light theme")
             ],
           ),
         ),

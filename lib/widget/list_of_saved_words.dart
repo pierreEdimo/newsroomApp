@@ -25,10 +25,7 @@ class _ListOFSavedWordsState extends State<ListOFSavedWords> {
           return words.length < 1
               ? Center(
                   child: Padding(
-                    padding: const EdgeInsets.only(
-                      right: 25.0,
-                      left: 25.0,
-                    ),
+                    padding: horizontalPadding,
                     child: Text(
                       "There are no search yet",
                       textAlign: TextAlign.center,

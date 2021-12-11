@@ -3,8 +3,10 @@ import 'package:newsroom/model/article.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
 
+
 class ArticleService extends ChangeNotifier {
   Future<List<Article>> fetchArticles(String uri) async {
+
     var url = Uri.parse(uri);
     Response response = await get(url);
 

@@ -20,7 +20,6 @@ class ForgoPassWordScreen extends StatelessWidget {
               icon: Icon(Icons.close_outlined),
             ),
             context),
-        80.0,
       ),
       body: Padding(
         padding: const EdgeInsets.all(25.0),

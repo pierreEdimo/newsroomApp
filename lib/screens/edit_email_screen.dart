@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newsroom/model/edit_email.dart';
 import 'package:newsroom/service/auth_service.dart';
+import 'package:newsroom/utilities/constants.dart';
 import 'package:newsroom/widget/custom_app_bar.dart';
 import 'package:newsroom/widget/email_input.dart';
 import 'package:newsroom/widget/title_row.dart';
@@ -34,14 +35,9 @@ class _EditmailScreenState extends State<EditmailScreen> {
               onPressed: () => Navigator.of(context).pop(),
             ),
             context),
-        80.0,
       ),
       body: Container(
-        padding: EdgeInsets.only(
-          left: 25.0,
-          right: 25.0,
-          bottom: 10.0,
-        ),
+        padding: completePadding ,
         child: Form(
           key: _formKey,
           child: emailInput(_controller, ""),

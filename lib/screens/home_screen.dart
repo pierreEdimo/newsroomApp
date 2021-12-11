@@ -13,7 +13,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: customAppBar(
           titleRow(
-              "Home",
+              "News",
               IconButton(
                 icon: Icon(Icons.search),
                 onPressed: () => Navigator.of(context).push(
@@ -23,7 +23,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               context),
-          80.0),
+         ),
       body: listOfArticles(
         Provider.of<ArticleService>(context).fetchArticles(url),
         url,

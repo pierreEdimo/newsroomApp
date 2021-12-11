@@ -5,8 +5,8 @@ Widget listTile(
   Icon icon,
   String title,
 ) {
-  return Padding(
-    padding: completePadding,
+  return Container(
+    padding: verticalPadding,
     child: Row(
       children: [
         icon,

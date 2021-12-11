@@ -10,7 +10,7 @@ Widget bookMarkTile(context) {
       ),
     ),
     child: listTile(
-      Icon(Icons.bookmark_outline),
+      Icon(Icons.bookmark_outline, size: 25,),
       "Bookmarks",
     ),
   );

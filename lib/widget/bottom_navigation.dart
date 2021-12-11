@@ -2,6 +2,7 @@ import 'package:newsroom/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:newsroom/screens/profile_screen.dart';
 import 'package:newsroom/screens/topic_screen.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BottomNavigation extends StatefulWidget {
   BottomNavigation({Key? key}) : super(key: key);
@@ -33,16 +34,14 @@ class _BottomNavigationState extends State<BottomNavigation> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.rss_feed),
+            icon: FaIcon(FontAwesomeIcons.rss, size: 20),
             label: "feeds",
           ),
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.category_outlined,
-              ),
+              icon: FaIcon(FontAwesomeIcons.compass, size: 22,),
               label: "topics"),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
+            icon: FaIcon(FontAwesomeIcons.user, size: 20,),
             label: "user",
           )
         ],

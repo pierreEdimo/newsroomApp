@@ -15,7 +15,6 @@ class BookMarkScreen extends StatelessWidget {
               onPressed: () => Navigator.of(context).pop(),
             ),
             context),
-        80.0,
       ),
       body: listOfBookMarks(context),
     );

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomThemes {
   static final darkTheme = ThemeData(
-      scaffoldBackgroundColor: Colors.grey.shade700,
+      scaffoldBackgroundColor: Colors.grey.shade800,
       colorScheme: ColorScheme.dark(),
       fontFamily: 'OpenSans',
       brightness: Brightness.dark,

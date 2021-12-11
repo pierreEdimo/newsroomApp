@@ -11,7 +11,7 @@ Widget emailTile(email, context) {
       ),
     ),
     child: listTile(
-      Icon(Icons.person),
+      Icon(Icons.person, size: 25,),
       email,
     ),
   );
