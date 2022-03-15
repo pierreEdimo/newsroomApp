@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:newsroom/model/add_comment.dart';
 import 'package:newsroom/model/comment.dart';
 import 'package:newsroom/service/comment_service.dart';
+import 'package:newsroom/utilities/constants.dart';
+import 'package:newsroom/widget/close_icon.dart';
 import 'package:newsroom/widget/comment_input.dart';
-import 'package:newsroom/widget/custom_app_bar.dart';
 import 'package:provider/provider.dart';
 
 import '../main.dart';
@@ -14,30 +15,25 @@ class UpdateCommentScreen extends StatelessWidget {
   UpdateCommentScreen({@required this.comment});
 
   final maxLines = 26;
-
   final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     _controller.text = comment!.content!;
     return Scaffold(
-      appBar: customAppBar(
-        Center(
-          child: Container(
-            alignment: Alignment.centerRight,
-            child: Padding(
-              padding: const EdgeInsets.only(right: 25.0),
-              child: IconButton(
-                icon: Icon(Icons.close_outlined),
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-            ),
-          ),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Text(
+          "Edit Comment",
+          style: TextStyle(fontFamily: 'Poppins'),
         ),
+        actions: [closeIcon(context)],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0),
+      floatingActionButton: TextButton(
+        child: Text(
+          "edit",
+          style:
+              TextStyle(fontFamily: 'OpenSanBold', fontWeight: FontWeight.bold),
         ),
         onPressed: () async {
           var uid = await storage.read(key: "userId");
@@ -59,23 +55,9 @@ class UpdateCommentScreen extends StatelessWidget {
           }
           DoNothingAction();
         },
-        label: Text(
-          "edit",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: Colors.black,
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Padding(
-        padding: EdgeInsets.only(
-          right: 30.0,
-          left: 30.0,
-          top: 15.0,
-          bottom: 15.0,
-        ),
+        padding: standardPadding,
         child: Container(
           height: maxLines * 24.0,
           child: commentInput(_controller),

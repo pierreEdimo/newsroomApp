@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:newsroom/model/loginModel.dart';
 import 'package:newsroom/service/auth_service.dart';
+import 'package:newsroom/utilities/constants.dart';
 import 'package:newsroom/widget/bottom_navigation.dart';
-import 'package:newsroom/widget/custom_app_bar.dart';
-import 'package:newsroom/widget/display_diagog.dart';
+import 'package:newsroom/widget/display_dialog.dart';
 import 'package:newsroom/widget/password_input.dart';
-import 'package:newsroom/widget/title_row.dart';
 import 'package:provider/provider.dart';
 
 class ResetPassword extends StatelessWidget {
   final String? email;
+
   ResetPassword({Key? key, this.email}) : super(key: key);
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _passwordController = TextEditingController();
@@ -18,15 +18,7 @@ class ResetPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(
-        titleRow(
-            "",
-            IconButton(
-              onPressed: () => Navigator.of(context).pop(),
-              icon: Icon(Icons.close_outlined),
-            ),
-            context),
-      ),
+      appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(25.0),
         child: Column(
@@ -63,8 +55,7 @@ class ResetPassword extends StatelessWidget {
                 }
               },
               child: Container(
-                padding: EdgeInsets.only(
-                    left: 30.0, right: 30.0, top: 15.0, bottom: 15.0),
+                padding: standardPadding,
                 decoration: BoxDecoration(
                   color: Colors.black,
                   borderRadius: BorderRadius.all(

@@ -12,17 +12,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:newsroom/widget/custom_themes.dart';
 import 'package:provider/provider.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 final storage = FlutterSecureStorage();
+var box = Hive.box('newsBox');
 
 void main() async {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent
+  ));
 
-   await Hive.initFlutter();
-
+  await Hive.initFlutter();
   await Hive.openBox('newsBox');
-
   runApp(MyApp());
 }
 
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => TopicService()),
         ChangeNotifierProvider(create: (context) => AuthService()),
         ChangeNotifierProvider(create: (context) => CommentService()),
-        ChangeNotifierProvider(create: (context) => BookMarkSerivce()),
+        ChangeNotifierProvider(create: (context) => BookMarkService()),
         ChangeNotifierProvider(create: (context) => ThemeService()),
         ChangeNotifierProvider(create: (context) => SavedWordService())
       ],

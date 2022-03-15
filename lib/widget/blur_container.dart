@@ -6,7 +6,7 @@ Widget blur(context) {
     width: MediaQuery.of(context).size.width * 1,
     decoration: BoxDecoration(
       color: Color.fromRGBO(0, 0, 0, 0.3),
-      borderRadius: BorderRadius.circular(5.0),
+      borderRadius: BorderRadius.circular(20.0),
     ),
   );
 }

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:newsroom/screens/sign_in_screen.dart';
 import 'package:newsroom/widget/list_tile.dart';
 
 import '../main.dart';
-var box = Hive.box('newsBox');
 
 void _logout(context) async {
   storage.delete(key: "jwt");
@@ -20,7 +18,10 @@ Widget logoutTile(context) {
   return InkWell(
     onTap: () => _logout(context),
     child: listTile(
-      Icon(Icons.logout, size: 25,),
+      Icon(
+        Icons.logout,
+        size: 25,
+      ),
       "Logout",
     ),
   );

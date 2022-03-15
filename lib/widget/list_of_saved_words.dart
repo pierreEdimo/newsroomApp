@@ -16,9 +16,16 @@ class _ListOFSavedWordsState extends State<ListOFSavedWords> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Provider.of<SavedWordService>(context, listen: false)
+      future: Provider.of<SavedWordService>(context, listen: true)
           .fetchSavedWords(),
       builder: (context, AsyncSnapshot<List<String>> snapshot) {
+        if(snapshot.hasError){
+          return Center(
+            child: Text(
+              '${snapshot.error}'
+            ),
+          );
+        }
         if (snapshot.hasData) {
           List<String> words = snapshot.data!;
 

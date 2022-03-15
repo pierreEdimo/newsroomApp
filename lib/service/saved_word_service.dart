@@ -1,21 +1,21 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
 import 'package:newsroom/main.dart';
 import 'package:newsroom/model/add_saved_word.dart';
 
 class SavedWordService extends ChangeNotifier {
-  Future<Response> addSevedWord(AddSavedWord word) async {
+  Future<Response> addSavedWord(AddSavedWord word) async {
     String? authorization = await storage.read(key: "jwt");
     Map<String, String> headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + authorization!
     };
     String jsEncode = jsonEncode(word);
-    var url = Uri.parse('https://newsplace.azurewebsites.net/api/keywords');
+    var url = Uri.parse('https://newsplace.azurewebsites.net/api/SavedWords');
     final Response response = await post(url, headers: headers, body: jsEncode);
     notifyListeners();
+    print("status: ${response.toString()}");
     return response;
   }
 
@@ -27,20 +27,15 @@ class SavedWordService extends ChangeNotifier {
       'Authorization': 'Bearer ' + authorization!
     };
     var url = Uri.parse(
-        "https://newsplace.azurewebsites.net/api/keyWords/QueryWord?userId=$userId");
+        "https://newsplace.azurewebsites.net/api/SavedWords/QueryWord?userId=$userId");
     Response response = await get(url, headers: headers);
 
     if (response.statusCode == 200) {
       List<String> savedWords =
           List<String>.from(jsonDecode(response.body).map((x) => x));
-
-      for (int i = 0; i < savedWords.length; i++) {
-        print(savedWords[i]);
-      }
-
       return savedWords;
     } else {
-      throw "No savedwords";
+      throw "No savedWords";
     }
   }
 }

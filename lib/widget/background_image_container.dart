@@ -8,7 +8,7 @@ Widget backgroundImageContainer(
     width: MediaQuery.of(context).size.width * 1,
     height: MediaQuery.of(context).size.height * 1,
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(5.0),
+      borderRadius: BorderRadius.circular(20.0),
       image: DecorationImage(image: NetworkImage(imageUrl), fit: BoxFit.cover),
     ),
   );

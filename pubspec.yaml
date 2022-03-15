@@ -13,7 +13,7 @@ dependencies:
 
   cupertino_icons: ^1.0.3
   http: ^0.13.3 
-  flutter_secure_storage: ^4.2.0
+  flutter_secure_storage: ^5.0.2
   flutter_markdown: ^0.6.2
   url_launcher: ^6.0.9
   provider: ^6.0.1
@@ -21,14 +21,9 @@ dependencies:
   hive_flutter: ^1.1.0
   font_awesome_flutter: ^9.2.0
 
-
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  
-
 
 flutter:
   assets: 
@@ -44,7 +39,10 @@ flutter:
         - asset: fonts/Montserrat-Bold.ttf
   - family: OpenSansBold
     fonts:
-        - asset: fonts/OpenSans-SemiBold.ttf
+        - asset: fonts/OpenSans-Bold.ttf
+  - family: Poppins
+    fonts:
+        - asset: fonts/Poppins-Bold.ttf
  
 
 

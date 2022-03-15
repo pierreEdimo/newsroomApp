@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class CustomThemes {
   static final darkTheme = ThemeData(
-      scaffoldBackgroundColor: Colors.grey.shade800,
       colorScheme: ColorScheme.dark(),
       fontFamily: 'OpenSans',
       brightness: Brightness.dark,
+      iconTheme: IconThemeData(
+        color: Colors.white
+      ),
       textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
         primary: Colors.white,
@@ -16,6 +18,10 @@ class CustomThemes {
       colorScheme: ColorScheme.light(),
       fontFamily: 'OpenSans',
       brightness: Brightness.light,
+      iconTheme: IconThemeData(
+        color: Colors.black
+      ),
+
       textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
         primary: Colors.black,

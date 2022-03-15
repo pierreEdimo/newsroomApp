@@ -4,8 +4,6 @@ import 'package:newsroom/model/add_saved_word.dart';
 import 'package:newsroom/model/article.dart';
 import 'package:newsroom/service/article_service.dart';
 import 'package:newsroom/service/saved_word_service.dart';
-import 'package:newsroom/utilities/constants.dart';
-import 'package:newsroom/widget/custom_app_bar.dart';
 import 'package:newsroom/widget/list_of_articles.dart';
 import 'package:newsroom/widget/list_of_saved_words.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +17,8 @@ class _SearchScreenState extends State<SearchScreen> {
   TextEditingController _controller = TextEditingController();
   Future<List<Article>>? _articles;
   SavedWordService service = SavedWordService();
-  Future<List<Article>> _fechtArticles(
+
+  Future<List<Article>> _fetchArticles(
     context,
     String url,
   ) async {
@@ -35,7 +34,7 @@ class _SearchScreenState extends State<SearchScreen> {
   _search(String searchWord) async {
     searchWord = _controller.text;
     setState(() {
-      _articles = _fechtArticles(context,
+      _articles = _fetchArticles(context,
           "https://newsplace.azurewebsites.net/api/Articles/Filter?Title=${_controller.text}");
     });
   }
@@ -44,33 +43,48 @@ class _SearchScreenState extends State<SearchScreen> {
     var userId = await storage.read(key: "userId");
     AddSavedWord newWord = AddSavedWord(userId: userId, word: _controller.text);
     await Provider.of<SavedWordService>(context, listen: false)
-        .addSevedWord(newWord);
+        .addSavedWord(newWord);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(
-          Container(
-            padding: horizontalPadding,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: () => Navigator.of(context).pop(),
+          icon: Icon(Icons.keyboard_arrow_left_outlined),
+        ),
+        title: Container(
+          width: double.infinity,
+          height: 45.0,
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(5.0)),
+          child: Center(
             child: TextFormField(
+              style: TextStyle(color: Colors.black),
               autofocus: true,
               textInputAction: TextInputAction.search,
               controller: _controller,
               decoration: InputDecoration(
                 hintText: "search...",
+                hintStyle: TextStyle(color: Colors.black),
                 border: InputBorder.none,
-                prefixIcon: IconButton(
-                  onPressed: () => Navigator.of(context).pop() ,
-                  icon: Icon(Icons.keyboard_arrow_left_outlined),
-                ) ,
+                prefixIcon: Icon(
+                  Icons.search,
+                  color: Colors.black,
+                ),
                 suffixIcon: IconButton(
                   onPressed: () {
                     setState(() {
                       _controller.text = "";
                     });
                   },
-                  icon: Icon(Icons.close),
+                  icon: Icon(
+                    Icons.close,
+                    color: Colors.black,
+                  ),
                 ),
               ),
               onChanged: (value) => _search(value),
@@ -80,6 +94,7 @@ class _SearchScreenState extends State<SearchScreen> {
               },
             ),
           ),
+        ),
       ),
       body: _controller.text.isEmpty
           ? Container(
@@ -87,11 +102,32 @@ class _SearchScreenState extends State<SearchScreen> {
                 controller: _controller,
               ),
             )
-          : listOfArticles(
-              _articles!,
-              "https://newsplace.azurewebsites.net/api/Articles/Filter?Title=${_controller.text}",
-              "Sorry , we did not find an Article with the title ${_controller.text}",
-              context),
+          // : listOfArticles(
+          //     _articles!,
+          //     "https://newsplace.azurewebsites.net/api/Articles/Filter?Title=${_controller.text}",
+          //     "Sorry , we did not find an Article with the title ${_controller.text}",
+          //     context),
+          : FutureBuilder(
+              future: _articles,
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<Article>> snapshot) {
+                if (snapshot.hasError)
+                  return Center(
+                    child: Text(snapshot.error.toString()),
+                  );
+                if (snapshot.hasData) {
+                  List<Article> articles = snapshot.data!;
+                  return ListOfArticles(
+                    articles: articles,
+                    msg:
+                        "Sorry , we did not find an Article with the title ${_controller.text}",
+                  );
+                }
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              },
+            ),
     );
   }
 }

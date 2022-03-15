@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:newsroom/model/article.dart';
-import 'package:newsroom/screens/comment_screen.dart';
 import 'package:newsroom/service/article_service.dart';
 import 'package:newsroom/utilities/constants.dart';
+import 'package:newsroom/widget/bookmark_icon.dart';
+import 'package:newsroom/widget/comment_icon.dart';
 import 'package:newsroom/widget/image_container.dart';
+import 'package:newsroom/widget/reading_time.dart';
 import 'package:newsroom/widget/text_container.dart';
 import 'package:newsroom/widget/title_container.dart';
 import 'package:provider/provider.dart';
 
 class ArticleDetailContainer extends StatefulWidget {
   final int? id;
+
   const ArticleDetailContainer({Key? key, this.id}) : super(key: key);
 
   @override
@@ -17,14 +20,8 @@ class ArticleDetailContainer extends StatefulWidget {
 }
 
 class _ArticleDetailContainerState extends State<ArticleDetailContainer> {
-  _loadTheArticle() {
-    setState(() {
-      _fetchArticle(widget.id!);
-    });
-  }
-
   Future<Article> _fetchArticle(int id) {
-    return Provider.of<ArticleService>(context, listen: false).fetchArticle(id);
+    return Provider.of<ArticleService>(context, listen: true).fetchArticle(id);
   }
 
   @override
@@ -38,40 +35,55 @@ class _ArticleDetailContainerState extends State<ArticleDetailContainer> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              imageContainer(
-                article,
-                context,
-              ),
-              Padding(
-                padding: standardPadding,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    titleContainer(
-                      article.title!,
-                    ),
-                    verticalSpace,
-                    Text(
-                      "By ${article.author!.name!} , on ${article.createdAt}",
-                    ),
-                    verticalSpace,
-                    textContainer(
-                      article.content!,
-                    ),
-                    verticalSpace,
-                    TextButton.icon(
-                      onPressed: () => Navigator.of(context)
-                          .push(
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  CommentScreen(articleId: article.id),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: horizontalPadding,
+                        child: imageContainer(
+                          article,
+                          context,
+                        ),
+                      ),
+                      Padding(
+                        padding: standardPadding,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            titleContainer(
+                              article.title!,
                             ),
-                          )
-                          .then((value) => _loadTheArticle()),
-                      icon: Icon(Icons.comment_outlined),
-                      label: Text("(${article.commentCount})"),
-                    ),
-                  ],
+                            verticalSpace,
+                            Text(
+                              "By ${article.author!.name!} , on ${article.createdAt}",
+                            ),
+                            verticalSpace,
+                            textContainer(
+                              article.content!,
+                            ),
+                            verticalSpace,
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                height: 60,
+                padding: standardPadding,
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      commentIcon(article, context),
+                      readingTime(),
+                      BookMarkIcon(
+                        inheritedArticle: article,
+                      )
+                    ],
+                  ),
                 ),
               )
             ],

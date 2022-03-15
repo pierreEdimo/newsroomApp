@@ -12,7 +12,7 @@ Widget commentContainer(
       borderRadius: BorderRadius.circular(5.0),
     ),
     child: Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: all10Padding,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -48,7 +48,6 @@ Widget commentContainer(
               )
             ],
           ),
-
           Text("${comment.content}")
         ],
       ),

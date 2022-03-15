@@ -1,57 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:newsroom/model/article.dart';
-import 'package:newsroom/utilities/constants.dart';
-import 'package:newsroom/widget/snack_bar_page.dart';
 
 Widget imageContainer(
   Article article,
   context,
 ) {
-  return SafeArea(
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Container(
-          height: MediaQuery.of(context).size.height * 0.4,
-          width: MediaQuery.of(context).size.width * 1,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: NetworkImage(article.imageUrl!),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: Container(
-            alignment: Alignment.topCenter,
-            padding: horizontalPadding,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                  icon: Icon(
-                    Icons.keyboard_arrow_left_outlined,
-                    color: Colors.black,
-                  ),
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-                SnackBarPage(
-                  article: article,
-                )
-              ],
-            ),
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: [
+      Container(
+        margin: EdgeInsets.only(top: 10.0),
+        height: MediaQuery.of(context).size.height * 0.35,
+        width: MediaQuery.of(context).size.width * 1,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20.0),
+          image: DecorationImage(
+            image: NetworkImage(article.imageUrl!),
+            fit: BoxFit.cover,
           ),
         ),
-        Padding(
-          padding: EdgeInsets.only(left: 10.0),
-          child: Text(
-            "image from ${article.imageCredits}",
-            style: TextStyle(
-              color: Colors.grey,
-              fontStyle: FontStyle.italic,
-              fontSize: 11,
-            ),
+      ),
+      Padding(
+        padding: EdgeInsets.only(left: 10.0),
+        child: Text(
+          "image from ${article.imageCredits}",
+          style: TextStyle(
+            color: Colors.grey,
+            fontStyle: FontStyle.italic,
+            fontSize: 11,
           ),
-        )
-      ],
-    ),
+        ),
+      )
+    ],
   );
 }

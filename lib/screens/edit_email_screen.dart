@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:newsroom/model/edit_email.dart';
 import 'package:newsroom/service/auth_service.dart';
 import 'package:newsroom/utilities/constants.dart';
-import 'package:newsroom/widget/custom_app_bar.dart';
+import 'package:newsroom/widget/close_icon.dart';
 import 'package:newsroom/widget/email_input.dart';
-import 'package:newsroom/widget/title_row.dart';
 import 'package:provider/provider.dart';
 
 class EditmailScreen extends StatefulWidget {
@@ -27,14 +26,13 @@ class _EditmailScreenState extends State<EditmailScreen> {
   Widget build(BuildContext context) {
     _controller.text = email!;
     return Scaffold(
-      appBar: customAppBar(
-        titleRow(
-            "email",
-            IconButton(
-              icon: Icon(Icons.close_outlined),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-            context),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Text("Edit Email", style: TextStyle(fontFamily: 'Poppins'),),
+        actions: [
+          closeIcon(context)
+        ],
+
       ),
       body: Container(
         padding: completePadding ,
@@ -58,6 +56,7 @@ class _EditmailScreenState extends State<EditmailScreen> {
           "Save",
           style: TextStyle(
             fontWeight: FontWeight.bold,
+            fontFamily: "OpenSansBold"
           ),
         ),
       ),

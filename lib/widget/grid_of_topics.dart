@@ -5,11 +5,11 @@ import 'package:newsroom/utilities/constants.dart';
 import 'package:newsroom/widget/topic_container.dart';
 import 'package:provider/provider.dart';
 
-Future<List<Topic>> _fecthTopics(context) async {
+Future<List<Topic>> _fetchTopics(context) async {
   return await Provider.of<TopicService>(context, listen: false).fetchTopics();
 }
 
-Widget gridofTopics(context) {
+Widget gridOfTopics(context) {
   return FutureBuilder(
     future: Provider.of<TopicService>(context).fetchTopics(),
     builder: (context, AsyncSnapshot<List<Topic>> snapshot) {
@@ -24,7 +24,7 @@ Widget gridofTopics(context) {
         List<Topic> topics = snapshot.data!;
 
         return RefreshIndicator(
-          onRefresh: () => _fecthTopics(context),
+          onRefresh: () => _fetchTopics(context),
           child: GridView.count(
             padding: completePadding,
             crossAxisCount: 2,

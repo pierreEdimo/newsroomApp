@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:newsroom/widget/custom_app_bar.dart';
+import 'package:newsroom/widget/close_icon.dart';
 import 'package:newsroom/widget/info_container.dart';
-import 'package:newsroom/widget/title_row.dart';
 
 String data = "**Newsplace** is a blogging application developed and designed by me," +
     " Pierre Patrice Edimo Nkoe" +
@@ -41,16 +40,17 @@ class AboutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(
-        titleRow(
-            "About",
-            IconButton(
-              icon: Icon(Icons.close_outlined),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-            context),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Text(
+          "About",
+          style: TextStyle(fontFamily: 'Poppins'),
+        ),
+        actions: [
+          closeIcon(context)
+        ],
       ),
-      body: inforMationContainer(
+      body: informationContainer(
         data,
       ),
     );

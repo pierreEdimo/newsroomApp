@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:newsroom/model/article.dart';
 import 'package:newsroom/service/article_service.dart';
-import 'package:newsroom/widget/custom_app_bar.dart';
+import 'package:newsroom/widget/close_icon.dart';
 import 'package:newsroom/widget/list_of_articles.dart';
-import 'package:newsroom/widget/title_row.dart';
 import 'package:provider/provider.dart';
 
 class ArticleFromTopic extends StatelessWidget {
@@ -17,22 +17,33 @@ class ArticleFromTopic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(
-        titleRow(
-          topicName!,
-          IconButton(
-            icon: Icon(Icons.close_outlined),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-          context,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Text(
+          '$topicName',
+          style: TextStyle(fontFamily: 'Poppins'),
         ),
+        actions: [closeIcon(context)],
       ),
-      body: listOfArticles(
-        Provider.of<ArticleService>(context).fetchArticles(
+      body: FutureBuilder(
+        future: Provider.of<ArticleService>(context).fetchArticles(
             "https://newsplace.azurewebsites.net/api/articles/Filter?TopicId=$topicId"),
-        "https://newsplace.azurewebsites.net/api/articles/Filter?TopicId=$topicId",
-        "No Articles",
-        context,
+        builder: (BuildContext context, AsyncSnapshot<List<Article>> snapshot) {
+          if (snapshot.hasError)
+            return Center(
+              child: Text(snapshot.error.toString()),
+            );
+          if (snapshot.hasData) {
+            List<Article> articles = snapshot.data!;
+            return ListOfArticles(
+              articles: articles,
+              msg: "No Articles",
+            );
+          }
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        },
       ),
     );
   }

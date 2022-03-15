@@ -10,7 +10,7 @@ Widget textContainer(String content) {
     styleSheet: MarkdownStyleSheet(
       p: TextStyle(
         fontWeight: FontWeight.w500,
-        fontSize: 16,
+        fontSize: 17,
       ),
     ),
   );

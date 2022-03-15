@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
+
 const titleStyle = TextStyle(
   fontWeight: FontWeight.bold,
-  fontSize: 16,
+  fontSize: 22.0,
   fontFamily: 'OpenSansBold',
 );
 
@@ -10,21 +11,25 @@ const smallText = TextStyle(fontSize: 11.0);
 
 const horizontalSpace = SizedBox(width: 20.0);
 
-const nameAndDateStyle = TextStyle(
-    fontSize: 12,
+const authorNameStyle = TextStyle(
+    fontSize: 14,
     color: Colors.white,
     fontWeight: FontWeight.bold,
     fontFamily: 'OpenSansBold');
 
 const verticalSpace = SizedBox(height: 20.0);
 
+const vertical5Space = SizedBox(height: 5.0);
+
 EdgeInsets standardPadding = EdgeInsets.symmetric(
   vertical: 10.0,
-  horizontal: 25.0,
+  horizontal: 20.0,
 );
 
 EdgeInsets completePadding =
     EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0);
+
+EdgeInsets horizontal15Padding = EdgeInsets.symmetric(horizontal:15.0);
 
 EdgeInsets horizontalPadding = EdgeInsets.symmetric(horizontal: 20.0);
 
@@ -33,7 +38,11 @@ EdgeInsets verticalPadding =
 
 EdgeInsets all25Padding = EdgeInsets.all(25.0);
 
-String unloggedTextError = "Sorry you need to be logged in " + "\n";
+String unLoggedTextError = "Sorry you need to be logged in " + "\n";
+
+EdgeInsets all10Padding = EdgeInsets.all(10.0);
+
+EdgeInsets verticalMargin = EdgeInsets.symmetric(vertical: 10.0);
 
 final lightColors = [
   Colors.amber.shade300,
@@ -55,3 +64,4 @@ final lightColors = [
   Colors.cyan.shade300,
   Colors.purpleAccent.shade100,
 ];
+

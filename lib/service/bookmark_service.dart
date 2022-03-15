@@ -3,12 +3,11 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
 import 'package:newsroom/model/add_bookmark.dart';
-import 'package:newsroom/model/bookmark.dart';
-
+import 'package:newsroom/model/article.dart';
 import '../main.dart';
 
-class BookMarkSerivce extends ChangeNotifier {
-  Future<int> addBookMark(
+class BookMarkService extends ChangeNotifier {
+  Future<void> addBookMark(
     AddBookMark bookMark,
   ) async {
     String? authorization = await storage.read(key: "jwt");
@@ -24,38 +23,15 @@ class BookMarkSerivce extends ChangeNotifier {
       headers: headers,
       body: jsEncode,
     );
-
-    return response.statusCode;
+    print(response.statusCode);
+    notifyListeners();
   }
 
-  Future<List<BookMark>> fetchBookMark() async {
-    String? userId = await storage.read(key: "userId");
-    String? authorization = await storage.read(key: "jwt");
-    var url = Uri.parse(
-        'https://newsplace.azurewebsites.net/api/FavoritesArticles/FilterFavorites?UserId=$userId&&SortOrder=asc');
-    Response response =
-        await get(url, headers: {'Authorization': 'Bearer ' + authorization!});
-
-    if (response.statusCode == 200) {
-      List<dynamic> body = jsonDecode(response.body);
-
-      List<BookMark> articles = body
-          .map(
-            (dynamic article) => BookMark.fromJson(article),
-          )
-          .toList();
-      notifyListeners();
-      return articles;
-    } else {
-      throw "No Articles";
-    }
-  }
-
-  Future<int> deleteFavorite(int id) async {
+  Future<void> deleteFavorite(Article article) async {
     String? jwt = await storage.read(key: "jwt");
     var url = Uri.parse(
-        'https://newsplace.azurewebsites.net/api/FavoritesArticles/$id');
-    final Response response = await delete(
+        'https://newsplace.azurewebsites.net/api/FavoritesArticles/${article.id}');
+    await delete(
       url,
       headers: {
         'Content-Type': 'application/json',
@@ -63,6 +39,5 @@ class BookMarkSerivce extends ChangeNotifier {
       },
     );
     notifyListeners();
-    return response.statusCode;
   }
 }

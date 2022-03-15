@@ -4,7 +4,7 @@ Widget commentInput(TextEditingController controller) {
   return TextFormField(
     controller: controller,
     maxLines: null,
-    minLines: 4,
+    minLines: 1,
     decoration: InputDecoration(
       border: InputBorder.none,
       focusedBorder: InputBorder.none,
@@ -13,6 +13,9 @@ Widget commentInput(TextEditingController controller) {
       disabledBorder: InputBorder.none,
       hintText: "Add a comment",
       filled: true,
+      hintStyle: TextStyle(
+        fontSize: 16.0
+      )
     ),
   );
 }

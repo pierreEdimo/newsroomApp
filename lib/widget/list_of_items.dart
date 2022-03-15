@@ -3,17 +3,16 @@ import 'package:newsroom/model/user_,model.dart';
 import 'package:newsroom/service/auth_service.dart';
 import 'package:newsroom/utilities/constants.dart';
 import 'package:newsroom/widget/about_tile.dart';
-import 'package:newsroom/widget/bookmark_tile.dart';
 import 'package:newsroom/widget/change_theme.dart';
 import 'package:newsroom/widget/contact_tile.dart';
 import 'package:newsroom/widget/email_tile.dart';
-import 'package:newsroom/widget/lougout_tile.dart';
+import 'package:newsroom/widget/log_out_tile.dart';
 import 'package:provider/provider.dart';
 import 'login_tile.dart';
 
 Widget listOfItem(context) {
   return FutureBuilder(
-    future: Provider.of<AuthService>(context).fethSingleUser(),
+    future: Provider.of<AuthService>(context).fetchSingleUser(),
     builder: (context, AsyncSnapshot<UserModel> snapshot) {
 
       if(snapshot.hasError){
@@ -23,7 +22,7 @@ Widget listOfItem(context) {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 loginTile(context),
-                bookMarkTile(context),
+                ChangeTheme(),
                 contactTile(context),
                 aboutTile(context),
               ],
@@ -39,7 +38,6 @@ Widget listOfItem(context) {
             children: [
               emailTile(user.email, context),
               ChangeTheme(),
-              bookMarkTile(context),
               contactTile(context),
               aboutTile(context),
               logoutTile(context),

@@ -4,7 +4,7 @@ import 'package:newsroom/model/loginModel.dart';
 import 'package:newsroom/service/auth_service.dart';
 import 'package:newsroom/utilities/constants.dart';
 import 'package:newsroom/widget/bottom_navigation.dart';
-import 'package:newsroom/widget/display_diagog.dart';
+import 'package:newsroom/widget/display_dialog.dart';
 import 'package:newsroom/widget/email_input.dart';
 import 'package:newsroom/widget/forgot_password_button.dart';
 import 'package:newsroom/widget/go_to_signup.dart';
@@ -25,7 +25,7 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.all(25.0),
+        padding: all25Padding,
         child: Form(
           key: _formKey,
           child: Column(
@@ -33,19 +33,15 @@ class _SignInScreenState extends State<SignInScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               emailInput(_emailController, 'please enter your E-mail'),
-              SizedBox(
-                height: 10,
-              ),
+              verticalSpace,
               passwordInput(_passWordController, "please choose your password"),
-              SizedBox(
-                height: 20.0,
-              ),
+              verticalSpace,
               InkWell(
                 child: Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5.0),
                       color: Colors.black),
-                  padding: EdgeInsets.all(15.0),
+                  padding: all10Padding,
                   width: 150,
                   child: Text(
                     'Sign In',
@@ -87,7 +83,11 @@ class _SignInScreenState extends State<SignInScreen> {
         ),
       ),
       floatingActionButton: TextButton(
-        child: Text("Skip", style: TextStyle(fontWeight: FontWeight.bold), ),
+        child: Text(
+          "Skip",
+          style: TextStyle(
+              fontWeight: FontWeight.bold, fontFamily: "OpenSansBold"),
+        ),
         onPressed: () => Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => BottomNavigation(),

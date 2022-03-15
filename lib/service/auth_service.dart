@@ -102,7 +102,7 @@ class AuthService extends ChangeNotifier {
     return response;
   }
 
-  Future<UserModel> fethSingleUser() async {
+  Future<UserModel> fetchSingleUser() async {
     String? authorization = await storage.read(key: "jwt");
     var url = Uri.parse('https://newsplace.azurewebsites.net/api/User/GetUser');
     final response =

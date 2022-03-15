@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:newsroom/utilities/constants.dart';
 
-Widget inforMationContainer(String data) {
+Widget informationContainer(String data) {
   return Container(
     child: Padding(
       padding: completePadding,

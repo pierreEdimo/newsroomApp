@@ -1,11 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:newsroom/model/registerModel.dart';
 import 'package:newsroom/service/auth_service.dart';
+import 'package:newsroom/utilities/constants.dart';
 import 'package:newsroom/widget/bottom_navigation.dart';
-import 'package:newsroom/widget/display_diagog.dart';
+import 'package:newsroom/widget/display_dialog.dart';
 import 'package:newsroom/widget/email_input.dart';
 import 'package:newsroom/widget/go_back_to_sign_in.dart';
 import 'package:newsroom/widget/password_input.dart';
@@ -22,13 +22,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passWordController = TextEditingController();
   TextEditingController _userNameController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
           height: MediaQuery.of(context).size.height * 1,
-          padding: EdgeInsets.all(25.0),
+          padding: all25Padding,
           child: Form(
             key: _formKey,
             child: Column(
@@ -36,23 +37,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 emailInput(_emailController, 'please enter your E-mail'),
-                SizedBox(
-                  height: 10,
-                ),
+                verticalSpace,
                 passwordInput(_passWordController, "please enter a password"),
-                SizedBox(
-                  height: 10,
-                ),
+                verticalSpace,
                 userNameInput(_userNameController),
-                SizedBox(
-                  height: 20,
-                ),
+                verticalSpace,
                 InkWell(
                   child: Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5.0),
                         color: Colors.black),
-                    padding: EdgeInsets.all(15.0),
+                    padding: all10Padding,
                     width: 150,
                     child: Text(
                       'Register',
@@ -89,9 +84,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     }
                   },
                 ),
-                SizedBox(
-                  height: 20.0,
-                ),
+                verticalSpace,
                 goBack(context)
               ],
             ),
