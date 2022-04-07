@@ -15,7 +15,7 @@ Widget topicContainer(Topic topic, context) {
     ),
     child: Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.0),
+        borderRadius: BorderRadius.circular(10.0),
         image: DecorationImage(
           image: NetworkImage(topic.imageUrl!),
           fit: BoxFit.cover,
@@ -23,7 +23,7 @@ Widget topicContainer(Topic topic, context) {
       ),
       child: Stack(
         children: [
-          blur(context),
+          blur(context, 10.0),
           Center(
             child: Text(
               topic.name!,

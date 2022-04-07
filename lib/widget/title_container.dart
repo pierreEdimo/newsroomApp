@@ -7,6 +7,7 @@ Widget titleContainer(String title) {
       fontSize: 22,
       fontWeight: FontWeight.bold,
       fontFamily: 'Montserrat',
+      color: Color(0xffffffff)
     ),
   );
 }

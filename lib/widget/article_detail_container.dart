@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:newsroom/model/article.dart';
 import 'package:newsroom/service/article_service.dart';
 import 'package:newsroom/utilities/constants.dart';
+import 'package:newsroom/widget/blur_container.dart';
 import 'package:newsroom/widget/bookmark_icon.dart';
+import 'package:newsroom/widget/close_icon.dart';
 import 'package:newsroom/widget/comment_icon.dart';
 import 'package:newsroom/widget/image_container.dart';
 import 'package:newsroom/widget/reading_time.dart';
@@ -39,53 +41,87 @@ class _ArticleDetailContainerState extends State<ArticleDetailContainer> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      Padding(
-                        padding: horizontalPadding,
-                        child: imageContainer(
-                          article,
-                          context,
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.5,
+                        child: Stack(
+                          children: [
+                            imageContainer(
+                              article,
+                              context,
+                            ),
+                            blur(context, 0.0),
+                            Container(
+                              padding: horizontalPadding,
+                              height: MediaQuery.of(context).size.height * 0.4,
+                              alignment: Alignment.bottomCenter,
+                              child: titleContainer(
+                                article.title!,
+                              ),
+                            ),
+                            AppBar(
+                              backgroundColor: Colors.transparent,
+                              automaticallyImplyLeading: false,
+                              elevation: 0,
+                              actions: [closeIcon(context)],
+                            ),
+                          ],
                         ),
                       ),
-                      Padding(
-                        padding: standardPadding,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            titleContainer(
-                              article.title!,
-                            ),
-                            verticalSpace,
-                            Text(
-                              "By ${article.author!.name!} , on ${article.createdAt}",
-                            ),
-                            verticalSpace,
-                            textContainer(
-                              article.content!,
-                            ),
-                            verticalSpace,
-                          ],
+                      Container(
+                        transform: Matrix4.translationValues(0.0, -30.0, 0.0),
+                        decoration: BoxDecoration(
+                            color: Color(0xFFFFFFFF),
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(20.0),
+                                topLeft: Radius.circular(20.0))),
+                        child: Padding(
+                          padding: horizontalPadding,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "image from ${article.imageCredits}",
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontStyle: FontStyle.italic,
+                                  fontSize: 11,
+                                ),
+                              ),
+                              Container(
+                                height: 60,
+                                child: Center(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      commentIcon(article, context),
+                                      readingTime(),
+                                      BookMarkIcon(
+                                        inheritedArticle: article,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20.0,
+                              ),
+                              Text(
+                                "By ${article.author!.name!} , on ${article.createdAt}",
+                              ),
+                              verticalSpace,
+                              textContainer(
+                                article.content!,
+                              ),
+                              verticalSpace,
+                            ],
+                          ),
                         ),
                       )
                     ],
                   ),
                 ),
               ),
-              Container(
-                height: 60,
-                padding: standardPadding,
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      commentIcon(article, context),
-                      readingTime(),
-                      BookMarkIcon(
-                        inheritedArticle: article,
-                      )
-                    ],
-                  ),
-                ),
-              )
             ],
           );
         }

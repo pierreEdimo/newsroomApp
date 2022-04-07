@@ -10,12 +10,6 @@ class ArticleDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        actions: [
-          closeIcon(context)
-        ],
-      ),
       body: ArticleDetailContainer(
         id: id!,
       ),

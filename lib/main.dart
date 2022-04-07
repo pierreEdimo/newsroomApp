@@ -18,9 +18,8 @@ final storage = FlutterSecureStorage();
 var box = Hive.box('newsBox');
 
 void main() async {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent
-  ));
+  SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(statusBarColor: Colors.transparent));
 
   await Hive.initFlutter();
   await Hive.openBox('newsBox');
@@ -59,17 +58,24 @@ class MyApp extends StatelessWidget {
           themeMode: currentMode.getTheme(),
           darkTheme: CustomThemes.darkTheme,
           theme: CustomThemes.lightTheme,
-          home: FutureBuilder(
-            future: jwtOrEmpty,
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (!snapshot.hasData) return CircularProgressIndicator();
-              if (snapshot.data == "") {
-                return SignInScreen();
-              } else {
-                return BottomNavigation();
-              }
-            },
-          ),
+          home: Scaffold(
+            body: FutureBuilder(
+              future: jwtOrEmpty,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if (!snapshot.hasData)
+                  return Scaffold(
+                    body: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                if (snapshot.data == "") {
+                  return SignInScreen();
+                } else {
+                  return BottomNavigation();
+                }
+              },
+            ),
+          )
         );
       },
     );

@@ -1,6 +1,7 @@
 import 'package:newsroom/screens/bookmark_screen.dart';
 import 'package:newsroom/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:newsroom/screens/pod_cast_screen.dart';
 import 'package:newsroom/screens/profile_screen.dart';
 import 'package:newsroom/screens/topic_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -24,6 +25,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   final _widgetOptions = <Widget>[
     HomeScreen(),
+    PodCastScreen(),
     TopicScreen(),
     BookMarkScreen(),
     ProfileScreen(),
@@ -52,10 +54,17 @@ class _BottomNavigationState extends State<BottomNavigation> {
           ),
           BottomNavigationBarItem(
               icon: FaIcon(
-                FontAwesomeIcons.compass,
-                size: 22,
+                FontAwesomeIcons.podcast,
+                size: 20,
               ),
-              label: "topics"),
+              label: "podcasts"),
+          BottomNavigationBarItem(
+            icon: FaIcon(
+              FontAwesomeIcons.compass,
+              size: 22,
+            ),
+            label: "topics",
+          ),
           BottomNavigationBarItem(
             icon: FaIcon(
               FontAwesomeIcons.bookmark,

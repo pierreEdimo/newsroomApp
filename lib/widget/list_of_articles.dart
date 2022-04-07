@@ -6,8 +6,16 @@ import 'article_container.dart';
 class ListOfArticles extends StatelessWidget {
   final List<Article>? articles;
   final String? msg;
+  final bool? shrinkwrap;
+  final Widget? child;
 
-  const ListOfArticles({Key? key, this.articles, this.msg}) : super(key: key);
+  const ListOfArticles({
+    Key? key,
+    this.articles,
+    this.msg,
+    this.shrinkwrap,
+    this.child,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,18 +29,26 @@ class ListOfArticles extends StatelessWidget {
               ),
             ),
           )
-        : ListView(
-            padding: horizontal15Padding,
-            children: articles!
-                .map(
-                  (Article article) => Container(
-                    child: articleContainer(
-                      article,
-                      context,
-                    ),
-                  ),
-                )
-                .toList(),
+        : Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              child == null ? Container() : child!,
+              ListView(
+                padding: horizontalPadding,
+                shrinkWrap: shrinkwrap == null ? false : shrinkwrap!,
+                physics: ClampingScrollPhysics(),
+                children: articles!
+                    .map(
+                      (Article article) => Container(
+                        child: articleContainer(
+                          article,
+                          context,
+                        ),
+                      ),
+                    )
+                    .toList(),
+              ),
+            ],
           );
   }
 }

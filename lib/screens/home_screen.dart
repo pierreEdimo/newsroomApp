@@ -1,5 +1,7 @@
 import 'package:newsroom/model/article.dart';
 import 'package:newsroom/service/article_service.dart';
+import 'package:newsroom/utilities/constants.dart';
+import 'package:newsroom/widget/home_article_container.dart';
 import 'package:newsroom/widget/list_of_articles.dart';
 import 'package:flutter/material.dart';
 import 'package:newsroom/widget/search_icon.dart';
@@ -19,25 +21,30 @@ class HomeScreen extends StatelessWidget {
         ),
         actions: [searchIcon(context)],
       ),
-      body: FutureBuilder(
-        future: Provider.of<ArticleService>(context, listen: true)
-            .fetchArticles(url),
-        builder: (BuildContext context, AsyncSnapshot<List<Article>> snapshot) {
-          if (snapshot.hasError)
-            return Center(
-              child: Text(snapshot.error.toString()),
-            );
-          if (snapshot.hasData) {
-            List<Article> articles = snapshot.data!;
-            return ListOfArticles(
-              articles: articles,
-              msg: "No Articles",
-            );
-          }
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        },
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width * 1,
+              height: 120,
+              color: Colors.red,
+            ),
+            Container(
+              child: HomeArticleContainer(
+                child: Padding(
+                  padding: horizontalPadding,
+                  child: Text("Latest Articles", style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22.0,
+                    fontFamily: 'OpenSansBold'
+                  ),),
+                ),
+                shrinkWrap: true,
+                url: url,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
