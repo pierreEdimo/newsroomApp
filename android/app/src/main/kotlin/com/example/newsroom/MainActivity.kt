@@ -1,4 +1,4 @@
-package com.example.newsroomui
+package com.example.newsroom
 
 import io.flutter.embedding.android.FlutterActivity
 

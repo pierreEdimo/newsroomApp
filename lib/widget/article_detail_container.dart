@@ -12,6 +12,8 @@ import 'package:newsroom/widget/text_container.dart';
 import 'package:newsroom/widget/title_container.dart';
 import 'package:provider/provider.dart';
 
+import '../service/theme_service.dart';
+
 class ArticleDetailContainer extends StatefulWidget {
   final int? id;
 
@@ -28,6 +30,8 @@ class _ArticleDetailContainerState extends State<ArticleDetailContainer> {
 
   @override
   Widget build(BuildContext context) {
+    var currentMode = Provider.of<ThemeService>(context);
+
     return FutureBuilder(
       future: _fetchArticle(widget.id!),
       builder: (context, AsyncSnapshot<Article> snapshot) {
@@ -53,7 +57,7 @@ class _ArticleDetailContainerState extends State<ArticleDetailContainer> {
                             Container(
                               padding: horizontalPadding,
                               height: MediaQuery.of(context).size.height * 0.4,
-                              alignment: Alignment.bottomCenter,
+                              alignment: Alignment.bottomLeft,
                               child: titleContainer(
                                 article.title!,
                               ),
@@ -68,9 +72,11 @@ class _ArticleDetailContainerState extends State<ArticleDetailContainer> {
                         ),
                       ),
                       Container(
-                        transform: Matrix4.translationValues(0.0, -30.0, 0.0),
+                        transform: Matrix4.translationValues(0.0, -20.0, 0.0),
                         decoration: BoxDecoration(
-                            color: Color(0xFFFFFFFF),
+                            color: currentMode.getTheme() == ThemeMode.light
+                                ? Color(0xFFFFFFFF)
+                                : Color(0xFF000000),
                             borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(20.0),
                                 topLeft: Radius.circular(20.0))),
@@ -103,11 +109,12 @@ class _ArticleDetailContainerState extends State<ArticleDetailContainer> {
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                height: 20.0,
-                              ),
                               Text(
                                 "By ${article.author!.name!} , on ${article.createdAt}",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey,
+                                    fontSize: 12.0),
                               ),
                               verticalSpace,
                               textContainer(
@@ -117,7 +124,7 @@ class _ArticleDetailContainerState extends State<ArticleDetailContainer> {
                             ],
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),

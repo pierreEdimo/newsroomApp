@@ -8,6 +8,7 @@ class ListOfArticles extends StatelessWidget {
   final String? msg;
   final bool? shrinkwrap;
   final Widget? child;
+  final double? height;
 
   const ListOfArticles({
     Key? key,
@@ -15,6 +16,7 @@ class ListOfArticles extends StatelessWidget {
     this.msg,
     this.shrinkwrap,
     this.child,
+    this.height,
   }) : super(key: key);
 
   @override
@@ -22,10 +24,15 @@ class ListOfArticles extends StatelessWidget {
     return articles!.length < 1
         ? Container(
             padding: horizontalPadding,
-            child: Center(
-              child: Text(
-                msg!,
-                textAlign: TextAlign.center,
+            child: SizedBox(
+              height: height == null
+                  ? MediaQuery.of(context).size.height * 1
+                  : height!,
+              child: Center(
+                child: Text(
+                  msg!,
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
           )

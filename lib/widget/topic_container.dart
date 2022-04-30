@@ -24,13 +24,15 @@ Widget topicContainer(Topic topic, context) {
       child: Stack(
         children: [
           blur(context, 10.0),
-          Center(
+          Container(
+            alignment: Alignment.bottomLeft,
             child: Text(
               topic.name!,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
-                fontFamily: 'OpenSansBold',
+                fontFamily: 'PoppinsBold',
+                fontSize: 18.0
               ),
             ),
           ),

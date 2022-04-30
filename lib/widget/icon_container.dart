@@ -1,14 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class IconContainer extends StatelessWidget {
-  final Icon? icon;
+  final FaIcon? icon;
   final VoidCallback? onPressed;
-  const IconContainer({Key? key, this.icon, this.onPressed}) : super(key: key);
+  final double? horizontal;
+  final double? vertical;
+
+  const IconContainer({
+    Key? key,
+    this.icon,
+    this.onPressed,
+    this.vertical,
+    this.horizontal,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
+      margin: EdgeInsets.symmetric(
+        vertical: vertical!,
+        horizontal: horizontal!,
+      ),
       decoration: BoxDecoration(
         color: Colors.grey.shade100,
         shape: BoxShape.circle,
@@ -17,10 +30,10 @@ class IconContainer extends StatelessWidget {
         child: IconButton(
           color: Colors.black,
           icon: icon!,
-          onPressed:  onPressed!,
+          onPressed: onPressed!,
+          iconSize: 22.0,
         ),
       ),
     );
   }
 }
-

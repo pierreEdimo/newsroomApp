@@ -27,72 +27,63 @@ class _SignInScreenState extends State<SignInScreen> {
       body: SingleChildScrollView(
         child: Container(
           padding: all25Padding,
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                emailInput(_emailController, 'please enter your E-mail'),
-                verticalSpace,
-                passwordInput(_passWordController, "please choose your password"),
-                verticalSpace,
-                InkWell(
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        color: Colors.black),
-                    padding: all10Padding,
-                    width: 150,
-                    child: Text(
-                      'Sign In',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
+          height: MediaQuery.of(context).size.height * 1,
+          child: Center(
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  emailInput(_emailController, 'please enter your E-mail'),
+                  verticalSpace,
+                  passwordInput(_passWordController, "please choose your password"),
+                  verticalSpace,
+                  InkWell(
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.0),
+                          color: Colors.black),
+                      padding: all10Padding,
+                      width: 150,
+                      child: Text(
+                        'Sign In',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
+                    onTap: () async {
+                      if (_formKey.currentState!.validate()) {
+                        LoginModel loginModel = LoginModel(
+                            email: _emailController.text,
+                            password: _passWordController.text);
+
+                        Response response =
+                            await Provider.of<AuthService>(context, listen: false)
+                                .loginUser(loginModel);
+
+                        if (response.statusCode != 200)
+                          showErrorDialog(context, "Error",
+                              "Sorry, Neither your password nor your email were found");
+                        else
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) => BottomNavigation(),
+                            ),
+                          );
+                      }
+                    },
                   ),
-                  onTap: () async {
-                    if (_formKey.currentState!.validate()) {
-                      LoginModel loginModel = LoginModel(
-                          email: _emailController.text,
-                          password: _passWordController.text);
-
-                      Response response =
-                          await Provider.of<AuthService>(context, listen: false)
-                              .loginUser(loginModel);
-
-                      if (response.statusCode != 200)
-                        showErrorDialog(context, "Error",
-                            "Sorry, Neither your password nor your email were found");
-                      else
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (context) => BottomNavigation(),
-                          ),
-                        );
-                    }
-                  },
-                ),
-                verticalSpace,
-                goToSignUp(context),
-                forgotPassWordButton(context),
-              ],
+                  verticalSpace,
+                  goToSignUp(context),
+                  forgotPassWordButton(context),
+                ],
+              ),
             ),
-          ),
-        ),
-      ),
-      floatingActionButton: TextButton(
-        child: Text(
-          "Skip",
-          style: TextStyle(
-              fontWeight: FontWeight.bold, fontFamily: "OpenSansBold"),
-        ),
-        onPressed: () => Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => BottomNavigation(),
           ),
         ),
       ),

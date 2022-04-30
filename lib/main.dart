@@ -1,3 +1,8 @@
+import 'dart:convert';
+
+import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
 import 'package:newsroom/screens/sign_in_screen.dart';
 import 'package:newsroom/service/article_service.dart';
@@ -18,12 +23,48 @@ final storage = FlutterSecureStorage();
 var box = Hive.box('newsBox');
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  AwesomeNotifications().initialize(
+      'resource://drawable/res_app_ico',
+      [
+        NotificationChannel(
+            channelKey: "the-Room",
+            channelName: "the-Room Notifications",
+            channelDescription: "Notification channel for a weekly newslatter",
+            defaultColor: Color(0xFFFFFFFF),
+            importance: NotificationImportance.High,
+            channelShowBadge: true,
+            defaultRingtoneType: DefaultRingtoneType.Alarm)
+      ],
+      channelGroups: [
+        NotificationChannelGroup(
+            channelGroupkey: 'the-Room',
+            channelGroupName: 'The Room Notification')
+      ],
+      debug: true);
+
+  await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+
+
   SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(statusBarColor: Colors.transparent));
 
   await Hive.initFlutter();
   await Hive.openBox('newsBox');
   runApp(MyApp());
+}
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+
+  print("Handling a background message: ${message.messageId}");
+
+  print(message.data["notification"]);
+
+  AwesomeNotifications().createNotificationFromJsonData(message.data);
 }
 
 class MyApp extends StatelessWidget {
@@ -53,30 +94,29 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         var currentMode = Provider.of<ThemeService>(context);
         return MaterialApp(
-          title: 'newsroom',
-          debugShowCheckedModeBanner: false,
-          themeMode: currentMode.getTheme(),
-          darkTheme: CustomThemes.darkTheme,
-          theme: CustomThemes.lightTheme,
-          home: Scaffold(
-            body: FutureBuilder(
-              future: jwtOrEmpty,
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (!snapshot.hasData)
-                  return Scaffold(
-                    body: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
-                if (snapshot.data == "") {
-                  return SignInScreen();
-                } else {
-                  return BottomNavigation();
-                }
-              },
-            ),
-          )
-        );
+            title: 'newsroom',
+            debugShowCheckedModeBanner: false,
+            themeMode: currentMode.getTheme(),
+            darkTheme: CustomThemes.darkTheme,
+            theme: CustomThemes.lightTheme,
+            home: Scaffold(
+              body: FutureBuilder(
+                future: jwtOrEmpty,
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (!snapshot.hasData)
+                    return Scaffold(
+                      body: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  if (snapshot.data == "") {
+                    return SignInScreen();
+                  } else {
+                    return BottomNavigation();
+                  }
+                },
+              ),
+            ));
       },
     );
   }

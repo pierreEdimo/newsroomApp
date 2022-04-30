@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:newsroom/widget/article_detail_container.dart';
-import 'package:newsroom/widget/close_icon.dart';
 
 class ArticleDetail extends StatelessWidget {
   final int? id;

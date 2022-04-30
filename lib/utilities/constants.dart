@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 const titleStyle = TextStyle(
   fontWeight: FontWeight.bold,
   fontSize: 22.0,
-  fontFamily: 'OpenSansBold',
+  fontFamily: 'PoppinsBold',
 );
 
 const smallText = TextStyle(fontSize: 11.0);
@@ -15,7 +15,7 @@ const authorNameStyle = TextStyle(
     fontSize: 14,
     color: Colors.white,
     fontWeight: FontWeight.bold,
-    fontFamily: 'OpenSansBold');
+    fontFamily: 'PoppinsBold');
 
 const verticalSpace = SizedBox(height: 20.0);
 

@@ -17,16 +17,11 @@ Widget listOfItem(context) {
 
       if(snapshot.hasError){
           return Container(
+            height: MediaQuery.of(context).size.height * 1,
             padding: completePadding,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                loginTile(context),
-                ChangeTheme(),
-                contactTile(context),
-                aboutTile(context),
-              ],
-            ),
+            child: Center(
+              child: Text(snapshot.error.toString()),
+            )
           );
       }
       if (snapshot.hasData) {
@@ -46,7 +41,6 @@ Widget listOfItem(context) {
         );
       }
       return Container(
-        height: MediaQuery.of(context).size.height * 0.75,
         child: Center(
           child: CircularProgressIndicator(),
         ),

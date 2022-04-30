@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 class CustomThemes {
   static final darkTheme = ThemeData(
     colorScheme: ColorScheme.dark(),
-    fontFamily: 'OpenSans',
+    scaffoldBackgroundColor: Color(0xFF000000),
+    fontFamily: 'Poppins'
+        '',
     brightness: Brightness.dark,
     iconTheme: IconThemeData(color: Colors.white),
     appBarTheme: darkAppBarTheme,
@@ -17,7 +19,7 @@ class CustomThemes {
   static final lightTheme = ThemeData(
     scaffoldBackgroundColor: Colors.white,
     colorScheme: ColorScheme.light(),
-    fontFamily: 'OpenSans',
+    fontFamily: 'Poppins',
     appBarTheme: lightAppBarTheme,
     brightness: Brightness.light,
     iconTheme: IconThemeData(color: Colors.black),
@@ -35,7 +37,7 @@ AppBarTheme lightAppBarTheme = AppBarTheme(
     color: Color(0xFF000000),
     fontSize: 22.0,
     fontWeight: FontWeight.bold,
-    fontFamily: "OpenSansBold"
+    fontFamily: "PoppinsBold"
   )
 );
 
@@ -45,6 +47,6 @@ AppBarTheme darkAppBarTheme = AppBarTheme(
         color: Color(0xFFFFFFFF),
         fontSize: 22.0,
         fontWeight: FontWeight.bold,
-        fontFamily: "OpenSansBold"
+        fontFamily: "PoppinsBold"
     )
 );

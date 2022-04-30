@@ -12,7 +12,7 @@ Widget articleTopicRow(Article? article) {
       Text(
         article.topic!.name!,
         style: TextStyle(
-          fontFamily: 'OpenSansBold',
+          fontFamily: 'PoppinsBold',
           fontSize: 16.0,
           color: color,
         ),
@@ -20,7 +20,7 @@ Widget articleTopicRow(Article? article) {
       Text(
         article.createdAt!,
         style: TextStyle(
-          fontFamily: 'OpenSansBold',
+          fontFamily: 'PoppinsBold',
           fontSize: 11,
           color: Colors.white,
         ),

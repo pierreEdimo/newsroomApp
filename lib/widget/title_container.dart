@@ -4,9 +4,9 @@ Widget titleContainer(String title) {
   return Text(
     title,
     style: TextStyle(
-      fontSize: 22,
+      fontSize: 24,
       fontWeight: FontWeight.bold,
-      fontFamily: 'Montserrat',
+      fontFamily: 'PoppinsBold',
       color: Color(0xffffffff)
     ),
   );

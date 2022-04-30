@@ -36,6 +36,7 @@ class ArticleFromTopic extends StatelessWidget {
           if (snapshot.hasData) {
             List<Article> articles = snapshot.data!;
             return ListOfArticles(
+              shrinkwrap: true,
               articles: articles,
               msg: "No Articles",
             );

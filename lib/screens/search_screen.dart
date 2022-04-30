@@ -4,6 +4,7 @@ import 'package:newsroom/model/add_saved_word.dart';
 import 'package:newsroom/model/article.dart';
 import 'package:newsroom/service/article_service.dart';
 import 'package:newsroom/service/saved_word_service.dart';
+import 'package:newsroom/widget/arrow_back_button.dart';
 import 'package:newsroom/widget/list_of_articles.dart';
 import 'package:newsroom/widget/list_of_saved_words.dart';
 import 'package:provider/provider.dart';
@@ -52,10 +53,7 @@ class _SearchScreenState extends State<SearchScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: true,
-        leading: IconButton(
-          onPressed: () => Navigator.of(context).pop(),
-          icon: Icon(Icons.keyboard_arrow_left_outlined),
-        ),
+        leading: ArrowBackButton(),
         title: Container(
           width: double.infinity,
           height: 45.0,
@@ -107,26 +105,30 @@ class _SearchScreenState extends State<SearchScreen> {
           //     "https://newsplace.azurewebsites.net/api/Articles/Filter?Title=${_controller.text}",
           //     "Sorry , we did not find an Article with the title ${_controller.text}",
           //     context),
-          : FutureBuilder(
-              future: _articles,
-              builder: (BuildContext context,
-                  AsyncSnapshot<List<Article>> snapshot) {
-                if (snapshot.hasError)
+          : SingleChildScrollView(
+              child: FutureBuilder(
+                future: _articles,
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<Article>> snapshot) {
+                  if (snapshot.hasError)
+                    return Center(
+                      child: Text(snapshot.error.toString()),
+                    );
+                  if (snapshot.hasData) {
+                    List<Article> articles = snapshot.data!;
+                    return ListOfArticles(
+                      height: MediaQuery.of(context).size.height * 0.8,
+                      shrinkwrap: true,
+                      articles: articles,
+                      msg:
+                          "Sorry , we did not find an Article with the title ${_controller.text}",
+                    );
+                  }
                   return Center(
-                    child: Text(snapshot.error.toString()),
+                    child: CircularProgressIndicator(),
                   );
-                if (snapshot.hasData) {
-                  List<Article> articles = snapshot.data!;
-                  return ListOfArticles(
-                    articles: articles,
-                    msg:
-                        "Sorry , we did not find an Article with the title ${_controller.text}",
-                  );
-                }
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              },
+                },
+              ),
             ),
     );
   }

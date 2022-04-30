@@ -5,7 +5,6 @@ import 'package:newsroom/screens/pod_cast_screen.dart';
 import 'package:newsroom/screens/profile_screen.dart';
 import 'package:newsroom/screens/topic_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:newsroom/service/theme_service.dart';
 
 class BottomNavigation extends StatefulWidget {
   BottomNavigation({Key? key}) : super(key: key);
@@ -16,12 +15,6 @@ class BottomNavigation extends StatefulWidget {
 
 class _BottomNavigationState extends State<BottomNavigation> {
   int _selectedIndex = 0;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
 
   final _widgetOptions = <Widget>[
     HomeScreen(),
@@ -55,7 +48,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
           BottomNavigationBarItem(
               icon: FaIcon(
                 FontAwesomeIcons.podcast,
-                size: 20,
+                size: 22,
               ),
               label: "podcasts"),
           BottomNavigationBarItem(

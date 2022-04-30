@@ -7,10 +7,10 @@ Widget flexibleTitle(String title) {
       maxLines: 3,
       overflow: TextOverflow.ellipsis,
       style: TextStyle(
-          fontSize: 20.0,
+          fontSize: 22.0,
           color: Colors.white,
           fontWeight: FontWeight.bold,
-          fontFamily: 'Montserrat'),
+          fontFamily: 'PoppinsBold'),
     ),
   );
 }

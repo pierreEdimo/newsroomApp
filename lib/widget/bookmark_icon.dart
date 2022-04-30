@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:newsroom/model/add_bookmark.dart';
 import 'package:newsroom/model/article.dart';
 import 'package:newsroom/service/article_service.dart';
-import 'package:newsroom/service/bookmark_service.dart';
 import 'package:newsroom/utilities/constants.dart';
 import 'package:provider/provider.dart';
 
