@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "301602754856",
+    "project_id": "panafrican-times",
+    "storage_bucket": "panafrican-times.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:301602754856:android:ecc724f6b0423e41ee801d",
+        "android_client_info": {
+          "package_name": "com.example.newsroom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "301602754856-9orntgsdgfnvmnv4pb8qvqch9nem0eqc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.newsroom",
+            "certificate_hash": "c04f848bc3ff000835419c2b96772c102cd1fd23"
+          }
+        },
+        {
+          "client_id": "301602754856-g045uumi9bedghpv79flbg8q256seu0s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFhrisQSNt8Qi9LqcQz7swQqV_1kexgys"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "301602754856-g045uumi9bedghpv79flbg8q256seu0s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
